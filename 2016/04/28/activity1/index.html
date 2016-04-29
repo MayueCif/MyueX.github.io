@@ -3,17 +3,34 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Myue&#39;s Blog</title>
+  <title>Xamarin.Android Activity入门介绍 | Myue&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Myue's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="本文将对Android四大组件之一的Activity进行简单介绍。
+Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！
+
+Activity生命周期介绍
+建议自己写Demo查看各个生命">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Android Activity入门介绍">
+<meta property="og:url" content="http://yoursite.com/2016/04/28/activity1/index.html">
 <meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description">
+<meta property="og:description" content="本文将对Android四大组件之一的Activity进行简单介绍。
+Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！
+
+Activity生命周期介绍
+建议自己写Demo查看各个生命">
+<meta property="og:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png">
+<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2015/08/291262381.jpg">
+<meta property="og:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image3-sml.png">
+<meta property="og:updated_time" content="2016-04-29T05:41:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Myue's Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Xamarin.Android Activity入门介绍">
+<meta name="twitter:description" content="本文将对Android四大组件之一的Activity进行简单介绍。
+Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！
+
+Activity生命周期介绍
+建议自己写Demo查看各个生命">
+<meta name="twitter:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png">
   
     <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
   
@@ -30,13 +47,8 @@
   
   <link rel="stylesheet" href="/css/style.css">
   
-      <style> .article { opacity: 0;} </style>
-  
   <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-    
-    
   
   
       <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
@@ -47,8 +59,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -237,9 +249,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/28/activity1/" class="article-date">
@@ -255,12 +265,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a>
+    <h1 class="article-title" itemprop="name">
+      Xamarin.Android Activity入门介绍
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -352,23 +373,94 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
+        <p><span>发布时间:</span>2016-04-28, 14:29:02</p>
+        <p><span>最后更新:</span>2016-04-29, 13:41:56</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/28/activity1/" title="Xamarin.Android Activity入门介绍">http://yoursite.com/2016/04/28/activity1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/04/28/activity1/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity生命周期介绍"><span class="toc-number">1.</span> <span class="toc-text">Activity生命周期介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OnCreate"><span class="toc-number">1.1.</span> <span class="toc-text">OnCreate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStart"><span class="toc-number">1.2.</span> <span class="toc-text">OnStart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnResume"><span class="toc-number">1.3.</span> <span class="toc-text">OnResume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnPause"><span class="toc-number">1.4.</span> <span class="toc-text">OnPause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStop"><span class="toc-number">1.5.</span> <span class="toc-text">OnStop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnDestroy"><span class="toc-number">1.6.</span> <span class="toc-text">OnDestroy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnRestart"><span class="toc-number">1.7.</span> <span class="toc-text">OnRestart</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity使用"><span class="toc-number">2.</span> <span class="toc-text">Activity使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义Activity"><span class="toc-number">2.1.</span> <span class="toc-text">定义Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明Activity"><span class="toc-number">2.2.</span> <span class="toc-text">声明Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Activity"><span class="toc-number">2.3.</span> <span class="toc-text">启动Activity</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生命周期中状态的保存"><span class="toc-number">3.</span> <span class="toc-text">生命周期中状态的保存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#复杂数据的持久话"><span class="toc-number">3.1.</span> <span class="toc-text">复杂数据的持久话</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统提供常用Activity"><span class="toc-number">4.</span> <span class="toc-text">系统提供常用Activity</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android Activity入门介绍　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
 
 
 
@@ -376,9 +468,31 @@
 
 
 
+    
 
-  
-  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
