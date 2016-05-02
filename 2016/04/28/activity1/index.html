@@ -1,41 +1,32 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-Hans">
 <head>
   <meta charset="utf-8">
   
   <title>Xamarin.Android Activity入门介绍 | Myue&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文将对Android四大组件之一的Activity进行简单介绍。
-Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！
-
-Activity生命周期介绍
-建议自己写Demo查看各个生命">
+Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xamarin.Android Activity入门介绍">
 <meta property="og:url" content="http://www.xamarin.xyz/2016/04/28/activity1/index.html">
 <meta property="og:site_name" content="Myue's Blog">
 <meta property="og:description" content="本文将对Android四大组件之一的Activity进行简单介绍。
-Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！
-
-Activity生命周期介绍
-建议自己写Demo查看各个生命">
+Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
 <meta property="og:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png">
 <meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2015/08/291262381.jpg">
 <meta property="og:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image3-sml.png">
-<meta property="og:updated_time" content="2016-04-29T05:41:56.000Z">
+<meta property="og:updated_time" content="2016-05-02T02:58:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xamarin.Android Activity入门介绍">
 <meta name="twitter:description" content="本文将对Android四大组件之一的Activity进行简单介绍。
-Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！
-
-Activity生命周期介绍
-建议自己写Demo查看各个生命">
+Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
 <meta name="twitter:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png">
   
     <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/apple-touch-icon.png">
   
   
       <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
@@ -86,7 +77,7 @@ Activity生命周期介绍
 <div class="intrude-less">
     <header id="header" class="inner">
         <a href="/" class="profilepic">
-            <img src="/img/avatar.png" class="animated zoomIn">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
         </a>
         <hgroup>
           <h1 class="header-author"><a href="/">Myue</a></h1>
@@ -165,7 +156,7 @@ Activity生命周期介绍
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
                     </div>
                 </section>
                 
@@ -197,7 +188,7 @@ Activity生命周期介绍
     <div class="intrude-less">
         <header id="header" class="inner">
             <a href="/" class="profilepic">
-                <img src="/img/avatar.png" class="animated zoomIn">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
             </a>
             <hgroup>
               <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
@@ -259,10 +250,14 @@ Activity生命周期介绍
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -276,6 +271,7 @@ Activity生命周期介绍
 <p>本文将对Android四大组件之一的Activity进行简单介绍。</p>
 <p>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！</p>
 </blockquote>
+<a id="more"></a>
 <h1 id="Activity生命周期介绍"><a href="#Activity生命周期介绍" class="headerlink" title="Activity生命周期介绍"></a>Activity生命周期介绍</h1><p><img src="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png" alt="Activity生命周期"></p>
 <p>建议自己写Demo查看各个生命周期调用时间。</p>
 <h2 id="OnCreate"><a href="#OnCreate" class="headerlink" title="OnCreate"></a>OnCreate</h2><p>当Activity创建时会调用此方法，是我们必须要重写的方法，该方法传入一个Bundle对象作为参数。如果bundle不为null，说明当前Activity是重新启动。可以通过bundle读取我们之前保存的数据，做相应的数据恢复工作。在这个方法中要执行的操作是：</p>
@@ -328,8 +324,7 @@ Activity生命周期介绍
 </ul>
 <p>给出Java示例</p>
 <p><img src="http://www.runoob.com/wp-content/uploads/2015/08/291262381.jpg" alt="隐式启动"></p>
-<h1 id="生命周期中状态的保存"><a href="#生命周期中状态的保存" class="headerlink" title="生命周期中状态的保存"></a>生命周期中状态的保存</h1><p>##Bundle保存状态</p>
-<p>通过OnSaveInstanceState、OnRestoreInstanceState两个方法管理保存的状态（不是一定会执行的）</p>
+<h1 id="生命周期中状态的保存"><a href="#生命周期中状态的保存" class="headerlink" title="生命周期中状态的保存"></a>生命周期中状态的保存</h1><h2 id="Bundle保存状态"><a href="#Bundle保存状态" class="headerlink" title="Bundle保存状态"></a>Bundle保存状态</h2><p>通过OnSaveInstanceState、OnRestoreInstanceState两个方法管理保存的状态（不是一定会执行的）</p>
 <p>以下代码，改变默认创建的Android项目，是一个简单保存状态的例子，可以通过横竖屏切换掉用OnSaveInstanceState、OnRestoreInstanceState方法。（这里提到横竖屏切换，我们可以为一个Activity分别提供不同情况下的布局文件，创建两个布局文件夹：layout-land横屏,layout-port竖屏 然后把两套布局文件丢这两文件夹里，文件名一样，Android就会自行判断加载相应布局）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[Activity (Label = &quot;activity1&quot;, MainLauncher = true, Icon = &quot;@mipmap/icon&quot;)]</span><br><span class="line">	public class MainActivity : Activity</span><br><span class="line">	&#123;</span><br><span class="line">		int count = 1;</span><br><span class="line">		Button button;</span><br><span class="line"></span><br><span class="line">		protected override void OnCreate (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnCreate (savedInstanceState);</span><br><span class="line"></span><br><span class="line">			// Set our view from the &quot;main&quot; layout resource</span><br><span class="line">			SetContentView (Resource.Layout.Main);</span><br><span class="line"></span><br><span class="line">			// Get our button from the layout resource,</span><br><span class="line">			// and attach an event to it</span><br><span class="line">			button = FindViewById&lt;Button&gt; (Resource.Id.myButton);</span><br><span class="line">			</span><br><span class="line">			button.Click += delegate &#123;</span><br><span class="line">				button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count++);</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		protected override void OnSaveInstanceState (Bundle outState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnSaveInstanceState (outState);</span><br><span class="line">			outState.PutInt (&quot;count&quot;, count);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		protected override void OnRestoreInstanceState (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnRestoreInstanceState (savedInstanceState);</span><br><span class="line">			count = savedInstanceState.GetInt (&quot;count&quot;);</span><br><span class="line">			button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -343,7 +338,7 @@ Activity生命周期介绍
 <p>The bundle passed into OnSaveInstanceState is not designed for large objects, such as images. In the case of large objects, saving the object from OnRetainNonConfigurationInstance is preferable, as discussed below.</p>
 <p>Data saved by using the bundle is serialized, which can lead to delays.</p>
 </blockquote>
-<h2 id="复杂数据的持久话"><a href="#复杂数据的持久话" class="headerlink" title="复杂数据的持久话"></a>复杂数据的持久话</h2><p>由于Bundle的限制，只适合保存简单的数据值如：int，string等。对于复杂数据的保存我们可以通过重写OnRetainNonConfigurationInstance返回一个Java.Lang.Object，恢复数据时LastNonConfigurationInstance返回保存的数据。这里列出一个Xamarin官网的例子：</p>
+<h2 id="复杂数据的持久化"><a href="#复杂数据的持久化" class="headerlink" title="复杂数据的持久化"></a>复杂数据的持久化</h2><p>由于Bundle的限制，只适合保存简单的数据值如：int，string等。对于复杂数据的保存我们可以通过重写OnRetainNonConfigurationInstance返回一个Java.Lang.Object，恢复数据时LastNonConfigurationInstance返回保存的数据。这里列出一个Xamarin官网的例子：</p>
 <p>1.先定义我们要返回的类型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class TweetListWrapper : Java.Lang.Object</span><br><span class="line">&#123;</span><br><span class="line">  public string[] Tweets &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>2.Activity中处理数据</p>
@@ -365,7 +360,7 @@ Activity生命周期介绍
         <p><span>本文标题:</span><a href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
         <p><span>发布时间:</span>2016-04-28, 14:29:02</p>
-        <p><span>最后更新:</span>2016-04-29, 13:41:56</p>
+        <p><span>最后更新:</span>2016-05-02, 10:58:58</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/04/28/activity1/" title="Xamarin.Android Activity入门介绍">http://www.xamarin.xyz/2016/04/28/activity1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/04/28/activity1/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -378,12 +373,23 @@ Activity生命周期介绍
 
 
 
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/04/29/activity2/">
+                    Xamarin.Android Activity用例介绍
+                </a>
+            </div>
+        
+        
+    </nav>
+
   
 </article>
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity生命周期介绍"><span class="toc-number">1.</span> <span class="toc-text">Activity生命周期介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OnCreate"><span class="toc-number">1.1.</span> <span class="toc-text">OnCreate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStart"><span class="toc-number">1.2.</span> <span class="toc-text">OnStart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnResume"><span class="toc-number">1.3.</span> <span class="toc-text">OnResume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnPause"><span class="toc-number">1.4.</span> <span class="toc-text">OnPause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStop"><span class="toc-number">1.5.</span> <span class="toc-text">OnStop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnDestroy"><span class="toc-number">1.6.</span> <span class="toc-text">OnDestroy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnRestart"><span class="toc-number">1.7.</span> <span class="toc-text">OnRestart</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity使用"><span class="toc-number">2.</span> <span class="toc-text">Activity使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义Activity"><span class="toc-number">2.1.</span> <span class="toc-text">定义Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明Activity"><span class="toc-number">2.2.</span> <span class="toc-text">声明Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Activity"><span class="toc-number">2.3.</span> <span class="toc-text">启动Activity</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生命周期中状态的保存"><span class="toc-number">3.</span> <span class="toc-text">生命周期中状态的保存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#复杂数据的持久话"><span class="toc-number">3.1.</span> <span class="toc-text">复杂数据的持久话</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统提供常用Activity"><span class="toc-number">4.</span> <span class="toc-text">系统提供常用Activity</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity生命周期介绍"><span class="toc-number">1.</span> <span class="toc-text">Activity生命周期介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OnCreate"><span class="toc-number">1.1.</span> <span class="toc-text">OnCreate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStart"><span class="toc-number">1.2.</span> <span class="toc-text">OnStart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnResume"><span class="toc-number">1.3.</span> <span class="toc-text">OnResume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnPause"><span class="toc-number">1.4.</span> <span class="toc-text">OnPause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStop"><span class="toc-number">1.5.</span> <span class="toc-text">OnStop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnDestroy"><span class="toc-number">1.6.</span> <span class="toc-text">OnDestroy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnRestart"><span class="toc-number">1.7.</span> <span class="toc-text">OnRestart</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity使用"><span class="toc-number">2.</span> <span class="toc-text">Activity使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义Activity"><span class="toc-number">2.1.</span> <span class="toc-text">定义Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明Activity"><span class="toc-number">2.2.</span> <span class="toc-text">声明Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Activity"><span class="toc-number">2.3.</span> <span class="toc-text">启动Activity</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生命周期中状态的保存"><span class="toc-number">3.</span> <span class="toc-text">生命周期中状态的保存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundle保存状态"><span class="toc-number">3.1.</span> <span class="toc-text">Bundle保存状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复杂数据的持久化"><span class="toc-number">3.2.</span> <span class="toc-text">复杂数据的持久化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统提供常用Activity"><span class="toc-number">4.</span> <span class="toc-text">系统提供常用Activity</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -480,7 +486,9 @@ Activity生命周期介绍
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/04/29/activity2/" title="上一篇: Xamarin.Android Activity用例介绍">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -490,7 +498,7 @@ Activity生命周期介绍
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
 
 
 

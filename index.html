@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-Hans">
 <head>
   <meta charset="utf-8">
   
@@ -18,7 +18,7 @@
     <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/apple-touch-icon.png">
   
   
       <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
@@ -74,7 +74,7 @@
 <div class="intrude-less">
     <header id="header" class="inner">
         <a href="/" class="profilepic">
-            <img src="/img/avatar.png" class="animated zoomIn">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
         </a>
         <hgroup>
           <h1 class="header-author"><a href="/">Myue</a></h1>
@@ -153,7 +153,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
                     </div>
                 </section>
                 
@@ -185,7 +185,7 @@
     <div class="intrude-less">
         <header id="header" class="inner">
             <a href="/" class="profilepic">
-                <img src="/img/avatar.png" class="animated zoomIn">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
             </a>
             <hgroup>
               <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
@@ -224,6 +224,76 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-activity2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/29/activity2/" class="article-date">
+      <time datetime="2016-04-29T07:08:21.000Z" itemprop="datePublished">2016-04-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>#Activity间传递数据</p>
+<blockquote>
+<p>Activity间传递数据是借助Intent（内部为Bundle）实现的</p>
+<p>在使用Bundle传递数据时，要注意，Bundle的大小是有限制的小于0.5MB，如果大于这个值 是会报TransactionTooLargeException异常的！！！（未验证）</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/04/29/activity2/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -251,101 +321,31 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
+              <blockquote>
 <p>本文将对Android四大组件之一的Activity进行简单介绍。</p>
 <p>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！</p>
 </blockquote>
-<h1 id="Activity生命周期介绍"><a href="#Activity生命周期介绍" class="headerlink" title="Activity生命周期介绍"></a>Activity生命周期介绍</h1><p><img src="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png" alt="Activity生命周期"></p>
-<p>建议自己写Demo查看各个生命周期调用时间。</p>
-<h2 id="OnCreate"><a href="#OnCreate" class="headerlink" title="OnCreate"></a>OnCreate</h2><p>当Activity创建时会调用此方法，是我们必须要重写的方法，该方法传入一个Bundle对象作为参数。如果bundle不为null，说明当前Activity是重新启动。可以通过bundle读取我们之前保存的数据，做相应的数据恢复工作。在这个方法中要执行的操作是：</p>
-<blockquote>
-<p>Creating views</p>
-<p>Initializing variables</p>
-<p>Binding static data to lists</p>
-</blockquote>
-<h2 id="OnStart"><a href="#OnStart" class="headerlink" title="OnStart"></a>OnStart</h2><p>OnCreate执行结束会掉用OnStart方法，可以根据具体应用情况重写该方法。</p>
-<h2 id="OnResume"><a href="#OnResume" class="headerlink" title="OnResume"></a>OnResume</h2><p>当一个Activity初始化完成准备显示给用户时会掉用OnResume方法。此时Activity进入活动状态。在这个方法中我们要做的是：</p>
-<blockquote>
-<p>Ramping up frame rates (a common task in game building)</p>
-<p>Starting animations</p>
-<p>Listening for GPS updates</p>
-<p>Display any relevant alerts or dialogs</p>
-<p>Wire up external event handlers</p>
-</blockquote>
-<h2 id="OnPause"><a href="#OnPause" class="headerlink" title="OnPause"></a>OnPause</h2><p>当Activity进入后台或者Activity被遮挡时（Dialog风格的Activity）掉用此方法。OnPause方法之行过后Activity可以有两种不同的状态，进入OnResume返回前台或者进入OnStop方法，重写这个方法我们要做的是：</p>
-<blockquote>
-<p>Commit unsaved changes to persistent data</p>
-<p>Destroy or clean up other objects consuming resources</p>
-<p>Ramp down frame rates and pausing animations</p>
-<p>Unregister external event handlers or notification handlers (i.e. those that are tied to a service). This must be done to prevent Activity memory leaks.</p>
-<p>Likewise, if the Activity has displayed any dialogs or alerts, they must be cleaned up with the .Dismiss() method.</p>
-</blockquote>
-<p>最后一条，如果不关闭已经显示的Dialog会抛异常。</p>
-<h2 id="OnStop"><a href="#OnStop" class="headerlink" title="OnStop"></a>OnStop</h2><p>Activity不再显示时调用此方法，此时Activity仍存留在内存中。</p>
-<h2 id="OnDestroy"><a href="#OnDestroy" class="headerlink" title="OnDestroy"></a>OnDestroy</h2><p>Activity销毁调用次方法，此时Activity已经完全从内存中移除，我们应该重写此方法，释放占用的资源。</p>
-<h2 id="OnRestart"><a href="#OnRestart" class="headerlink" title="OnRestart"></a>OnRestart</h2><p>是OnStop状态的Activity重新显示给用户会进入OnRestart方法。如按下Home键应用进入后台，重新打开应用，Activity重新启动。</p>
-<h1 id="Activity使用"><a href="#Activity使用" class="headerlink" title="Activity使用"></a>Activity使用</h1><blockquote>
-<p>Android中的四大组件，只要你定义了就必须在AndroidManifest.xml中对这个组件进行声明。</p>
-</blockquote>
-<h2 id="定义Activity"><a href="#定义Activity" class="headerlink" title="定义Activity"></a>定义Activity</h2><p>我们自定义的Activity一定要继承Activity或其子类（如AppCompatActivity），并重写相关方法。OnCreate是必须重写的，在OnCreate中调用SetContentView方法加载相关联的视图。</p>
-<h2 id="声明Activity"><a href="#声明Activity" class="headerlink" title="声明Activity"></a>声明Activity</h2><p>在AndroidManifest中增加Activity节点。<br><a href="http://www.android-doc.com/guide/topics/manifest/activity-element.html" target="_blank" rel="external">参考文档</a></p>
-<p>Xamarin.Android中我们可以通过声明特性进行组件的声明。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Activity (Label = <span class="string">"activity1"</span>, MainLauncher = <span class="literal">true</span>, Icon = <span class="string">"@mipmap/icon"</span>)]</span><br></pre></td></tr></table></figure>
-<p>项目编译时会根据我们声明的特性生成新的AndroidManifest.xml文件</p>
-<blockquote>
-<p>可在项目目录下 /项目名/obj/Debug or Release/android下查看</p>
-</blockquote>
-<h2 id="启动Activity"><a href="#启动Activity" class="headerlink" title="启动Activity"></a>启动Activity</h2><p>启动方式：</p>
-<ul>
-<li>显式启动 </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent (this, typeof(Activity2));</span><br><span class="line">StartActivity (intent);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StartActivity(typeof(Activity2));</span><br></pre></td></tr></table></figure>
-<p>Intent对象可以在两个Activity间传递数据。</p>
-<ul>
-<li>隐式启动</li>
-</ul>
-<p>给出Java示例</p>
-<p><img src="http://www.runoob.com/wp-content/uploads/2015/08/291262381.jpg" alt="隐式启动"></p>
-<h1 id="生命周期中状态的保存"><a href="#生命周期中状态的保存" class="headerlink" title="生命周期中状态的保存"></a>生命周期中状态的保存</h1><p>##Bundle保存状态</p>
-<p>通过OnSaveInstanceState、OnRestoreInstanceState两个方法管理保存的状态（不是一定会执行的）</p>
-<p>以下代码，改变默认创建的Android项目，是一个简单保存状态的例子，可以通过横竖屏切换掉用OnSaveInstanceState、OnRestoreInstanceState方法。（这里提到横竖屏切换，我们可以为一个Activity分别提供不同情况下的布局文件，创建两个布局文件夹：layout-land横屏,layout-port竖屏 然后把两套布局文件丢这两文件夹里，文件名一样，Android就会自行判断加载相应布局）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[Activity (Label = &quot;activity1&quot;, MainLauncher = true, Icon = &quot;@mipmap/icon&quot;)]</span><br><span class="line">	public class MainActivity : Activity</span><br><span class="line">	&#123;</span><br><span class="line">		int count = 1;</span><br><span class="line">		Button button;</span><br><span class="line"></span><br><span class="line">		protected override void OnCreate (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnCreate (savedInstanceState);</span><br><span class="line"></span><br><span class="line">			// Set our view from the &quot;main&quot; layout resource</span><br><span class="line">			SetContentView (Resource.Layout.Main);</span><br><span class="line"></span><br><span class="line">			// Get our button from the layout resource,</span><br><span class="line">			// and attach an event to it</span><br><span class="line">			button = FindViewById&lt;Button&gt; (Resource.Id.myButton);</span><br><span class="line">			</span><br><span class="line">			button.Click += delegate &#123;</span><br><span class="line">				button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count++);</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		protected override void OnSaveInstanceState (Bundle outState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnSaveInstanceState (outState);</span><br><span class="line">			outState.PutInt (&quot;count&quot;, count);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		protected override void OnRestoreInstanceState (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnRestoreInstanceState (savedInstanceState);</span><br><span class="line">			count = savedInstanceState.GetInt (&quot;count&quot;);</span><br><span class="line">			button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>事实上我们并不需要在OnSaveInstanceState方法中保存每个view的状态，只要指定view的ID，android系统会自动帮我们保存view的状态，如我们在布局文件中了添加一个EditText视图，并指定ID属性，运行项目，修改EditText的值，切换屏幕方向EditText中的值依然保存。</p>
-</blockquote>
-<p><img src="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image3-sml.png" alt="Bundle State"></p>
-<p>如图所示，Activity由Resumed状态变为Destroyed状态可能会调用OnSaveInstanceState方法，Created到Resumed可能会调用OnRestoreInstanceState方法。</p>
-<p>使用Bundle保存状态的限制</p>
-<blockquote>
-<p>It is not called in all cases. For example, pressing home or back to exit an Activity will not result in OnSaveInstanceState being called.</p>
-<p>The bundle passed into OnSaveInstanceState is not designed for large objects, such as images. In the case of large objects, saving the object from OnRetainNonConfigurationInstance is preferable, as discussed below.</p>
-<p>Data saved by using the bundle is serialized, which can lead to delays.</p>
-</blockquote>
-<h2 id="复杂数据的持久话"><a href="#复杂数据的持久话" class="headerlink" title="复杂数据的持久话"></a>复杂数据的持久话</h2><p>由于Bundle的限制，只适合保存简单的数据值如：int，string等。对于复杂数据的保存我们可以通过重写OnRetainNonConfigurationInstance返回一个Java.Lang.Object，恢复数据时LastNonConfigurationInstance返回保存的数据。这里列出一个Xamarin官网的例子：</p>
-<p>1.先定义我们要返回的类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class TweetListWrapper : Java.Lang.Object</span><br><span class="line">&#123;</span><br><span class="line">  public string[] Tweets &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2.Activity中处理数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">TweetListWrapper _savedInstance;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		protected override void OnCreate (Bundle bundle)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnCreate (bundle);</span><br><span class="line"></span><br><span class="line">			var tweetsWrapper = LastNonConfigurationInstance as TweetListWrapper;</span><br><span class="line"></span><br><span class="line">			if (tweetsWrapper != null) &#123;</span><br><span class="line">				PopulateTweetList (tweetsWrapper.Tweets);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				SearchTwitter (&quot;xamarin&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public void SearchTwitter (string text)</span><br><span class="line">		&#123;</span><br><span class="line">			string searchUrl = String.Format (&quot;http://search.twitter.com/search.json?&quot; + &quot;q=&#123;0&#125;&amp;rpp=10&amp;include_entities=false&amp;&quot; + &quot;result_type=mixed&quot;, text);</span><br><span class="line">			Console.WriteLine (searchUrl);</span><br><span class="line">			var httpReq = (HttpWebRequest)HttpWebRequest.Create (new Uri (searchUrl));</span><br><span class="line">			httpReq.BeginGetResponse (new AsyncCallback (ResponseCallback), httpReq);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		void ResponseCallback (IAsyncResult ar)</span><br><span class="line">		&#123;</span><br><span class="line">			var httpReq = (HttpWebRequest)ar.AsyncState;</span><br><span class="line"></span><br><span class="line">			using (var httpRes = (HttpWebResponse)httpReq.EndGetResponse (ar)) &#123;</span><br><span class="line">				ParseResults (httpRes);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		void ParseResults (HttpWebResponse httpRes)</span><br><span class="line">		&#123;</span><br><span class="line">			var s = httpRes.GetResponseStream ();</span><br><span class="line">			var j = (JsonObject)JsonObject.Load (s);</span><br><span class="line"></span><br><span class="line">			var results = (from result in (JsonArray)j [&quot;results&quot;]</span><br><span class="line">			               let jResult = result as JsonObject</span><br><span class="line">			               select jResult [&quot;text&quot;].ToString ()).ToArray ();</span><br><span class="line"></span><br><span class="line">			RunOnUiThread (() =&gt; &#123;</span><br><span class="line">				PopulateTweetList (results);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		[Obsolete (&quot;deprecated&quot;)]</span><br><span class="line">		public override Java.Lang.Object OnRetainNonConfigurationInstance ()</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnRetainNonConfigurationInstance ();</span><br><span class="line">			Console.WriteLine (&quot;OnRetainNonConfigurationInstance&quot;);</span><br><span class="line">			return _savedInstance;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		void PopulateTweetList (string[] results)</span><br><span class="line">		&#123;</span><br><span class="line">			ListAdapter = new ArrayAdapter&lt;string&gt; (this, Android.Resource.Layout.SimpleListItem1, results);</span><br><span class="line">			_savedInstance = new TweetListWrapper&#123; Tweets = results &#125;;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-<p>可以注意到OnRetainNonConfigurationInstance方法已经是过期的，查看文档可以看到：</p>
-<blockquote>
-<p>Called by the system, as part of destroying an activity due to a configuration change, when it is known that a new instance will immediately be created for the new configuration. You can return any object you like here, including the activity instance itself, which can later be retrieved by calling Activity.LastNonConfigurationInstance in the new activity instance. If you are targeting Build+VERSION_CODES.Honeycomb or later, consider instead using a Fragment with Fragment.RetainInstance.</p>
-</blockquote>
-<p>我们可以用Fragment.RetainInstance完成同样的事情。</p>
-<h1 id="系统提供常用Activity"><a href="#系统提供常用Activity" class="headerlink" title="系统提供常用Activity"></a>系统提供常用Activity</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">//1.拨打电话</span><br><span class="line">// 给移动客服10086拨打电话</span><br><span class="line">Uri uri = Uri.Parse (&quot;tel:10086&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionDial, uri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line">//2.发送短信</span><br><span class="line">// 给10086发送内容为“Hello”的短信</span><br><span class="line">Uri uri = Uri.Parse (&quot;smsto:10086&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionSendto, uri);</span><br><span class="line">intent.PutExtra (&quot;sms_body&quot;, &quot;Hello&quot;);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//3.发送彩信（相当于发送带附件的短信）</span><br><span class="line">Intent intent = new Intent(Intent.ActionSend);</span><br><span class="line">intent.PutExtra(&quot;sms_body&quot;, &quot;Hello&quot;);</span><br><span class="line">Uri uri = Uri.Parse(&quot;content://media/external/images/media/23&quot;);</span><br><span class="line">intent.PutExtra(Intent.ExtraStream, uri);</span><br><span class="line">intent.SetType(&quot;image/png&quot;);</span><br><span class="line">StartActivity(intent);</span><br><span class="line"></span><br><span class="line">//4.打开浏览器:</span><br><span class="line">Uri uri = Uri.Parse (&quot;http://www.baidu.com&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionView, uri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//5.多媒体播放:</span><br><span class="line">Intent intent = new Intent(Intent.ActionView);</span><br><span class="line">Uri uri = Uri.Parse(&quot;file:///sdcard/foo.mp3&quot;);</span><br><span class="line">intent.SetDataAndType(uri, &quot;audio/mp3&quot;);</span><br><span class="line">StartActivity(intent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//6.打开摄像头拍照:</span><br><span class="line">// 打开拍照程序</span><br><span class="line">Intent intent = new Intent(MediaStore.ActionImageCapture); </span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line">// 取出照片数据</span><br><span class="line">Bundle extras = intent.Extras; </span><br><span class="line">Bitmap bitmap = (Bitmap) extras.Get(&quot;data&quot;);</span><br><span class="line"></span><br><span class="line">//另一种:</span><br><span class="line">//调用系统相机应用程序，并存储拍下来的照片</span><br><span class="line">Intent intent = new Intent(MediaStore.ActionImageCapture); </span><br><span class="line">var time = Calendar.GetInstance().TimeInMillis;</span><br><span class="line">intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(new File(path, time + &quot;.jpg&quot;)));</span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line"></span><br><span class="line">//7.获取并剪切图片</span><br><span class="line">// 获取并剪切图片</span><br><span class="line">Intent intent = new Intent(Intent.ActionGetContent);</span><br><span class="line">intent.SetType(&quot;image/*&quot;);</span><br><span class="line">intent.PutExtra(&quot;crop&quot;, &quot;true&quot;); // 开启剪切</span><br><span class="line">intent.PutExtra(&quot;aspectX&quot;, 1); // 剪切的宽高比为1：2</span><br><span class="line">intent.PutExtra(&quot;aspectY&quot;, 2);</span><br><span class="line">intent.PutExtra(&quot;outputX&quot;, 20); // 保存图片的宽和高</span><br><span class="line">intent.PutExtra(&quot;outputY&quot;, 40); </span><br><span class="line">intent.PutExtra(&quot;output&quot;, Uri.FromFile(new File(&quot;/mnt/sdcard/temp&quot;))); // 保存路径</span><br><span class="line">intent.PutExtra(&quot;outputFormat&quot;, &quot;JPEG&quot;);// 返回格式</span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line">// 剪切特定图片</span><br><span class="line">Intent intent = new Intent(&quot;com.android.camera.action.CROP&quot;); </span><br><span class="line">intent.SetClassName(&quot;com.android.camera&quot;, &quot;com.android.camera.CropImage&quot;); </span><br><span class="line">intent.SetData(Uri.FromFile(new File(&quot;/mnt/sdcard/temp&quot;))); </span><br><span class="line">intent.PutExtra(&quot;outputX&quot;, 1); // 剪切的宽高比为1：2</span><br><span class="line">intent.PutExtra(&quot;outputY&quot;, 2);</span><br><span class="line">intent.PutExtra(&quot;aspectX&quot;, 20); // 保存图片的宽和高</span><br><span class="line">intent.PutExtra(&quot;aspectY&quot;, 40);</span><br><span class="line">intent.PutExtra(&quot;scale&quot;, true);</span><br><span class="line">intent.PutExtra(&quot;noFaceDetection&quot;, true); </span><br><span class="line">intent.PutExtra(&quot;output&quot;, Uri.Parse(&quot;file:///mnt/sdcard/temp&quot;)); </span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line"></span><br><span class="line">//8.打开Google Market </span><br><span class="line">// 打开Google Market直接进入该程序的详细页面</span><br><span class="line">Uri uri = Uri.Parse (&quot;market://details?id=&quot; + &quot;com.demo.app&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionView, uri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line">//9.进入手机设置界面:</span><br><span class="line">// 进入无线网络设置界面（其它可以举一反三）  </span><br><span class="line">Intent intent = new Intent (Android.Provider.Settings.ActionWirelessSettings);</span><br><span class="line">StartActivityForResult (intent, 0);</span><br><span class="line"></span><br><span class="line">//10.安装apk:</span><br><span class="line">Uri installUri = Uri.FromParts(&quot;package&quot;, &quot;xxx&quot;, null);   </span><br><span class="line">Intent it = new Intent(Intent.ACTION_PACKAGE_ADDED, installUri);</span><br><span class="line">StartActivity(it);</span><br><span class="line"></span><br><span class="line">//11.卸载apk:</span><br><span class="line">Uri uri = Uri.FromParts(&quot;package&quot;, strPackageName, null);      </span><br><span class="line">Intent it = new Intent(Intent.ACTION_DELETE, uri);      </span><br><span class="line">StartActivity(it); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//12.进入联系人页面:</span><br><span class="line">Intent intent = new Intent ();</span><br><span class="line">intent.SetAction (Intent.ActionView);</span><br><span class="line">intent.SetData (Android.Provider.ContactsContract.Contacts.ContentUri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line">//13.查看指定联系人:</span><br><span class="line">Uri personUri = ContentUris.WithAppendedId (Android.Provider.ContactsContract.Contacts.ContentUri, id);//id联系人ID</span><br><span class="line">Intent intent = new Intent ();</span><br><span class="line">intent.SetAction (Intent.ActionView);</span><br><span class="line">intent.SetData (personUri);</span><br><span class="line">StartActivity (intent);</span><br></pre></td></tr></table></figure>
-
+          
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/04/28/activity1/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
