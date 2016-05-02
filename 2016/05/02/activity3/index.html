@@ -16,10 +16,10 @@
 <meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087372621766.jpg">
 <meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087389219419.jpg">
 <meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087394416117.jpg">
-<meta property="og:image" content="https://github.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif">
 <meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087655129646.jpg">
-<meta property="og:image" content="https://github.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif">
-<meta property="og:updated_time" content="2016-05-02T15:10:55.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif">
+<meta property="og:updated_time" content="2016-05-02T15:19:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Activity管理机制详解">
 <meta name="twitter:description" content="实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Ac">
@@ -298,14 +298,14 @@
 </ul>
 <p>A Activity的启动模式设置为singleTask，启动Activity A时，检测当前Task是否有A的实例，没有则创建A的实例压入栈中，如果已经有了A的实例，则调用onNewIntent方法重用该实例，其如果A实例不位于栈顶，则将A之上的Activity对象出栈使A的实例位于栈顶。<br><img src="http://www.jcodecraeer.com/uploads/20150520/1432087394416117.jpg" alt="singleTask模式"></p>
 <p>尝试设置taskAffinity（后面介绍）的值，出现如图效果：</p>
-<p><img src="https://github.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif" alt="taskAffinity"></p>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif" alt="taskAffinity"></p>
 <p>设置taskAffinity项目运行失败，提示Deployment failed. Internal error.修改taskAffinity为如下形式才可运行：TaskAffinity = “aaa.bbbb”</p>
 <ul>
 <li>singleTop模式</li>
 </ul>
 <p>无论从哪个Task启动Activity都只会创建一个Activity实例,并将它加入新的Task栈,当再次启动该activity的实例时，会重用已存在的任务和实例<br><img src="http://www.jcodecraeer.com/uploads/20150520/1432087655129646.jpg" alt="singleTop模式"></p>
 <p>测试singleTop运行效果：</p>
-<p><img src="https://github.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif" alt="singleTop"></p>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif" alt="singleTop"></p>
 <blockquote>
 <p>通过title区分Activity，可以看到以singleTop模式启动Acvity2当我们按下Home键，重新点击图标启动应用，应用重新启动Activity1，第二种情况我们在任务列表返回应用，返回Activity2，按下Back并没有返回Activity1，而是直接退出应用。</p>
 </blockquote>
@@ -344,7 +344,7 @@
         <p><span>本文标题:</span><a href="/2016/05/02/activity3/">Android Activity管理机制详解</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
         <p><span>发布时间:</span>2016-05-02, 16:12:50</p>
-        <p><span>最后更新:</span>2016-05-02, 23:10:55</p>
+        <p><span>最后更新:</span>2016-05-02, 23:19:51</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/02/activity3/" title="Android Activity管理机制详解">http://www.xamarin.xyz/2016/05/02/activity3/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/02/activity3/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
