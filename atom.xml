@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xamarin.xyz/"/>
-  <updated>2016-05-02T02:59:15.000Z</updated>
+  <updated>2016-05-02T15:10:55.000Z</updated>
   <id>http://www.xamarin.xyz/</id>
   
   <author>
@@ -14,6 +14,92 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Activity管理机制详解</title>
+    <link href="http://www.xamarin.xyz/2016/05/02/activity3/"/>
+    <id>http://www.xamarin.xyz/2016/05/02/activity3/</id>
+    <published>2016-05-02T08:12:50.000Z</published>
+    <updated>2016-05-02T15:10:55.000Z</updated>
+    
+    <content type="html">&lt;p&gt;实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;官方文档给出的一个流程图：&lt;br&gt;&lt;img src=&quot;http://www.runoob.com/wp-content/uploads/2015/08/93537362.jpg&quot; alt=&quot;Back Stack&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Activity启动模式&quot;&gt;&lt;a href=&quot;#Activity启动模式&quot; class=&quot;headerlink&quot; title=&quot;Activity启动模式&quot;&gt;&lt;/a&gt;Activity启动模式&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;Activity的启动模式（launchMode）也是Task管理的一部分，这里单独拿出来介绍&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Activity总共有四种启动模式：standard(multiple)(默认)，singleTop，singleTask，singleInstance。合理的使用启动模式可以带给用户更好的使用体验。&lt;/p&gt;
+&lt;h2 id=&quot;设置Activity的启动模式&quot;&gt;&lt;a href=&quot;#设置Activity的启动模式&quot; class=&quot;headerlink&quot; title=&quot;设置Activity的启动模式&quot;&gt;&lt;/a&gt;设置Activity的启动模式&lt;/h2&gt;&lt;p&gt;在AndroidManifest.xml &lt;activity&gt;标签的一个属性中设置launchMode，如下：&lt;/activity&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;activity&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attr&quot;&gt;android:label&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;singleTask launchMode&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attr&quot;&gt;android:launchMode&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;singleTask&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在Xamarin.Android开发过程中，我们不会过多的操作AndroidManifest.xml文件，设置启动模式通过设置Activity特定的值实现，如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Activity (Label = &amp;quot;Activity2&amp;quot;,LaunchMode=Android.Content.PM.LaunchMode.SingleTop)]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也可以通过启动Activity时，为Intent设置flag实现：&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;intent.AddFlags(ActivityFlags.SingleTop);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;启动模式介绍&quot;&gt;&lt;a href=&quot;#启动模式介绍&quot; class=&quot;headerlink&quot; title=&quot;启动模式介绍&quot;&gt;&lt;/a&gt;启动模式介绍&lt;/h2&gt;&lt;p&gt;先看一下各个启动模式的总结介绍：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/launchMode.png&quot; alt=&quot;launchMode&quot;&gt;&lt;/p&gt;
+&lt;p&gt;启动模式详解：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;standard模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;标准启动模式.在这种模式下启动的Activity可以被多次实例化.如果Activity A的启动模式为standard，并且A已经启动，在A中再次启动Activity A，会在A的上面再次启动一个A的实例，即当前的桟中的状态为A–&amp;gt;A。&lt;br&gt;&lt;img src=&quot;http://www.jcodecraeer.com/uploads/20150520/1432087372621766.jpg&quot; alt=&quot;standard模式&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;singleTop模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果一个以singleTop模式启动的Activity的实例已经存在于栈顶,当我们再次启动这个Activity时，不会重新创建而是调用onNewIntent方法，重用栈顶的实例。如果A的启动模式为singleTop，并且A的一个实例已经存在于栈顶中， 启动A Activity不会再次创建A的实例，而是调用原来实例的onNewIntent方法，重用原来的实例，保证栈顶只有一个A的实例。 这时任务栈中还是只有一个A的实例。如果A Activity的一个实例已经存在与任务栈中，但是不在栈顶，那么它和standard模式相同，也会创建多个实例。&lt;br&gt;&lt;img src=&quot;http://www.jcodecraeer.com/uploads/20150520/1432087389219419.jpg&quot; alt=&quot;singleTop模式&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;singleTask模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A Activity的启动模式设置为singleTask，启动Activity A时，检测当前Task是否有A的实例，没有则创建A的实例压入栈中，如果已经有了A的实例，则调用onNewIntent方法重用该实例，其如果A实例不位于栈顶，则将A之上的Activity对象出栈使A的实例位于栈顶。&lt;br&gt;&lt;img src=&quot;http://www.jcodecraeer.com/uploads/20150520/1432087394416117.jpg&quot; alt=&quot;singleTask模式&quot;&gt;&lt;/p&gt;
+&lt;p&gt;尝试设置taskAffinity（后面介绍）的值，出现如图效果：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif&quot; alt=&quot;taskAffinity&quot;&gt;&lt;/p&gt;
+&lt;p&gt;设置taskAffinity项目运行失败，提示Deployment failed. Internal error.修改taskAffinity为如下形式才可运行：TaskAffinity = “aaa.bbbb”&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;singleTop模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;无论从哪个Task启动Activity都只会创建一个Activity实例,并将它加入新的Task栈,当再次启动该activity的实例时，会重用已存在的任务和实例&lt;br&gt;&lt;img src=&quot;http://www.jcodecraeer.com/uploads/20150520/1432087655129646.jpg&quot; alt=&quot;singleTop模式&quot;&gt;&lt;/p&gt;
+&lt;p&gt;测试singleTop运行效果：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif&quot; alt=&quot;singleTop&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过title区分Activity，可以看到以singleTop模式启动Acvity2当我们按下Home键，重新点击图标启动应用，应用重新启动Activity1，第二种情况我们在任务列表返回应用，返回Activity2，按下Back并没有返回Activity1，而是直接退出应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Task的管理&quot;&gt;&lt;a href=&quot;#Task的管理&quot; class=&quot;headerlink&quot; title=&quot;Task的管理&quot;&gt;&lt;/a&gt;Task的管理&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;查看Activity的堆栈信息  adb shell dumpsys activity&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;activity中&gt;我们可以使用的Task管理相关的属性如下：&lt;/activity中&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;taskAffinity&lt;/li&gt;
+&lt;li&gt;launchMode&lt;/li&gt;
+&lt;li&gt;llowTaskReparenting&lt;/li&gt;
+&lt;li&gt;clearTaskOnLaunch&lt;/li&gt;
+&lt;li&gt;alwaysRetainTaskState&lt;/li&gt;
+&lt;li&gt;finishOnTaskLaunch&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;taskAffinity介绍&quot;&gt;&lt;a href=&quot;#taskAffinity介绍&quot; class=&quot;headerlink&quot; title=&quot;taskAffinity介绍&quot;&gt;&lt;/a&gt;taskAffinity介绍&lt;/h2&gt;&lt;p&gt;通常一个应用中所有的Activity有相同的affinity，即拥有相同taskAffinity值的Activity值属于同一个Task。 不同应用程序中的Activity可以拥有相同的Affinity，同一个应用程序中不同Activity 也可以设置成不同的Affinity。taskAffinity的使用会有下面两种情况：&lt;/p&gt;
+&lt;p&gt;1）当传递给StartActivity()的Intent对象包含 FLAG_ACTIVITY_NEW_TASK标记时，系统会为需要启动的Activity寻找与当前Activity不同Task。如果要启动的 Activity的Affinity属性与当前所有的Task的Affinity属性都不相同，系统会新建一个带那个Affinity属性的Task，并将要启动的Activity压到新建的Task栈中；否则将Activity压入那个Affinity属性相同的栈中。&lt;/p&gt;
+&lt;p&gt;2）allowTaskReparenting属性设置为true 如果一个activity的allowTaskReparenting属性为true， 那么它可以从一个Task移到另外一个有相同Affinity的Task中，更换从属的Task。 如果一个.apk文件从用户角度来看包含了多个”应用程序”，你可能需要对那些 Activity赋不同的Affinity值。&lt;/p&gt;
+&lt;h2 id=&quot;栈的管理&quot;&gt;&lt;a href=&quot;#栈的管理&quot; class=&quot;headerlink&quot; title=&quot;栈的管理&quot;&gt;&lt;/a&gt;栈的管理&lt;/h2&gt;&lt;p&gt;当应用长时间置于后台，系统可能会清理应用Task栈中的Activity，当用户返回应用保留的只有应用的启动Activity。通过以下设置改变这种行为！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;alwaysRetainTaskState： 如果栈底Activity的这个属性被设置为true，Task中的所有activity将被长时间保存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;clearTaskOnLaunch:如果栈底activity的这个属性被设置为true，一旦用户离开Task， 则 Task栈中的Activity将被清空到只剩下栈底activity。这种情况刚好与 alwaysRetainTaskState相反。即使用户只是短暂地离开，task也会返回到初始状态 （只剩下栈底acitivty）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;finishOnTaskLaunch:与clearTaskOnLaunch相似，但它只对单独的activity起作用，而不是整个Task。它可以结束任何Activity，包括栈底的Activity。 当它设置为true时，当前的Activity只在当前会话期间作为Task的一部分存在， 当用户按下Home键重新点击图标启动应用，它将不存在。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://www.xamarin.xyz/categories/Android/"/>
+    
+    
+      <category term="Activity" scheme="http://www.xamarin.xyz/tags/Activity/"/>
+    
+  </entry>
   
   <entry>
     <title>Xamarin.Android Activity用例介绍</title>
