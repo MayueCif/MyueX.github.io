@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xamarin.xyz/"/>
-  <updated>2016-05-02T15:19:51.000Z</updated>
+  <updated>2016-05-06T01:02:10.000Z</updated>
   <id>http://www.xamarin.xyz/</id>
   
   <author>
@@ -16,11 +16,99 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Xamarin.Android Service入门介绍</title>
+    <link href="http://www.xamarin.xyz/2016/05/06/service1/"/>
+    <id>http://www.xamarin.xyz/2016/05/06/service1/</id>
+    <published>2016-05-06T00:37:27.000Z</published>
+    <updated>2016-05-06T01:02:10.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服务。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;Service的生命周介绍&quot;&gt;&lt;a href=&quot;#Service的生命周介绍&quot; class=&quot;headerlink&quot; title=&quot;Service的生命周介绍&quot;&gt;&lt;/a&gt;Service的生命周介绍&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://www.runoob.com/wp-content/uploads/2015/08/11165797.jpg&quot; alt=&quot;Service 生命周期&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以上的生命周期图表示Service两种使用方式：StartService和BindService。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;生命周期解析：&lt;/p&gt;
+&lt;h2 id=&quot;StartService启动Service&quot;&gt;&lt;a href=&quot;#StartService启动Service&quot; class=&quot;headerlink&quot; title=&quot;StartService启动Service&quot;&gt;&lt;/a&gt;StartService启动Service&lt;/h2&gt;&lt;p&gt;首次创建Service实例会回调onCreate方法，该方法在Service的整个生命周期只会调用一次。当我们调用StartService启动Service时会回调onStartCommand方法，此时Service处于运行状态。直到Service被自己或它的调用者停止（stopService），回调进入onDestory方法。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;同一个Service无论我们启动多少次，调用一次StopService即可停掉Service，因为没次启动Service会重复调用已经存在的Service对象。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;onStartCommand方法返回值介绍：返回类型为StartCommandResult，当系统可用内存过低时，Android可能会停止任何服务，如果我们的服务被停止，该如何重新启动就会根据onStartCommand返回值做出处理。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sticky  重新启动服务并传入一个空的Intent，如检测更新的服务&lt;/li&gt;
+&lt;li&gt;RedeliverIntent  重新启动服务，并传入服务停止前最后传入的Intent重新传入，如下载服务&lt;/li&gt;
+&lt;li&gt;NotSticky  服务不会重新启动&lt;/li&gt;
+&lt;li&gt;StickyCompatibility  Sticky的兼容版本，但不保证服务被kill后一定能重启。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;BindService启动Service&quot;&gt;&lt;a href=&quot;#BindService启动Service&quot; class=&quot;headerlink&quot; title=&quot;BindService启动Service&quot;&gt;&lt;/a&gt;BindService启动Service&lt;/h2&gt;&lt;p&gt;Service第一次创建进入onCreate方法，当我们调用BindService方法绑定一个Service时会调用onBind方法。onBind返回一个IBinder对象，调用者可以通过IBinder与Service进行交互。如果再次使用bindService绑定Service,系统不会创建新的Sevice实例,也不会再调用onBind方法,而是直接把IBinder对象传递给其他后来增加的客户端!如果我们想解除与服务的绑定，调用unbindService方法即可，此时onUnbind方法将会被调用。如果Service只绑定了一个客户端，Service回调onDestory方法销毁Service，否则只有所有的客户端与Service解除绑定后，系统才会销毁这个Service。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果我们使用bindService来绑定一个已经启动的Service,是已经启动的Service!!! 系统只是将Service的内部IBinder对象传递给Activity,并不会将Service的生命周期 与Activity绑定,因此调用unBindService( )方法取消绑定时,Service也不会被销毁！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Service-（StartService）使用示例&quot;&gt;&lt;a href=&quot;#Service-（StartService）使用示例&quot; class=&quot;headerlink&quot; title=&quot;Service （StartService）使用示例&quot;&gt;&lt;/a&gt;Service （StartService）使用示例&lt;/h1&gt;&lt;p&gt;创建服务&lt;/p&gt;
+&lt;p&gt;继承Service，重写生命周期方法，定义好自己的Service后在AndroidManifest.xml中进行注册，Xamarin.Android 中推荐使用ServiceAttribute完成注册工作。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个继承Service且有ServiceAttribute修饰的类 &lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; [Service]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; public class DemoService : Service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在AndroidManifest.xml生成的service节点如下&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;android:name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;demoservice.DemoService&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;service&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;启动服务&lt;/p&gt;
+&lt;p&gt;StartService (new Intent (this, typeof(DemoService)));&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;需要说明的是启动的服务是运行与主线程中的（the service will run on the main thread），&lt;br&gt;服务要处理耗时的操作应该结合如下代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; Thread t = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Thread (() =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;        &lt;span class=&quot;comment&quot;&gt;// long running code ...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; t.Start();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;停止服务&lt;/p&gt;
+&lt;p&gt;StopService (new Intent (this, typeof(DemoService)));&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当我们多次启动一个服务时，直接调用StopService或者StopSelf是不合理的，应该调用StopSelf (startId:)来停止服务。startId是OnStartCommand方法传入的一个参数，表示服务启动的次数。StopSelf (startId:)中的startId与启动服务时系统生成的startId相同时，才会停止服务，从而确保服务不会过早的被停止。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Service隐式启动（Starting-a-Service-With-an-Intent-Filter）&quot;&gt;&lt;a href=&quot;#Service隐式启动（Starting-a-Service-With-an-Intent-Filter）&quot; class=&quot;headerlink&quot; title=&quot;Service隐式启动（Starting a Service With an Intent Filter）&quot;&gt;&lt;/a&gt;Service隐式启动（Starting a Service With an Intent Filter）&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;和启动Activity一样，我们也可以借助IntentFilter实现Service的隐式启动。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果是操作AndroidManifest.xml，在service节点下怎加一个 &lt;intent-filter&gt; 节点。&lt;/intent-filter&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;android:name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;demoservice.DemoService&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;intent-filter&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;android:name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;com.xamarin.DemoService&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;intent-filter&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;service&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Xamarin.Android中可以通过IntentFilterAttribute实现同样的效果&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Service]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[IntentFilter(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; String[]&amp;#123;&lt;span class=&quot;string&quot;&gt;&quot;com.xamarin.DemoService&quot;&lt;/span&gt;&amp;#125;)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;DemoService&lt;/span&gt; : &lt;span class=&quot;title&quot;&gt;Service&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;同样启动和停止服务使用如下代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;StartService (&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Intent (&lt;span class=&quot;string&quot;&gt;&quot;com.xamarin.DemoService&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;StopService (&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Intent (&lt;span class=&quot;string&quot;&gt;&quot;com.xamarin.DemoService&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;Service与用户交互&quot;&gt;&lt;a href=&quot;#Service与用户交互&quot; class=&quot;headerlink&quot; title=&quot;Service与用户交互&quot;&gt;&lt;/a&gt;Service与用户交互&lt;/h1&gt;&lt;p&gt;服务长时间运行于后台，可能会与用户进行交互将一些信息反馈给用户，如文件传输等。&lt;/p&gt;
+&lt;h2 id=&quot;发送通知&quot;&gt;&lt;a href=&quot;#发送通知&quot; class=&quot;headerlink&quot; title=&quot;发送通知&quot;&gt;&lt;/a&gt;发送通知&lt;/h2&gt;&lt;p&gt;发送通知代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; nMgr = (NotificationManager)GetSystemService (NotificationService);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; notification = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Notification (Resource.Mipmap.Icon, &lt;span class=&quot;string&quot;&gt;&quot;Message from demo service&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; pendingIntent = PendingIntent.GetActivity (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Intent (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt;(MainActivity)), &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;notification.SetLatestEventInfo (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Demo Service Notification&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Message from demo service&quot;&lt;/span&gt;, pendingIntent);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nMgr.Notify (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, notification);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;PendingIntent以后在介绍，以上代码点击通知会启动PendingIntent所包含的Activity。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Toast提示&quot;&gt;&lt;a href=&quot;#Toast提示&quot; class=&quot;headerlink&quot; title=&quot;Toast提示&quot;&gt;&lt;/a&gt;Toast提示&lt;/h2&gt;&lt;p&gt;Service中使用吐司通知（可以理解为更新UI），由于Service是运行在主线程中，所以可以直接调用如下代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Toast.MakeText (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;The demo service has started&quot;&lt;/span&gt;, ToastLength.Long).Show();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当我们服务要处理耗时操作时，应创建一个子线程，如何在Service的字线程中更新UI？不同于Activity，Service并没有为我们提供RunOnUIThread用来在子线程中更新UI，Service中可以使用Handle来完成。&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; myHandler = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Handler ();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;myHandler.Post(() =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Toast.MakeText (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Message from demo service&quot;&lt;/span&gt;, ToastLength.Long).Show();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In addition to a Handler, other options that may be used include Android.App.Application.SynchronizationContext.Post() and System.Threading.SynchronizationContext.Current.Post().&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;前台服务&quot;&gt;&lt;a href=&quot;#前台服务&quot; class=&quot;headerlink&quot; title=&quot;前台服务&quot;&gt;&lt;/a&gt;前台服务&lt;/h1&gt;&lt;p&gt;前台服务（Foreground Services）不同于普通Service的是，当系统内存过低时，前台服务不会被停止(并不能保证Service 永远不被杀掉，只是提高了他的优先级)，但是使用前台服务时要包含一个Notification，以提醒用户服务运行状态,如音乐播放器。如下代码可以创建一个前台服务：&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; ongoing = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Notification (Resource.Mipmap.Icon, &lt;span class=&quot;string&quot;&gt;&quot;DemoService in foreground&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; pendingIntent = PendingIntent.GetActivity (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Intent (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt;(MainActivity)), &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ongoing.SetLatestEventInfo (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;DemoService&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;DemoService is running in the foreground&quot;&lt;/span&gt;, pendingIntent);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;StartForeground ((&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;)NotificationFlags.ForegroundService, ongoing);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上代码是写在Service内的，设置一个服务为前台服务，当我们想要停止前台服务调用StopForeground，传入一个bool类型参数，标示是否删除关联的通知。需要说明的是当我们调用StopForeground时，服务并没有被停止，只是该服务不再是前台服务。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服务。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://www.xamarin.xyz/categories/Android/"/>
+    
+    
+      <category term="Service" scheme="http://www.xamarin.xyz/tags/Service/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Activity管理机制详解</title>
     <link href="http://www.xamarin.xyz/2016/05/02/activity3/"/>
     <id>http://www.xamarin.xyz/2016/05/02/activity3/</id>
     <published>2016-05-02T08:12:50.000Z</published>
-    <updated>2016-05-02T15:19:51.000Z</updated>
+    <updated>2016-05-02T15:29:13.000Z</updated>
     
     <content type="html">&lt;p&gt;实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -79,12 +167,13 @@
 &lt;p&gt;2）allowTaskReparenting属性设置为true 如果一个activity的allowTaskReparenting属性为true， 那么它可以从一个Task移到另外一个有相同Affinity的Task中，更换从属的Task。 如果一个.apk文件从用户角度来看包含了多个”应用程序”，你可能需要对那些 Activity赋不同的Affinity值。&lt;/p&gt;
 &lt;h2 id=&quot;栈的管理&quot;&gt;&lt;a href=&quot;#栈的管理&quot; class=&quot;headerlink&quot; title=&quot;栈的管理&quot;&gt;&lt;/a&gt;栈的管理&lt;/h2&gt;&lt;p&gt;当应用长时间置于后台，系统可能会清理应用Task栈中的Activity，当用户返回应用保留的只有应用的启动Activity。通过以下设置改变这种行为！&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;alwaysRetainTaskState： 如果栈底Activity的这个属性被设置为true，Task中的所有activity将被长时间保存。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;clearTaskOnLaunch:如果栈底activity的这个属性被设置为true，一旦用户离开Task， 则 Task栈中的Activity将被清空到只剩下栈底activity。这种情况刚好与 alwaysRetainTaskState相反。即使用户只是短暂地离开，task也会返回到初始状态 （只剩下栈底acitivty）。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;finishOnTaskLaunch:与clearTaskOnLaunch相似，但它只对单独的activity起作用，而不是整个Task。它可以结束任何Activity，包括栈底的Activity。 当它设置为true时，当前的Activity只在当前会话期间作为Task的一部分存在， 当用户按下Home键重新点击图标启动应用，它将不存在。&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;alwaysRetainTaskState： 如果栈底Activity的这个属性被设置为true，Task中的所有activity将被长时间保存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;clearTaskOnLaunch:如果栈底activity的这个属性被设置为true，一旦用户离开Task， 则 Task栈中的Activity将被清空到只剩下栈底activity。这种情况刚好与 alwaysRetainTaskState相反。即使用户只是短暂地离开，task也会返回到初始状态 （只剩下栈底acitivty）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;finishOnTaskLaunch:与clearTaskOnLaunch相似，但它只对单独的activity起作用，而不是整个Task。它可以结束任何Activity，包括栈底的Activity。 当它设置为true时，当前的Activity只在当前会话期间作为Task的一部分存在， 当用户按下Home键重新点击图标启动应用，它将不存在。&lt;/li&gt;
 &lt;/ul&gt;
 </content>
     

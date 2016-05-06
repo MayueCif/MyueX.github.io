@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Android Service入门介绍 | Myue&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Android Service入门介绍">
+<meta property="og:url" content="http://www.xamarin.xyz/2016/05/06/service1/index.html">
+<meta property="og:site_name" content="Myue's Blog">
+<meta property="og:description" content="Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服">
+<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2015/08/11165797.jpg">
+<meta property="og:updated_time" content="2016-05-06T01:02:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Android Service入门介绍">
+<meta name="twitter:description" content="Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服">
+<meta name="twitter:image" content="http://www.runoob.com/wp-content/uploads/2015/08/11165797.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myue</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">移动开发</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">移动开发</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-service1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/06/service1/" class="article-date">
+      <time datetime="2016-05-06T00:37:27.000Z" itemprop="datePublished">2016-05-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Xamarin.Android Service入门介绍
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Service/">Service</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服务。</p>
+<a id="more"></a>
+<h1 id="Service的生命周介绍"><a href="#Service的生命周介绍" class="headerlink" title="Service的生命周介绍"></a>Service的生命周介绍</h1><p><img src="http://www.runoob.com/wp-content/uploads/2015/08/11165797.jpg" alt="Service 生命周期"></p>
+<blockquote>
+<p>以上的生命周期图表示Service两种使用方式：StartService和BindService。</p>
+</blockquote>
+<p>生命周期解析：</p>
+<h2 id="StartService启动Service"><a href="#StartService启动Service" class="headerlink" title="StartService启动Service"></a>StartService启动Service</h2><p>首次创建Service实例会回调onCreate方法，该方法在Service的整个生命周期只会调用一次。当我们调用StartService启动Service时会回调onStartCommand方法，此时Service处于运行状态。直到Service被自己或它的调用者停止（stopService），回调进入onDestory方法。</p>
+<blockquote>
+<p>同一个Service无论我们启动多少次，调用一次StopService即可停掉Service，因为没次启动Service会重复调用已经存在的Service对象。</p>
+</blockquote>
+<p>onStartCommand方法返回值介绍：返回类型为StartCommandResult，当系统可用内存过低时，Android可能会停止任何服务，如果我们的服务被停止，该如何重新启动就会根据onStartCommand返回值做出处理。</p>
+<ul>
+<li>Sticky  重新启动服务并传入一个空的Intent，如检测更新的服务</li>
+<li>RedeliverIntent  重新启动服务，并传入服务停止前最后传入的Intent重新传入，如下载服务</li>
+<li>NotSticky  服务不会重新启动</li>
+<li>StickyCompatibility  Sticky的兼容版本，但不保证服务被kill后一定能重启。</li>
+</ul>
+<h2 id="BindService启动Service"><a href="#BindService启动Service" class="headerlink" title="BindService启动Service"></a>BindService启动Service</h2><p>Service第一次创建进入onCreate方法，当我们调用BindService方法绑定一个Service时会调用onBind方法。onBind返回一个IBinder对象，调用者可以通过IBinder与Service进行交互。如果再次使用bindService绑定Service,系统不会创建新的Sevice实例,也不会再调用onBind方法,而是直接把IBinder对象传递给其他后来增加的客户端!如果我们想解除与服务的绑定，调用unbindService方法即可，此时onUnbind方法将会被调用。如果Service只绑定了一个客户端，Service回调onDestory方法销毁Service，否则只有所有的客户端与Service解除绑定后，系统才会销毁这个Service。</p>
+<blockquote>
+<p>如果我们使用bindService来绑定一个已经启动的Service,是已经启动的Service!!! 系统只是将Service的内部IBinder对象传递给Activity,并不会将Service的生命周期 与Activity绑定,因此调用unBindService( )方法取消绑定时,Service也不会被销毁！</p>
+</blockquote>
+<h1 id="Service-（StartService）使用示例"><a href="#Service-（StartService）使用示例" class="headerlink" title="Service （StartService）使用示例"></a>Service （StartService）使用示例</h1><p>创建服务</p>
+<p>继承Service，重写生命周期方法，定义好自己的Service后在AndroidManifest.xml中进行注册，Xamarin.Android 中推荐使用ServiceAttribute完成注册工作。</p>
+<blockquote>
+<p>一个继承Service且有ServiceAttribute修饰的类 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; [Service]</span><br><span class="line">&gt; public class DemoService : Service</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>在AndroidManifest.xml生成的service节点如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="tag">&lt;<span class="name">service</span> <span class="attr">android:name</span>=<span class="string">"demoservice.DemoService"</span>&gt;</span><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>启动服务</p>
+<p>StartService (new Intent (this, typeof(DemoService)));</p>
+<blockquote>
+<p>需要说明的是启动的服务是运行与主线程中的（the service will run on the main thread），<br>服务要处理耗时的操作应该结合如下代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; Thread t = <span class="keyword">new</span> Thread (() =&gt; &#123;</span><br><span class="line">&gt;        <span class="comment">// long running code ...</span></span><br><span class="line">&gt; &#125;);</span><br><span class="line">&gt; t.Start();</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>停止服务</p>
+<p>StopService (new Intent (this, typeof(DemoService)));</p>
+<blockquote>
+<p>当我们多次启动一个服务时，直接调用StopService或者StopSelf是不合理的，应该调用StopSelf (startId:)来停止服务。startId是OnStartCommand方法传入的一个参数，表示服务启动的次数。StopSelf (startId:)中的startId与启动服务时系统生成的startId相同时，才会停止服务，从而确保服务不会过早的被停止。</p>
+</blockquote>
+<h1 id="Service隐式启动（Starting-a-Service-With-an-Intent-Filter）"><a href="#Service隐式启动（Starting-a-Service-With-an-Intent-Filter）" class="headerlink" title="Service隐式启动（Starting a Service With an Intent Filter）"></a>Service隐式启动（Starting a Service With an Intent Filter）</h1><blockquote>
+<p>和启动Activity一样，我们也可以借助IntentFilter实现Service的隐式启动。</p>
+</blockquote>
+<p>如果是操作AndroidManifest.xml，在service节点下怎加一个 <intent-filter> 节点。</intent-filter></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">android:name</span>=<span class="string">"demoservice.DemoService"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.xamarin.DemoService"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Xamarin.Android中可以通过IntentFilterAttribute实现同样的效果</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">[IntentFilter(<span class="keyword">new</span> String[]&#123;<span class="string">"com.xamarin.DemoService"</span>&#125;)]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DemoService</span> : <span class="title">Service</span></span><br></pre></td></tr></table></figure>
+<p>同样启动和停止服务使用如下代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StartService (<span class="keyword">new</span> Intent (<span class="string">"com.xamarin.DemoService"</span>));</span><br><span class="line"></span><br><span class="line">StopService (<span class="keyword">new</span> Intent (<span class="string">"com.xamarin.DemoService"</span>));</span><br></pre></td></tr></table></figure>
+<h1 id="Service与用户交互"><a href="#Service与用户交互" class="headerlink" title="Service与用户交互"></a>Service与用户交互</h1><p>服务长时间运行于后台，可能会与用户进行交互将一些信息反馈给用户，如文件传输等。</p>
+<h2 id="发送通知"><a href="#发送通知" class="headerlink" title="发送通知"></a>发送通知</h2><p>发送通知代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nMgr = (NotificationManager)GetSystemService (NotificationService);</span><br><span class="line"><span class="keyword">var</span> notification = <span class="keyword">new</span> Notification (Resource.Mipmap.Icon, <span class="string">"Message from demo service"</span>);</span><br><span class="line"><span class="keyword">var</span> pendingIntent = PendingIntent.GetActivity (<span class="keyword">this</span>, <span class="number">0</span>, <span class="keyword">new</span> Intent (<span class="keyword">this</span>, <span class="keyword">typeof</span>(MainActivity)), <span class="number">0</span>);</span><br><span class="line">notification.SetLatestEventInfo (<span class="keyword">this</span>, <span class="string">"Demo Service Notification"</span>, <span class="string">"Message from demo service"</span>, pendingIntent);</span><br><span class="line">nMgr.Notify (<span class="number">0</span>, notification);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>PendingIntent以后在介绍，以上代码点击通知会启动PendingIntent所包含的Activity。</p>
+</blockquote>
+<h2 id="Toast提示"><a href="#Toast提示" class="headerlink" title="Toast提示"></a>Toast提示</h2><p>Service中使用吐司通知（可以理解为更新UI），由于Service是运行在主线程中，所以可以直接调用如下代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Toast.MakeText (<span class="keyword">this</span>, <span class="string">"The demo service has started"</span>, ToastLength.Long).Show();</span><br></pre></td></tr></table></figure>
+<p>当我们服务要处理耗时操作时，应创建一个子线程，如何在Service的字线程中更新UI？不同于Activity，Service并没有为我们提供RunOnUIThread用来在子线程中更新UI，Service中可以使用Handle来完成。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myHandler = <span class="keyword">new</span> Handler ();</span><br><span class="line">myHandler.Post(() =&gt; &#123;</span><br><span class="line">    Toast.MakeText (<span class="keyword">this</span>, <span class="string">"Message from demo service"</span>, ToastLength.Long).Show();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>In addition to a Handler, other options that may be used include Android.App.Application.SynchronizationContext.Post() and System.Threading.SynchronizationContext.Current.Post().</p>
+</blockquote>
+<h1 id="前台服务"><a href="#前台服务" class="headerlink" title="前台服务"></a>前台服务</h1><p>前台服务（Foreground Services）不同于普通Service的是，当系统内存过低时，前台服务不会被停止(并不能保证Service 永远不被杀掉，只是提高了他的优先级)，但是使用前台服务时要包含一个Notification，以提醒用户服务运行状态,如音乐播放器。如下代码可以创建一个前台服务：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ongoing = <span class="keyword">new</span> Notification (Resource.Mipmap.Icon, <span class="string">"DemoService in foreground"</span>);</span><br><span class="line"><span class="keyword">var</span> pendingIntent = PendingIntent.GetActivity (<span class="keyword">this</span>, <span class="number">0</span>, <span class="keyword">new</span> Intent (<span class="keyword">this</span>, <span class="keyword">typeof</span>(MainActivity)), <span class="number">0</span>);</span><br><span class="line">ongoing.SetLatestEventInfo (<span class="keyword">this</span>, <span class="string">"DemoService"</span>, <span class="string">"DemoService is running in the foreground"</span>, pendingIntent);</span><br><span class="line"></span><br><span class="line">StartForeground ((<span class="keyword">int</span>)NotificationFlags.ForegroundService, ongoing);</span><br></pre></td></tr></table></figure>
+<p>以上代码是写在Service内的，设置一个服务为前台服务，当我们想要停止前台服务调用StopForeground，传入一个bool类型参数，标示是否删除关联的通知。需要说明的是当我们调用StopForeground时，服务并没有被停止，只是该服务不再是前台服务。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
+        <p><span>发布时间:</span>2016-05-06, 08:37:27</p>
+        <p><span>最后更新:</span>2016-05-06, 09:02:10</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/06/service1/" title="Xamarin.Android Service入门介绍">http://www.xamarin.xyz/2016/05/06/service1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/06/service1/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/05/02/activity3/">
+                    Android Activity管理机制详解
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Service的生命周介绍"><span class="toc-number">1.</span> <span class="toc-text">Service的生命周介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#StartService启动Service"><span class="toc-number">1.1.</span> <span class="toc-text">StartService启动Service</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BindService启动Service"><span class="toc-number">1.2.</span> <span class="toc-text">BindService启动Service</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Service-（StartService）使用示例"><span class="toc-number">2.</span> <span class="toc-text">Service （StartService）使用示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Service隐式启动（Starting-a-Service-With-an-Intent-Filter）"><span class="toc-number">3.</span> <span class="toc-text">Service隐式启动（Starting a Service With an Intent Filter）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Service与用户交互"><span class="toc-number">4.</span> <span class="toc-text">Service与用户交互</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#发送通知"><span class="toc-number">4.1.</span> <span class="toc-text">发送通知</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Toast提示"><span class="toc-number">4.2.</span> <span class="toc-text">Toast提示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前台服务"><span class="toc-number">5.</span> <span class="toc-text">前台服务</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android Service入门介绍　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/05/06/service1/" data-title="Xamarin.Android Service入门介绍" data-url="http://www.xamarin.xyz/2016/05/06/service1/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xamarin"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/05/02/activity3/" title="下一篇: Android Activity管理机制详解">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Myue
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
