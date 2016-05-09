@@ -3,27 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Android Activity管理机制详解 | Myue&#39;s Blog</title>
+  <title>Xamarin.Android Service进阶教程 | Myue&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Ac">
+  <meta name="description" content="IntentService的使用前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Activity管理机制详解">
-<meta property="og:url" content="http://www.xamarin.xyz/2016/05/02/activity3/index.html">
+<meta property="og:title" content="Xamarin.Android Service进阶教程">
+<meta property="og:url" content="http://www.xamarin.xyz/2016/05/08/service2/index.html">
 <meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description" content="实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Ac">
-<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2015/08/93537362.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/launchMode.png">
-<meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087372621766.jpg">
-<meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087389219419.jpg">
-<meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087394416117.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif">
-<meta property="og:image" content="http://www.jcodecraeer.com/uploads/20150520/1432087655129646.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif">
-<meta property="og:updated_time" content="2016-05-02T15:29:13.000Z">
+<meta property="og:description" content="IntentService的使用前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要">
+<meta property="og:updated_time" content="2016-05-08T16:03:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Activity管理机制详解">
-<meta name="twitter:description" content="实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Ac">
-<meta name="twitter:image" content="http://www.runoob.com/wp-content/uploads/2015/08/93537362.jpg">
+<meta name="twitter:title" content="Xamarin.Android Service进阶教程">
+<meta name="twitter:description" content="IntentService的使用前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要">
   
     <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
   
@@ -227,11 +218,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-activity3" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-service2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/02/activity3/" class="article-date">
-      <time datetime="2016-05-02T08:12:50.000Z" itemprop="datePublished">2016-05-02</time>
+      <a href="/2016/05/08/service2/" class="article-date">
+      <time datetime="2016-05-08T03:51:31.000Z" itemprop="datePublished">2016-05-08</time>
 </a>
     </div>
   
@@ -244,7 +235,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android Activity管理机制详解
+      Xamarin.Android Service进阶教程
     </h1>
   
 
@@ -259,7 +250,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Service/">Service</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -269,71 +260,38 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。</p>
+        <h1 id="IntentService的使用"><a href="#IntentService的使用" class="headerlink" title="IntentService的使用"></a>IntentService的使用</h1><p>前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要我们控制、结束Service。多次启动IntentService，每个Service的操作会加入到一个工作队列依次执行.</p>
 <a id="more"></a>
-<p>官方文档给出的一个流程图：<br><img src="http://www.runoob.com/wp-content/uploads/2015/08/93537362.jpg" alt="Back Stack"></p>
-<h1 id="Activity启动模式"><a href="#Activity启动模式" class="headerlink" title="Activity启动模式"></a>Activity启动模式</h1><blockquote>
-<p>Activity的启动模式（launchMode）也是Task管理的一部分，这里单独拿出来介绍</p>
-</blockquote>
-<p>Activity总共有四种启动模式：standard(multiple)(默认)，singleTop，singleTask，singleInstance。合理的使用启动模式可以带给用户更好的使用体验。</p>
-<h2 id="设置Activity的启动模式"><a href="#设置Activity的启动模式" class="headerlink" title="设置Activity的启动模式"></a>设置Activity的启动模式</h2><p>在AndroidManifest.xml <activity>标签的一个属性中设置launchMode，如下：</activity></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span><br><span class="line">	<span class="attr">android:label</span>=<span class="string">"singleTask launchMode"</span></span><br><span class="line">	<span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在Xamarin.Android开发过程中，我们不会过多的操作AndroidManifest.xml文件，设置启动模式通过设置Activity特定的值实现，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Activity (Label = &quot;Activity2&quot;,LaunchMode=Android.Content.PM.LaunchMode.SingleTop)]</span><br></pre></td></tr></table></figure>
-<p>也可以通过启动Activity时，为Intent设置flag实现：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.AddFlags(ActivityFlags.SingleTop);</span><br></pre></td></tr></table></figure>
-<h2 id="启动模式介绍"><a href="#启动模式介绍" class="headerlink" title="启动模式介绍"></a>启动模式介绍</h2><p>先看一下各个启动模式的总结介绍：</p>
-<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/launchMode.png" alt="launchMode"></p>
-<p>启动模式详解：</p>
-<ul>
-<li>standard模式</li>
-</ul>
-<p>标准启动模式.在这种模式下启动的Activity可以被多次实例化.如果Activity A的启动模式为standard，并且A已经启动，在A中再次启动Activity A，会在A的上面再次启动一个A的实例，即当前的桟中的状态为A–&gt;A。<br><img src="http://www.jcodecraeer.com/uploads/20150520/1432087372621766.jpg" alt="standard模式"></p>
-<ul>
-<li>singleTop模式</li>
-</ul>
-<p>如果一个以singleTop模式启动的Activity的实例已经存在于栈顶,当我们再次启动这个Activity时，不会重新创建而是调用onNewIntent方法，重用栈顶的实例。如果A的启动模式为singleTop，并且A的一个实例已经存在于栈顶中， 启动A Activity不会再次创建A的实例，而是调用原来实例的onNewIntent方法，重用原来的实例，保证栈顶只有一个A的实例。 这时任务栈中还是只有一个A的实例。如果A Activity的一个实例已经存在与任务栈中，但是不在栈顶，那么它和standard模式相同，也会创建多个实例。<br><img src="http://www.jcodecraeer.com/uploads/20150520/1432087389219419.jpg" alt="singleTop模式"></p>
-<ul>
-<li>singleTask模式</li>
-</ul>
-<p>A Activity的启动模式设置为singleTask，启动Activity A时，检测当前Task是否有A的实例，没有则创建A的实例压入栈中，如果已经有了A的实例，则调用onNewIntent方法重用该实例，其如果A实例不位于栈顶，则将A之上的Activity对象出栈使A的实例位于栈顶。<br><img src="http://www.jcodecraeer.com/uploads/20150520/1432087394416117.jpg" alt="singleTask模式"></p>
-<p>尝试设置taskAffinity（后面介绍）的值，出现如图效果：</p>
-<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/taskAffinity.gif" alt="taskAffinity"></p>
-<p>设置taskAffinity项目运行失败，提示Deployment failed. Internal error.修改taskAffinity为如下形式才可运行：TaskAffinity = “aaa.bbbb”</p>
-<ul>
-<li>singleTop模式</li>
-</ul>
-<p>无论从哪个Task启动Activity都只会创建一个Activity实例,并将它加入新的Task栈,当再次启动该activity的实例时，会重用已存在的任务和实例<br><img src="http://www.jcodecraeer.com/uploads/20150520/1432087655129646.jpg" alt="singleTop模式"></p>
-<p>测试singleTop运行效果：</p>
-<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/activity/singInstance.gif" alt="singleTop"></p>
+<p>IntentService的使用与普通Service有些区别，就是在定义Service时，普通的Service必须重写OnBind方法，IntentService则要重写的是OnHandleIntent，在OnHandleIntent方法中编写我们耗时操作的代码。</p>
+<h1 id="Bound-Service介绍"><a href="#Bound-Service介绍" class="headerlink" title="Bound Service介绍"></a>Bound Service介绍</h1><p>上一篇文章介绍了Service的两种生命周期和常见的使用形势，现在对Bound Service简单的介绍一下。通过bindService方法启动Service主要是为了实现应用应用程序的通信，可以是应用内的也可以是不同应用之间的通信。</p>
+<h2 id="Service相同进程内通信"><a href="#Service相同进程内通信" class="headerlink" title="Service相同进程内通信"></a>Service相同进程内通信</h2><p>通过一个简单的例子介绍如何使用bindService方式启动服务。</p>
+<p>自定义Binder子类，实现自己的逻辑代码，作为Service中OnBind的返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class MyBinder:Binder</span><br><span class="line">&#123;</span><br><span class="line">	public void Say ()</span><br><span class="line">	&#123;</span><br><span class="line">		System.Console.WriteLine (&quot;Say What!!!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现Service代码,在重写的OnBind方法中返回定义的Binder对象实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">class MyService:Service</span><br><span class="line">&#123;</span><br><span class="line">	#region implemented abstract members of Service</span><br><span class="line"></span><br><span class="line">	public override IBinder OnBind (Intent intent)</span><br><span class="line">	&#123;</span><br><span class="line">		return new MyBinder ();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	#endregion</span><br><span class="line">		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时我门可以尝试调用BindService以绑定启动我们的服务，会发现我们的工作并没有完成，还需要定义一个实现了IServiceConnection接口的类，这个类将作为Service与Activity之通信的桥梁。IServiceConnection接口有两个方法OnServiceConnected和OnServiceDisconnected，如果链接成功回调OnServiceConnected方法，如果异常终止或者其它原因导致Service连接断开则回调OnServiceDisconnected方法，调用UnBindService断开Service不会回调该方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class MyServiceConnection:Java.Lang.Object,IServiceConnection</span><br><span class="line">&#123;</span><br><span class="line">	public void OnServiceConnected (ComponentName name, IBinder service)</span><br><span class="line">	&#123;</span><br><span class="line">		System.Console.WriteLine (&quot;OnServiceConnected&quot;);</span><br><span class="line">		var binder = service as MyBinder;</span><br><span class="line">		binder.Say ();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void OnServiceDisconnected (ComponentName name)</span><br><span class="line">	&#123;</span><br><span class="line">		System.Console.WriteLine (&quot;OnServiceDisconnected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时就可以调用如下代码启动并绑定Service,第三个参数为Flag标识。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent (this, typeof(MyService));</span><br><span class="line">BindService (intent, new MyServiceConnection (), Bind.AutoCreate);</span><br></pre></td></tr></table></figure>
+<p>当Service不在需要时应调用UnbindService方法停止服务。该方法传入一个IServiceConnection的对象，这个对象应与启动时传入的对象是同一个对象，否为会抛出Java.Lang.IllegalArgumentException Service not registered 异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnbindService (serviceConnection);</span><br></pre></td></tr></table></figure>
+<p>至此实现一个简单的Bound Service例子结束。</p>
 <blockquote>
-<p>通过title区分Activity，可以看到以singleTop模式启动Acvity2当我们按下Home键，重新点击图标启动应用，应用重新启动Activity1，第二种情况我们在任务列表返回应用，返回Activity2，按下Back并没有返回Activity1，而是直接退出应用。</p>
+<p>有些情况下为了防止重复绑定服务应该有如下修改：</p>
+<p>The BindService method should be called from the ApplicationContext rather than from the Activity.</p>
+<p> The SerivceConnection instance should be returned from OnRetainNonConfigurationInstance .</p>
+<p>The OnRetainNonConfigurationInstance method should set a flag that will only be used to unbind the service when the service is not stopped due to a configuration change.</p>
 </blockquote>
-<h1 id="Task的管理"><a href="#Task的管理" class="headerlink" title="Task的管理"></a>Task的管理</h1><blockquote>
-<p>查看Activity的堆栈信息  adb shell dumpsys activity</p>
-</blockquote>
-<p><activity中>我们可以使用的Task管理相关的属性如下：</activity中></p>
-<ul>
-<li>taskAffinity</li>
-<li>launchMode</li>
-<li>llowTaskReparenting</li>
-<li>clearTaskOnLaunch</li>
-<li>alwaysRetainTaskState</li>
-<li>finishOnTaskLaunch</li>
-</ul>
-<h2 id="taskAffinity介绍"><a href="#taskAffinity介绍" class="headerlink" title="taskAffinity介绍"></a>taskAffinity介绍</h2><p>通常一个应用中所有的Activity有相同的affinity，即拥有相同taskAffinity值的Activity值属于同一个Task。 不同应用程序中的Activity可以拥有相同的Affinity，同一个应用程序中不同Activity 也可以设置成不同的Affinity。taskAffinity的使用会有下面两种情况：</p>
-<p>1）当传递给StartActivity()的Intent对象包含 FLAG_ACTIVITY_NEW_TASK标记时，系统会为需要启动的Activity寻找与当前Activity不同Task。如果要启动的 Activity的Affinity属性与当前所有的Task的Affinity属性都不相同，系统会新建一个带那个Affinity属性的Task，并将要启动的Activity压到新建的Task栈中；否则将Activity压入那个Affinity属性相同的栈中。</p>
-<p>2）allowTaskReparenting属性设置为true 如果一个activity的allowTaskReparenting属性为true， 那么它可以从一个Task移到另外一个有相同Affinity的Task中，更换从属的Task。 如果一个.apk文件从用户角度来看包含了多个”应用程序”，你可能需要对那些 Activity赋不同的Affinity值。</p>
-<h2 id="栈的管理"><a href="#栈的管理" class="headerlink" title="栈的管理"></a>栈的管理</h2><p>当应用长时间置于后台，系统可能会清理应用Task栈中的Activity，当用户返回应用保留的只有应用的启动Activity。通过以下设置改变这种行为！</p>
-<ul>
-<li>alwaysRetainTaskState： 如果栈底Activity的这个属性被设置为true，Task中的所有activity将被长时间保存。</li>
-</ul>
-<ul>
-<li>clearTaskOnLaunch:如果栈底activity的这个属性被设置为true，一旦用户离开Task， 则 Task栈中的Activity将被清空到只剩下栈底activity。这种情况刚好与 alwaysRetainTaskState相反。即使用户只是短暂地离开，task也会返回到初始状态 （只剩下栈底acitivty）。</li>
-</ul>
-<ul>
-<li>finishOnTaskLaunch:与clearTaskOnLaunch相似，但它只对单独的activity起作用，而不是整个Task。它可以结束任何Activity，包括栈底的Activity。 当它设置为true时，当前的Activity只在当前会话期间作为Task的一部分存在， 当用户按下Home键重新点击图标启动应用，它将不存在。</li>
-</ul>
+<h2 id="Service不同进程内通信"><a href="#Service不同进程内通信" class="headerlink" title="Service不同进程内通信"></a>Service不同进程内通信</h2><p>这几简单的介绍Service➕Messenger实现不同进程间通信 inter-process communication (IPC) ,Android Interface Definition Language (AIDL)下一片文章中介绍。</p>
+<p>服务端Service做如下修改,注册Service支持隐式启动并返回Messenger提供的Binder：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">[IntentFilter(new String[]&#123;&quot;com.xamarin.MyService&quot;&#125;)]</span><br><span class="line">class MyService:Service</span><br><span class="line">&#123;</span><br><span class="line">	Messenger messenger;</span><br><span class="line"></span><br><span class="line">	public MyService ()</span><br><span class="line">	&#123;</span><br><span class="line">		messenger = new Messenger (new handler ());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public override IBinder OnBind (Intent intent)</span><br><span class="line">	&#123;</span><br><span class="line">		return messenger.Binder;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class handler : Handler</span><br><span class="line">	&#123;</span><br><span class="line">		public override void HandleMessage (Message msg)</span><br><span class="line">		&#123;</span><br><span class="line">			//获取客户端message中的Messenger，用于回调</span><br><span class="line">			msg.ReplyTo.Send (Message.Obtain());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">			</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端绑定Service也要做相应调整：</p>
+<p>定义Intent </p>
+<pre><code>new Intent (&quot;com.xamarin.MyService&quot;);
+</code></pre><p>实现IServiceConnection的OnServiceConnected方法内通过new Messenger (service)获得Messenger发送消息。</p>
+<p>这里涉及到Message的使用，先不做过多介绍。</p>
+<p><em>具体使用可参考<a href="http://my.oschina.net/u/262208/blog/378249" target="_blank" rel="external">http://my.oschina.net/u/262208/blog/378249</a></em></p>
+<p><em>关于Xamarin.Android Service完整使用请参考：<br><a href="https://developer.xamarin.com/guides/android/application_fundamentals/services/part_3_-_viewing_running_services_and_stock_service_example" target="_blank" rel="external">https://developer.xamarin.com/guides/android/application_fundamentals/services/part_3_-_viewing_running_services_and_stock_service_example</a></em></p>
 
       
     </div>
@@ -342,13 +300,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/02/activity3/">Android Activity管理机制详解</a></p>
+        <p><span>本文标题:</span><a href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
-        <p><span>发布时间:</span>2016-05-02, 16:12:50</p>
-        <p><span>最后更新:</span>2016-05-02, 23:29:13</p>
+        <p><span>发布时间:</span>2016-05-08, 11:51:31</p>
+        <p><span>最后更新:</span>2016-05-09, 00:03:57</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/02/activity3/" title="Android Activity管理机制详解">http://www.xamarin.xyz/2016/05/02/activity3/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/02/activity3/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/08/service2/" title="Xamarin.Android Service进阶教程">http://www.xamarin.xyz/2016/05/08/service2/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/08/service2/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -360,16 +318,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/06/service1/">
-                    Xamarin.Android Service入门介绍
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/04/29/activity2/">
-                    Xamarin.Android Activity用例介绍
+                <a href="/2016/05/06/service1/">
+                    Xamarin.Android Service入门介绍
                 </a>
             </div>
         
@@ -380,7 +332,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity启动模式"><span class="toc-number">1.</span> <span class="toc-text">Activity启动模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#设置Activity的启动模式"><span class="toc-number">1.1.</span> <span class="toc-text">设置Activity的启动模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动模式介绍"><span class="toc-number">1.2.</span> <span class="toc-text">启动模式介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Task的管理"><span class="toc-number">2.</span> <span class="toc-text">Task的管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#taskAffinity介绍"><span class="toc-number">2.1.</span> <span class="toc-text">taskAffinity介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#栈的管理"><span class="toc-number">2.2.</span> <span class="toc-text">栈的管理</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IntentService的使用"><span class="toc-number">1.</span> <span class="toc-text">IntentService的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bound-Service介绍"><span class="toc-number">2.</span> <span class="toc-text">Bound Service介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Service相同进程内通信"><span class="toc-number">2.1.</span> <span class="toc-text">Service相同进程内通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Service不同进程内通信"><span class="toc-number">2.2.</span> <span class="toc-text">Service不同进程内通信</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -437,7 +389,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Android Activity管理机制详解　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android Service进阶教程　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -453,7 +405,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/05/02/activity3/" data-title="Android Activity管理机制详解" data-url="http://www.xamarin.xyz/2016/05/02/activity3/"></div>
+    <div class="ds-thread" data-thread-key="2016/05/08/service2/" data-title="Xamarin.Android Service进阶教程" data-url="http://www.xamarin.xyz/2016/05/08/service2/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -477,15 +429,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/05/06/service1/" title="上一篇: Xamarin.Android Service入门介绍">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/04/29/activity2/" title="下一篇: Xamarin.Android Activity用例介绍">
+            <a href="/2016/05/06/service1/" title="下一篇: Xamarin.Android Service入门介绍">
                 <i class="fa fa-angle-right"></i>
             </a>
         
