@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://www.xamarin.xyz/2016/05/08/service2/index.html">
 <meta property="og:site_name" content="Myue's Blog">
 <meta property="og:description" content="IntentService的使用前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要">
-<meta property="og:updated_time" content="2016-05-08T16:03:57.000Z">
+<meta property="og:updated_time" content="2016-05-09T01:51:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xamarin.Android Service进阶教程">
 <meta name="twitter:description" content="IntentService的使用前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要">
@@ -290,6 +290,9 @@
 <pre><code>new Intent (&quot;com.xamarin.MyService&quot;);
 </code></pre><p>实现IServiceConnection的OnServiceConnected方法内通过new Messenger (service)获得Messenger发送消息。</p>
 <p>这里涉及到Message的使用，先不做过多介绍。</p>
+<blockquote>
+<p>后续补充，Android 5.0之后会抛出 Service Intent must be explicit: Intent，对应解决办法同时设置Intent的Action和PackageName即可。</p>
+</blockquote>
 <p><em>具体使用可参考<a href="http://my.oschina.net/u/262208/blog/378249" target="_blank" rel="external">http://my.oschina.net/u/262208/blog/378249</a></em></p>
 <p><em>关于Xamarin.Android Service完整使用请参考：<br><a href="https://developer.xamarin.com/guides/android/application_fundamentals/services/part_3_-_viewing_running_services_and_stock_service_example" target="_blank" rel="external">https://developer.xamarin.com/guides/android/application_fundamentals/services/part_3_-_viewing_running_services_and_stock_service_example</a></em></p>
 
@@ -303,7 +306,7 @@
         <p><span>本文标题:</span><a href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
         <p><span>发布时间:</span>2016-05-08, 11:51:31</p>
-        <p><span>最后更新:</span>2016-05-09, 00:03:57</p>
+        <p><span>最后更新:</span>2016-05-09, 09:51:42</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/08/service2/" title="Xamarin.Android Service进阶教程">http://www.xamarin.xyz/2016/05/08/service2/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/08/service2/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -317,6 +320,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/05/10/service3/">
+                    Xamarin.Android Service详解
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -429,7 +438,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/05/10/service3/" title="上一篇: Xamarin.Android Service详解">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -441,7 +452,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
 
 
 
