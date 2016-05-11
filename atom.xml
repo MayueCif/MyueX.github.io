@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xamarin.xyz/"/>
-  <updated>2016-05-09T17:12:08.000Z</updated>
+  <updated>2016-05-11T06:22:52.000Z</updated>
   <id>http://www.xamarin.xyz/</id>
   
   <author>
@@ -14,6 +14,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Xamarin.Android 广播接收器使用介绍</title>
+    <link href="http://www.xamarin.xyz/2016/05/11/broadcastreceiver/"/>
+    <id>http://www.xamarin.xyz/2016/05/11/broadcastreceiver/</id>
+    <published>2016-05-11T06:16:57.000Z</published>
+    <updated>2016-05-11T06:22:52.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;BroadcastReceiver介绍&quot;&gt;&lt;a href=&quot;#BroadcastReceiver介绍&quot; class=&quot;headerlink&quot; title=&quot;BroadcastReceiver介绍&quot;&gt;&lt;/a&gt;BroadcastReceiver介绍&lt;/h1&gt;&lt;p&gt;BroadcastReceiver就是我们本文要介绍的主角广播接受者，Android四大基本组件之一。本质上是一种全局的监听器，监听系统全局的广播消息，可以接受来自系统和应用的广播。由于BroadcastReceiver是一个全局的监听器，因此可以将它作为不同应用程序间通信的一种手段。系统在特定情况下会发送广播，比如电量低或者充足，刚启动完，插入耳机，输入法改变等都会发送特定广播，这是系统广播，每个APP都会收到，当然我们也可以自己发广播，比如：接到服务端推送信息，用户在别处登录，发送广播强制用户下线回到 登陆界面，并提示在别处登录。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;广播类型介绍&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.runoob.com/wp-content/uploads/2015/08/72916726.jpg&quot; alt=&quot;广播类型&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;接收系统广播&quot;&gt;&lt;a href=&quot;#接收系统广播&quot; class=&quot;headerlink&quot; title=&quot;接收系统广播&quot;&gt;&lt;/a&gt;接收系统广播&lt;/h1&gt;&lt;p&gt;前面也提到过系统会在某些时候发送特定的广播，下面写一个接收系统广播的例子。&lt;/p&gt;
+&lt;p&gt;首先要为我们的应用注册一个广播接收器，可以代码注册（动态）或者AndroidManifest中注册（静态）。动态注册广播是借助IntentFilter，通过IntentFilter的AddAction方法指定要监听的广播然后通过RegisterReceiver注册广播监听，动态注册一定要在合适的时候（通常是OnDestroy方法内）调用UnregisterReceiver停止广播监听。动态注册只有当应用程序运行时才能监听到广播，如果想应用程序没有启动仍然可以监听到广播需要使用静态注册，在AndroidManifest.xml中增加&amp;lt; receiver &amp;gt;节点进行静态注册。&lt;/p&gt;
+&lt;h2 id=&quot;动态注册&quot;&gt;&lt;a href=&quot;#动态注册&quot; class=&quot;headerlink&quot; title=&quot;动态注册&quot;&gt;&lt;/a&gt;动态注册&lt;/h2&gt;&lt;p&gt;定义MyBroadcastReceiver 继承BroadcastReceiver，重写OnReceive方法完成相关逻辑。&lt;/p&gt;
+&lt;figure class=&quot;highlight csharp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MyBroadcastReceiver&lt;/span&gt;:&lt;span class=&quot;title&quot;&gt;BroadcastReceiver&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;region&lt;/span&gt; implemented abstract members of BroadcastReceiver&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;OnReceive&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;Context context, Intent intent&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		System.Console.WriteLine (&lt;span class=&quot;string&quot;&gt;&quot;MyBroadcastReceiver OnReceive&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;endregion&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;注册广播接收器，这里我们注册的是电量改变广播。&lt;/p&gt;
+&lt;p&gt;更多系统广播请参考：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.android-doc.com/reference/android/content/Intent.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.android-doc.com/reference/android/content/Intent.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;指定IntentFilter的Action为Intent.ActionBatteryChanged。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;IntentFilter itFilter = new IntentFilter ();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;itFilter.AddAction (Intent.ActionBatteryChanged);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RegisterReceiver (myBoradcastReceiver, itFilter);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;停止广播监听：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;UnregisterReceiver (myBoradcastReceiver);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;运行项目，在模拟器中更改电量会看到对应的输出。&lt;/p&gt;
+&lt;h2 id=&quot;静态注册&quot;&gt;&lt;a href=&quot;#静态注册&quot; class=&quot;headerlink&quot; title=&quot;静态注册&quot;&gt;&lt;/a&gt;静态注册&lt;/h2&gt;&lt;p&gt;广播的静态注册可以通过BroadcastReceiver和IntentFilter特性实现，也可以直接在AndroidManifest中增加&amp;lt; receiver &amp;gt;节点完成注册。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;实际测试中使用过android.intent.action.BATTERY_CHANGED和android.intent.action.CONFIGURATION_CHANGED来测试静态注册都无法监听到广播，查询发现有些系统广播不能静态注册，如：&lt;/p&gt;
+&lt;p&gt;android.intent.action.SCREEN_ON&lt;/p&gt;
+&lt;p&gt;android.intent.action.SCREEN_OFF&lt;/p&gt;
+&lt;p&gt;android.intent.action.BATTERY_CHANGED&lt;/p&gt;
+&lt;p&gt;android.intent.action.CONFIGURATION_CHANGED&lt;/p&gt;
+&lt;p&gt;android.intent.action.TIME_TICK&lt;/p&gt;
+&lt;p&gt;原因：&lt;/p&gt;
+&lt;p&gt;1、提高效率，这几个是Android的基本事件，太多程序监听会拖慢系统，所以Android不鼓励我们在后台监听这些事件。&lt;/p&gt;
+&lt;p&gt;2、有序广播优先级问题，静态注册系统广播，系统的优先级大于应用的，系统监听过程中阻止了广播的向下传播。但是动态注册的优先级高于静态注册的优先级，故用动态注册代替静态注册。&lt;/p&gt;
+&lt;p&gt;3、系统安全考虑&lt;/p&gt;
+&lt;p&gt;解决办法：&lt;/p&gt;
+&lt;p&gt;使用动态注册，必须在Activity销毁时掉用UnregisterReceiver，随着Activity的销毁变不能再接收广播，可以通过启动一个Service，在Service内动态注册一个BroadcastReceiver.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;参考链接：&lt;a href=&quot;http://www.th7.cn/Program/Android/201404/190738.shtml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.th7.cn/Program/Android/201404/190738.shtml&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;通过特性注册广播,这里注册的是飞行模式的改变：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[BroadcastReceiver]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[IntentFilter (new string[]&amp;#123; Intent.ActionAirplaneModeChanged &amp;#125;)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public class CustomBroadcastReceiver : BroadcastReceiver&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也可以在AndroidManifest中增加节点注册广播，如果不会写且一定要在AndroidManifest中注册可以先使用特性注册，编译项目，然后进入项目目录依次进入 obj-&amp;gt;debug-&amp;gt;android 找到XS为我们生成的AndroidManifest.xml文件并打开。找到receiver节点复制到项目中AndroidManifest.xml文件中application节点下面。&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;android:name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;md5c94a8952452462141c1443b48d775737.CustomBroadcastReceiver&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;intent-filter&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;android:name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;android.intent.action.AIRPLANE_MODE&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;intent-filter&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;receiver&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;android:name中包含的md5值是根据我们的项目报名生成的,这个值是必须的，如果想直接使用Android原生中省略包名的写法android:name=”.CustomBroadcastReceiver”。必须要对定义的广播接收器增加特性注册。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Register (&amp;quot;com.myue.broadcastreceiver（包名）.CustomBroadcastReceiver&amp;quot;)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public class CustomBroadcastReceiver : BroadcastReceiver&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不要在广播里执行任何耗时操作,因为在广播中是不允许开辟线程的, 当OnReceiver()方法运行较长时&lt;br&gt;间(超过10秒)还没有结束的话,那么程序会报错(ANR), 广播更多的时候扮演的是一个打开其他组件的角&lt;br&gt;色,比如启动Service、Activity,Notification提示等！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;发送广播&quot;&gt;&lt;a href=&quot;#发送广播&quot; class=&quot;headerlink&quot; title=&quot;发送广播&quot;&gt;&lt;/a&gt;发送广播&lt;/h1&gt;&lt;p&gt;当我们想发送一个自己的广播时同样要先注册一个广播接收器，然后调用发送广播的方法SendBroadcast (intent)或者SendOrderedBroadcast(intent),两个方法代表前面提到过的两种广播类型。对于有序广播，我们可以通过IntentFilter设置优先级（priority，范围为－1000～1000之间），值越大优先级越高，优先级高的会先收到广播，并可以设置AbortBroadcast = false;截断广播的继续传递。&lt;/p&gt;
+&lt;p&gt;定义广播接收器,接受的是我们自己发送的广播：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[BroadcastReceiver]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[IntentFilter (new string[]&amp;#123; &amp;quot;com.myue.custombroadcastreceiver&amp;quot; &amp;#125;)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public class CustomBroadcastReceiver : BroadcastReceiver&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	public override void OnReceive (Context context, Intent intent)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		Toast.MakeText (context, &amp;quot;Received intent!&amp;quot;, ToastLength.Short).Show ();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;发送广播代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SendBroadcast (new Intent (&amp;quot;com.myue.custombroadcastreceiver&amp;quot;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文介绍的广播是全局广播，即我们发送的广播其它应用都会接收到，容易引发安全性问题。Android为我们提供了本地广播机制，该机制发送的广播只能在APP内接收到。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;BroadcastReceiver介绍&quot;&gt;&lt;a href=&quot;#BroadcastReceiver介绍&quot; class=&quot;headerlink&quot; title=&quot;BroadcastReceiver介绍&quot;&gt;&lt;/a&gt;BroadcastReceiver介绍&lt;/h1&gt;&lt;p&gt;BroadcastReceiver就是我们本文要介绍的主角广播接受者，Android四大基本组件之一。本质上是一种全局的监听器，监听系统全局的广播消息，可以接受来自系统和应用的广播。由于BroadcastReceiver是一个全局的监听器，因此可以将它作为不同应用程序间通信的一种手段。系统在特定情况下会发送广播，比如电量低或者充足，刚启动完，插入耳机，输入法改变等都会发送特定广播，这是系统广播，每个APP都会收到，当然我们也可以自己发广播，比如：接到服务端推送信息，用户在别处登录，发送广播强制用户下线回到 登陆界面，并提示在别处登录。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://www.xamarin.xyz/categories/Android/"/>
+    
+    
+      <category term="BroadcastReceiver" scheme="http://www.xamarin.xyz/tags/BroadcastReceiver/"/>
+    
+  </entry>
   
   <entry>
     <title>Xamarin.Android Service详解</title>
