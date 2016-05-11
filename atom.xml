@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xamarin.xyz/"/>
-  <updated>2016-05-11T06:22:52.000Z</updated>
+  <updated>2016-05-11T06:38:07.000Z</updated>
   <id>http://www.xamarin.xyz/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.xamarin.xyz/2016/05/11/broadcastreceiver/"/>
     <id>http://www.xamarin.xyz/2016/05/11/broadcastreceiver/</id>
     <published>2016-05-11T06:16:57.000Z</published>
-    <updated>2016-05-11T06:22:52.000Z</updated>
+    <updated>2016-05-11T06:38:07.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;BroadcastReceiver介绍&quot;&gt;&lt;a href=&quot;#BroadcastReceiver介绍&quot; class=&quot;headerlink&quot; title=&quot;BroadcastReceiver介绍&quot;&gt;&lt;/a&gt;BroadcastReceiver介绍&lt;/h1&gt;&lt;p&gt;BroadcastReceiver就是我们本文要介绍的主角广播接受者，Android四大基本组件之一。本质上是一种全局的监听器，监听系统全局的广播消息，可以接受来自系统和应用的广播。由于BroadcastReceiver是一个全局的监听器，因此可以将它作为不同应用程序间通信的一种手段。系统在特定情况下会发送广播，比如电量低或者充足，刚启动完，插入耳机，输入法改变等都会发送特定广播，这是系统广播，每个APP都会收到，当然我们也可以自己发广播，比如：接到服务端推送信息，用户在别处登录，发送广播强制用户下线回到 登陆界面，并提示在别处登录。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -38,7 +38,10 @@
 &lt;p&gt;停止广播监听：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;UnregisterReceiver (myBoradcastReceiver);
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;运行项目，在模拟器中更改电量会看到对应的输出。&lt;/p&gt;
-&lt;h2 id=&quot;静态注册&quot;&gt;&lt;a href=&quot;#静态注册&quot; class=&quot;headerlink&quot; title=&quot;静态注册&quot;&gt;&lt;/a&gt;静态注册&lt;/h2&gt;&lt;p&gt;广播的静态注册可以通过BroadcastReceiver和IntentFilter特性实现，也可以直接在AndroidManifest中增加&amp;lt; receiver &amp;gt;节点完成注册。&lt;/p&gt;
+&lt;h2 id=&quot;静态注册&quot;&gt;&lt;a href=&quot;#静态注册&quot; class=&quot;headerlink&quot; title=&quot;静态注册&quot;&gt;&lt;/a&gt;静态注册&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;学习中有遇到问题，感谢Y-Z-F的热心帮助 &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;广播的静态注册可以通过BroadcastReceiver和IntentFilter特性实现，也可以直接在AndroidManifest中增加&amp;lt; receiver &amp;gt;节点完成注册。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;实际测试中使用过android.intent.action.BATTERY_CHANGED和android.intent.action.CONFIGURATION_CHANGED来测试静态注册都无法监听到广播，查询发现有些系统广播不能静态注册，如：&lt;/p&gt;
 &lt;p&gt;android.intent.action.SCREEN_ON&lt;/p&gt;
