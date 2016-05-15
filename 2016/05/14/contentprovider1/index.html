@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Android ContentProvider使用介绍 | Myue&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ContentProvider介绍ContentProvider为存储和读取数据提供了统一的接口，是应用程序暴露数据给其他应用程序的标准方式。使用ContentProvider，应用程序可以实现数据共享。Android中许多数据都是使用ContentProvider的形式暴漏给发者调用的(如视频，音频，图片，通讯录等)。根据提供的Uri通过ContentProvider可以实现对数据源的增删改查等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Android ContentProvider使用介绍">
+<meta property="og:url" content="http://www.xamarin.xyz/2016/05/14/contentprovider1/index.html">
+<meta property="og:site_name" content="Myue's Blog">
+<meta property="og:description" content="ContentProvider介绍ContentProvider为存储和读取数据提供了统一的接口，是应用程序暴露数据给其他应用程序的标准方式。使用ContentProvider，应用程序可以实现数据共享。Android中许多数据都是使用ContentProvider的形式暴漏给发者调用的(如视频，音频，图片，通讯录等)。根据提供的Uri通过ContentProvider可以实现对数据源的增删改查等">
+<meta property="og:image" content="https://developer.xamarin.com/guides/android/platform_features/intro_to_content_providers/part_1_-_how_it_works/Images/ClassDiagram1.png">
+<meta property="og:updated_time" content="2016-05-14T04:35:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Android ContentProvider使用介绍">
+<meta name="twitter:description" content="ContentProvider介绍ContentProvider为存储和读取数据提供了统一的接口，是应用程序暴露数据给其他应用程序的标准方式。使用ContentProvider，应用程序可以实现数据共享。Android中许多数据都是使用ContentProvider的形式暴漏给发者调用的(如视频，音频，图片，通讯录等)。根据提供的Uri通过ContentProvider可以实现对数据源的增删改查等">
+<meta name="twitter:image" content="https://developer.xamarin.com/guides/android/platform_features/intro_to_content_providers/part_1_-_how_it_works/Images/ClassDiagram1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myue</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">移动开发</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">移动开发</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-contentprovider1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/14/contentprovider1/" class="article-date">
+      <time datetime="2016-05-14T04:32:19.000Z" itemprop="datePublished">2016-05-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Xamarin.Android ContentProvider使用介绍
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="ContentProvider介绍"><a href="#ContentProvider介绍" class="headerlink" title="ContentProvider介绍"></a>ContentProvider介绍</h1><p>ContentProvider为存储和读取数据提供了统一的接口，是应用程序暴露数据给其他应用程序的标准方式。使用ContentProvider，应用程序可以实现数据共享。Android中许多数据都是使用ContentProvider的形式暴漏给发者调用的(如视频，音频，图片，通讯录等)。根据提供的Uri通过ContentProvider可以实现对数据源的增删改查等操作，数据源通常是使用SQLite数据库提供数据，当然也可以是其他文件，如XMl文件等。</p>
+<a id="more"></a>
+<p>通过一张图演示ContentProvider是如何工作的<br><img src="https://developer.xamarin.com/guides/android/platform_features/intro_to_content_providers/part_1_-_how_it_works/Images/ClassDiagram1.png" alt="ContentProvider"></p>
+<ul>
+<li>ContentProvider 是一个抽象类，通过实现这个抽象类暴露出操作数据的接口，根据注册的URI确定要操作的数据。</li>
+<li>SQLiteOpenHelper SQLite数据库帮助类（数据源使用SQLite提供数据时会用到）</li>
+<li>UriMatcher UriMatcher用来管理、匹配查询数据的Uri</li>
+<li>ContentResolver 类似于一个代理，ContentResolver通过ContentProvider来获取其他与应用程序共享的数据</li>
+<li>CursorAdapter 使用它来操作ContentProvider返回的数据</li>
+</ul>
+<p>在使用ContentProvider时，我们都是传入一个Uri来确定要操作的数据，对应哪张Table哪列Column或者Xml文件的节点。根据传入的Uri返回一个Cusor结果集。</p>
+<blockquote>
+<p>Android系统提供的ContentProvider有：</p>
+<p>Browser – bookmarks and browser history (requires permission READ_HISTORY_BOOKMARKS and/or WRITE_HISTORY_BOOKMARKS).</p>
+<p>CallLog – recent calls made or received with the device.</p>
+<p>Contacts – detailed information from the user’s contact list, including people, phones, photos &amp; groups.</p>
+<p>MediaStore – contents of the user’s device: audio (albums, artists, genres, playlists), images (including thumbnails) &amp; video.</p>
+<p>Settings – system-wide device settings and preferences.</p>
+<p>UserDictionary – contents of the user-defined dictionary used for predictive text input.</p>
+<p>Voicemail – history of voicemail messages.</p>
+</blockquote>
+<p>Uri介绍：<br>格式如下： scheme://host:port/path<br>scheme在ContentProvider调用的Uri中协议指定为content。host:port组成主机名（或叫Authority）用于唯一标识这个，外部调用者可以根据这个标识来找到它。path用来表示我们要操作的数据，有如下格式:</p>
+<p>操作person表中id为10的记录对应的path为“/person/10”</p>
+<p>操作person表中id为10的记录的name字段对应的path为“/person/10/name”</p>
+<p>操作person表中的所有记录对应的path为“/person”</p>
+<p>如果数据不是来自数据库，要操作xml文件中person节点下的name节点，可以构建这样的路径：/person/name</p>
+<p>如果要把一个字符串转换成Uri，可以使用Uri类中的Parse()方法，如下：<br>Uri uri = Uri.Parse(“content://com.ljq.provider.personprovider/person”)</p>
+<h1 id="使用系统提供的ContentProvider"><a href="#使用系统提供的ContentProvider" class="headerlink" title="使用系统提供的ContentProvider"></a>使用系统提供的ContentProvider</h1><p>根据Uri获取Cursor游标，除非自定义ContentProvider，否则使用时不回用到ContentProvider类。<br>ManagedQuery方法已经过时不在介绍，ContentResolver.Query()和CursorLoader().LoadInBackground()可以获得Cursor对象实例，ContentResolver.Query()获得的Cursor对象需要我们自己管理调用Close关闭、释放Cursor(This cursor is unmanaged, so it must be closed when no longer required. Ensure that the code closes a cursor that is open, otherwise an error will occur.)，CursorLoader().LoadInBackground()查询不是在主线程进行的，所以查询时不会锁住UI，这个类实在Android 3.0 (API Level 11)被引入的，在低版本中使用需要v4包支持。</p>
+<p>CursorLoader包含如下构造函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public CursorLoader (Context context, Uri uri, string[] projection, string selection, string[] selectionArgs, string sortOrder);</span><br></pre></td></tr></table></figure>
+<p>后5个参数与ContentResolver.Query方法参数相同，分别介绍每个参数的意义：</p>
+<ul>
+<li>uri 提供给 ContentProvider的资源定位符</li>
+<li>projection 指定要查询哪些列</li>
+<li>selection 条件语句，相当于SQL中的where条件</li>
+<li>selectionArgs 替换selection中的参数</li>
+<li>sortOrder 表示根据哪列进行排序 可传入null</li>
+</ul>
+<p>接下来使用CursorLoader().LoadInBackground()实现一个查询联系人Demo。</p>
+<blockquote>
+<p>添加android.permission.READ_CONTACTS权限</p>
+</blockquote>
+<p>定义uri和projection：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var uri = ContactsContract.Contacts.ContentUri;</span><br><span class="line">string[] projection = &#123;</span><br><span class="line">	ContactsContract.Contacts.InterfaceConsts.Id,</span><br><span class="line">	ContactsContract.Contacts.InterfaceConsts.DisplayName,</span><br><span class="line">	ContactsContract.Contacts.InterfaceConsts.PhotoId,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>忽略selection、selectionArgs、sortOrder三个参数，定义CursorLoader，并将ICursor数据保存到一个List中：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CursorLoader cursorLoader = <span class="keyword">new</span> CursorLoader (<span class="keyword">this</span>, uri, projection, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line"><span class="keyword">var</span> cursor = (ICursor)cursorLoader.LoadInBackground ();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> contactList = <span class="keyword">new</span> List&lt;Contact&gt; ();</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (cursor.MoveToNext ()) &#123;</span><br><span class="line">	contactList.Add (<span class="keyword">new</span> Contact &#123;</span><br><span class="line">		Id = cursor.GetLong (cursor.GetColumnIndex (projection [<span class="number">0</span>])),</span><br><span class="line">		DisplayName = cursor.GetString (cursor.GetColumnIndex (projection [<span class="number">1</span>])),</span><br><span class="line">		PhotoId = cursor.GetString (cursor.GetColumnIndex (projection [<span class="number">2</span>]))</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义Adapter,处理数据显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">class ContactsAdapter:BaseAdapter</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		List&lt;Contact&gt; contactList;</span><br><span class="line">		Context context;</span><br><span class="line"></span><br><span class="line">		public ContactsAdapter (Context context, List&lt;Contact&gt; contactList)</span><br><span class="line">		&#123;</span><br><span class="line">			this.contactList = contactList;</span><br><span class="line">			this.context = context;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		#region implemented abstract members of BaseAdapter</span><br><span class="line"></span><br><span class="line">		public override Java.Lang.Object GetItem (int position)</span><br><span class="line">		&#123;</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public override long GetItemId (int position)</span><br><span class="line">		&#123;</span><br><span class="line">			return contactList [position].Id;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public override Android.Views.View GetView (int position, Android.Views.View convertView, Android.Views.ViewGroup parent)</span><br><span class="line">		&#123;</span><br><span class="line">			</span><br><span class="line">			var view = convertView ?? LayoutInflater.From (context).Inflate (Resource.Layout.ContactListItem, parent, false);</span><br><span class="line">			var contactName = view.FindViewById&lt;TextView&gt; (Resource.Id.ContactName);</span><br><span class="line">			var contactImage = view.FindViewById&lt;ImageView&gt; (Resource.Id.ContactImage);</span><br><span class="line">			contactName.Text = contactList [position].DisplayName;</span><br><span class="line">			if (contactList [position].PhotoId == null) &#123;</span><br><span class="line">				contactImage.SetImageResource (Resource.Mipmap.Icon);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				var contactUri = ContentUris.WithAppendedId (ContactsContract.Contacts.ContentUri, contactList [position].Id);</span><br><span class="line">				var contactPhotoUri = Android.Net.Uri.WithAppendedPath (contactUri, ContactsContract.Contacts.Photo.ContentDirectory);</span><br><span class="line">				contactImage.SetImageURI (contactPhotoUri);</span><br><span class="line">			&#125;</span><br><span class="line">			return view;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public override int Count &#123;</span><br><span class="line">			get &#123;</span><br><span class="line">				return contactList.Count;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		#endregion</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>最后调用listview.Adapter = new ContactsAdapter (this, contactList);将Adapter的数据显示在ListView上。</p>
+<blockquote>
+<p>Android为我们提供了SimpleCursorAdapter来处理Cursor数据的显示，使用方法与SimpleAdapter类似，这里不过多介绍</p>
+</blockquote>
+<h1 id="ContentObserver监听ContentProvider的数据变化"><a href="#ContentObserver监听ContentProvider的数据变化" class="headerlink" title="ContentObserver监听ContentProvider的数据变化"></a>ContentObserver监听ContentProvider的数据变化</h1><p>ContentObserver——内容观察者，目的是观察特定Uri引起的数据库的变化，继而做一些相应的处理，当ContentObserver所观察的Uri发生变化时，便会触发它。</p>
+<p>自定义ContentObserver子类，重写OnChange方法且必须重写构造方法ContentObserver(Handler handler) 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class ContactsContentObserver:ContentObserver</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	public override void OnChange (bool selfChange, Android.Net.Uri uri)</span><br><span class="line">	&#123;</span><br><span class="line">		System.Console.WriteLine (uri.ToString ());</span><br><span class="line">		base.OnChange (selfChange, uri);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public ContactsContentObserver (Handler handler) : base (handler)</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用ContentResolver.RegisterContentObserver注册监听器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ContentResolver.RegisterContentObserver (uri, true, new ContactsContentObserver (new Handler ()));</span><br></pre></td></tr></table></figure>
+<p>ContentResolver.RegisterContentObserver方法三个参数：uri为要监听的Uri，第二个参数notifyForDescendents为一个bool类型的值,false 表示精确匹配，即只匹配该Uri,true 表示可以同时匹配其派生的Uri.第三个参数为定义的ContentObserver实例。</p>
+<p>增加、删除联系人会看到 “content://com.android.contacts” 字符串输出。</p>
+<p>当我们不需要监听ContentObserver时需要调用ContentResolver.UnregisterContentObserver ()方法取消注册。</p>
+<blockquote>
+<p>可以自己尝试短信验证码自动提取</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
+        <p><span>发布时间:</span>2016-05-14, 12:32:19</p>
+        <p><span>最后更新:</span>2016-05-14, 12:35:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/14/contentprovider1/" title="Xamarin.Android ContentProvider使用介绍">http://www.xamarin.xyz/2016/05/14/contentprovider1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/14/contentprovider1/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/05/11/localbroadcastmanager/">
+                    Xamarin.Android LocalBroadcastManager使用介绍
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ContentProvider介绍"><span class="toc-number">1.</span> <span class="toc-text">ContentProvider介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用系统提供的ContentProvider"><span class="toc-number">2.</span> <span class="toc-text">使用系统提供的ContentProvider</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ContentObserver监听ContentProvider的数据变化"><span class="toc-number">3.</span> <span class="toc-text">ContentObserver监听ContentProvider的数据变化</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android ContentProvider使用介绍　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/05/14/contentprovider1/" data-title="Xamarin.Android ContentProvider使用介绍" data-url="http://www.xamarin.xyz/2016/05/14/contentprovider1/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xamarin"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        //ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.src = 'http://www.xamarin.xyz/resources/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/05/11/localbroadcastmanager/" title="下一篇: Xamarin.Android LocalBroadcastManager使用介绍">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Myue
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
