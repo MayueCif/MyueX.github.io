@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Myue's Blog">
 <meta property="og:description" content="ContentProvider介绍ContentProvider为存储和读取数据提供了统一的接口，是应用程序暴露数据给其他应用程序的标准方式。使用ContentProvider，应用程序可以实现数据共享。Android中许多数据都是使用ContentProvider的形式暴漏给发者调用的(如视频，音频，图片，通讯录等)。根据提供的Uri通过ContentProvider可以实现对数据源的增删改查等">
 <meta property="og:image" content="https://developer.xamarin.com/guides/android/platform_features/intro_to_content_providers/part_1_-_how_it_works/Images/ClassDiagram1.png">
-<meta property="og:updated_time" content="2016-05-14T04:35:26.000Z">
+<meta property="og:updated_time" content="2016-05-16T03:51:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xamarin.Android ContentProvider使用介绍">
 <meta name="twitter:description" content="ContentProvider介绍ContentProvider为存储和读取数据提供了统一的接口，是应用程序暴露数据给其他应用程序的标准方式。使用ContentProvider，应用程序可以实现数据共享。Android中许多数据都是使用ContentProvider的形式暴漏给发者调用的(如视频，音频，图片，通讯录等)。根据提供的Uri通过ContentProvider可以实现对数据源的增删改查等">
@@ -66,6 +66,16 @@
   
 </head>
 <body>
+  <!--[if lt IE 9]>
+<style> body { background: orange !important;} div#container { display: none;} </style>
+<p id="ie-updater">
+    
+        珍爱生命，远离 IE！<br>本站不支持 IE6/7/8，请升级浏览器！<br>
+    
+    <a href="//www.bing.com/search?q=Chrome" target="_blank">Chrome</a>, <a href="//www.bing.com/search?q=Firefox" target="_blank">Firefox</a><br>
+    Hexo Theme <a href="//github.com/MOxFIVE/hexo-theme-yelee" target="_blank">Yelee</a> by MOxFIVE
+</p>
+<![endif]-->
   <div id="container">
     <div class="left-col">
     <div class="overlay"></div>
@@ -289,6 +299,9 @@
 <p>操作person表中的所有记录对应的path为“/person”</p>
 <p>如果数据不是来自数据库，要操作xml文件中person节点下的name节点，可以构建这样的路径：/person/name</p>
 <p>如果要把一个字符串转换成Uri，可以使用Uri类中的Parse()方法，如下：<br>Uri uri = Uri.Parse(“content://com.ljq.provider.personprovider/person”)</p>
+<blockquote>
+<p>Uri中可以使用通配符，如“/person/*”，＊代表所有字符，＃代表所有数字。</p>
+</blockquote>
 <h1 id="使用系统提供的ContentProvider"><a href="#使用系统提供的ContentProvider" class="headerlink" title="使用系统提供的ContentProvider"></a>使用系统提供的ContentProvider</h1><p>根据Uri获取Cursor游标，除非自定义ContentProvider，否则使用时不回用到ContentProvider类。<br>ManagedQuery方法已经过时不在介绍，ContentResolver.Query()和CursorLoader().LoadInBackground()可以获得Cursor对象实例，ContentResolver.Query()获得的Cursor对象需要我们自己管理调用Close关闭、释放Cursor(This cursor is unmanaged, so it must be closed when no longer required. Ensure that the code closes a cursor that is open, otherwise an error will occur.)，CursorLoader().LoadInBackground()查询不是在主线程进行的，所以查询时不会锁住UI，这个类实在Android 3.0 (API Level 11)被引入的，在低版本中使用需要v4包支持。</p>
 <p>CursorLoader包含如下构造函数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public CursorLoader (Context context, Uri uri, string[] projection, string selection, string[] selectionArgs, string sortOrder);</span><br></pre></td></tr></table></figure>
@@ -336,7 +349,7 @@
         <p><span>本文标题:</span><a href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
         <p><span>发布时间:</span>2016-05-14, 12:32:19</p>
-        <p><span>最后更新:</span>2016-05-14, 12:35:26</p>
+        <p><span>最后更新:</span>2016-05-16, 11:51:26</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/14/contentprovider1/" title="Xamarin.Android ContentProvider使用介绍">http://www.xamarin.xyz/2016/05/14/contentprovider1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/14/contentprovider1/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -350,6 +363,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/05/16/contentprovider2/">
+                    Xamarin.Android 自定义ContentProvider
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -463,7 +482,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/05/16/contentprovider2/" title="上一篇: Xamarin.Android 自定义ContentProvider">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -475,7 +496,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/contentprovider2/">Xamarin.Android 自定义ContentProvider</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
 
 
 
