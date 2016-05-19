@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Xamarin.Android LocalBroadcastManager使用介绍 | Myue&#39;s Blog</title>
+  <title>Xamarin.Android Intent简介 | Myue&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="LocalBroadcastManager使用介绍android-support-v4.jar中引入LocalBroadcastManager，是一种只能在应用内接收的广播，相比普通的BroadcastReceiver有更好的安全心和更高的运行效率，是发送应用内广播的推荐方式。LocalBroadcastManager使用方式与普通的BroadcastReceiver差别不大。本地广播无法通过静态">
+  <meta name="description" content="Intent介绍前面的四大组件介绍中有频繁的用到Intent，Activity、Service和BroadcastReceiver都有使用到Intent，Intent（意图）主要是解决Android应用的各项组件之间的通讯。Intent负责对应用中一次操作的动作、动作涉及数据、附加数据进行描述，Android则根据此Intent的描述，负责找到对应的组件，将 Intent传递给调用的组件，并完成组">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xamarin.Android LocalBroadcastManager使用介绍">
-<meta property="og:url" content="http://www.xamarin.xyz/2016/05/11/localbroadcastmanager/index.html">
+<meta property="og:title" content="Xamarin.Android Intent简介">
+<meta property="og:url" content="http://www.xamarin.xyz/2016/05/18/intent/index.html">
 <meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description" content="LocalBroadcastManager使用介绍android-support-v4.jar中引入LocalBroadcastManager，是一种只能在应用内接收的广播，相比普通的BroadcastReceiver有更好的安全心和更高的运行效率，是发送应用内广播的推荐方式。LocalBroadcastManager使用方式与普通的BroadcastReceiver差别不大。本地广播无法通过静态">
-<meta property="og:updated_time" content="2016-05-11T14:40:29.000Z">
+<meta property="og:description" content="Intent介绍前面的四大组件介绍中有频繁的用到Intent，Activity、Service和BroadcastReceiver都有使用到Intent，Intent（意图）主要是解决Android应用的各项组件之间的通讯。Intent负责对应用中一次操作的动作、动作涉及数据、附加数据进行描述，Android则根据此Intent的描述，负责找到对应的组件，将 Intent传递给调用的组件，并完成组">
+<meta property="og:updated_time" content="2016-05-18T15:38:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xamarin.Android LocalBroadcastManager使用介绍">
-<meta name="twitter:description" content="LocalBroadcastManager使用介绍android-support-v4.jar中引入LocalBroadcastManager，是一种只能在应用内接收的广播，相比普通的BroadcastReceiver有更好的安全心和更高的运行效率，是发送应用内广播的推荐方式。LocalBroadcastManager使用方式与普通的BroadcastReceiver差别不大。本地广播无法通过静态">
+<meta name="twitter:title" content="Xamarin.Android Intent简介">
+<meta name="twitter:description" content="Intent介绍前面的四大组件介绍中有频繁的用到Intent，Activity、Service和BroadcastReceiver都有使用到Intent，Intent（意图）主要是解决Android应用的各项组件之间的通讯。Intent负责对应用中一次操作的动作、动作涉及数据、附加数据进行描述，Android则根据此Intent的描述，负责找到对应的组件，将 Intent传递给调用的组件，并完成组">
   
     <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
   
@@ -248,11 +248,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-localbroadcastmanager" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-intent" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/11/localbroadcastmanager/" class="article-date">
-      <time datetime="2016-05-11T14:38:37.000Z" itemprop="datePublished">2016-05-11</time>
+      <a href="/2016/05/18/intent/" class="article-date">
+      <time datetime="2016-05-18T15:35:07.000Z" itemprop="datePublished">2016-05-18</time>
 </a>
     </div>
   
@@ -265,7 +265,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Xamarin.Android LocalBroadcastManager使用介绍
+      Xamarin.Android Intent简介
     </h1>
   
 
@@ -280,7 +280,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intent/">Intent</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -290,30 +290,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="LocalBroadcastManager使用介绍"><a href="#LocalBroadcastManager使用介绍" class="headerlink" title="LocalBroadcastManager使用介绍"></a>LocalBroadcastManager使用介绍</h1><p>android-support-v4.jar中引入LocalBroadcastManager，是一种只能在应用内接收的广播，相比普通的BroadcastReceiver有更好的安全心和更高的运行效率，是发送应用内广播的推荐方式。LocalBroadcastManager使用方式与普通的BroadcastReceiver差别不大。本地广播无法通过静态注册方式来接受,相比起系统全局广播更加高效。</p>
-<p>接下来演示一个应用内广播的Demo，实现效果是点击按钮发送广播，程序内部接收广播弹出提示框。</p>
+        <h1 id="Intent介绍"><a href="#Intent介绍" class="headerlink" title="Intent介绍"></a>Intent介绍</h1><p>前面的四大组件介绍中有频繁的用到Intent，Activity、Service和BroadcastReceiver都有使用到Intent，Intent（意图）主要是解决Android应用的各项组件之间的通讯。Intent负责对应用中一次操作的动作、动作涉及数据、附加数据进行描述，Android则根据此Intent的描述，负责找到对应的组件，将 Intent传递给调用的组件，并完成组件的调用。</p>
+<p>实际使用中Intent有显式和隐式两种，显式Intent通过组件名启动目标组件，也是实际使用中最常用到的。隐式Intent不指定组件名而是指定Intent的Action，Category和Data等，启动组件时，根据我们AndroidManifest.xml中注册intent—filter匹配出满足属性的组件，如果有多个组件满足条件会弹出选择框。</p>
 <a id="more"></a>
-<p>首先定义BroadcastReceiver子类，动态注册广播时使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class CustomBroadcastReceiver : BroadcastReceiver</span><br><span class="line">&#123;</span><br><span class="line">	public override void OnReceive (Context context, Intent intent)</span><br><span class="line">	&#123;</span><br><span class="line">		AlertDialog.Builder builder = new AlertDialog.Builder (context);</span><br><span class="line">		builder.SetTitle (&quot;警告&quot;);</span><br><span class="line">		builder.SetMessage (&quot;检测到本地广播&quot;);</span><br><span class="line">		builder.SetCancelable (false);</span><br><span class="line">		builder.SetPositiveButton (&quot;确定&quot;, (s, e) =&gt; &#123;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		AlertDialog alert = builder.Create ();</span><br><span class="line">		alert.Window.SetType (WindowManagerTypes.SystemAlert);</span><br><span class="line">		alert.Show ();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在广播中弹出AlertDialog需要设置对话框的类型为SystemAlert，且增加“android.permission.SYSTEM_ALERT_WINDOW”权限，否则不能正常显示。</p>
-<p>在广播中启动Activity要添加Intent的Flag为ActivityFlags.NewTask，创建一个新的栈存放新打开的Activity。</p>
-</blockquote>
-<p>实例化LocalBroadcastManager完成广播的注册和取消注册操作。</p>
-<p>定义两个类变量：</p>
-<pre><code> LocalBroadcastManager localBroadcastManager;
-CustomBroadcastReceiver customBroadcastReceiver;
-</code></pre><p>动态注册本地广播</p>
-<pre><code>localBroadcastManager = LocalBroadcastManager.GetInstance (this);
-customBroadcastReceiver = new CustomBroadcastReceiver ();
-IntentFilter intentFilter = new IntentFilter (&quot;com.myue.custombroadcastreceiver&quot;);
-localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
-</code></pre><p>取消注册</p>
-<pre><code>localBroadcastManager.UnregisterReceiver (customBroadcastReceiver);
-</code></pre><p>发送本地广播</p>
-<pre><code>Intent intent = new Intent (&quot;com.myue.custombroadcastreceiver&quot;);
-            localBroadcastManager.SendBroadcast (intent);
-</code></pre>
+<p>例如通过如下代码，隐式方式从应用程序返回Home页：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent ();</span><br><span class="line">intent.SetAction (Intent.ActionMain);</span><br><span class="line">intent.AddCategory (Intent.CategoryHome);</span><br><span class="line">StartActivity (intent);</span><br></pre></td></tr></table></figure>
+<p>如果组件没有intent过滤器，它仅仅可以接收显式的intent。含有过滤器的组件既可以接收隐式intent也可以接收显式intent。通过扩展和标志不可以确定那个组件接收intent.</p>
+<p><em>具体使用请参考：<a href="http://www.xamarin.xyz/2016/04/28/activity1/">http://www.xamarin.xyz/2016/04/28/activity1/</a></em></p>
+<h1 id="Intent属性介绍"><a href="#Intent属性介绍" class="headerlink" title="Intent属性介绍"></a>Intent属性介绍</h1><h2 id="ComponentName-组件名称"><a href="#ComponentName-组件名称" class="headerlink" title="ComponentName(组件名称)"></a>ComponentName(组件名称)</h2><p>目标组件名称，显示启动Intent必须指定，由应用程序包名➕组件类名组成。</p>
+<p>组件的名字通过Intent的SetComponent()、SetClass()、SetClassName()方法设置，通过Component属性读取。</p>
+<h2 id="Action-动作"><a href="#Action-动作" class="headerlink" title="Action(动作)"></a>Action(动作)</h2><p>一个普通的字符串，代表Intent要执行的动作的名字，一个Intent只能有一个Action。当我们自定义Action时需要把包名作为前缀（推荐）。</p>
+<p>Intent里的动作是通过 SetAction()方法设置，通过Action属性读取。</p>
+<h2 id="Category-类别"><a href="#Category-类别" class="headerlink" title="Category(类别)"></a>Category(类别)</h2><p>包含附加信息的字符串，信息是需要处理intent的组件的类型。一个Intent可能有多个Category。</p>
+<p>AddCategory方法为intent添加一个类别，RemoveCategory方法删除之前添加的，Categories属性获取当前所有的类别。</p>
+<h2 id="Data-数据-和Type-MIME类型"><a href="#Data-数据-和Type-MIME类型" class="headerlink" title="Data(数据)和Type(MIME类型)"></a>Data(数据)和Type(MIME类型)</h2><p>Data用于指定Action要操作的数据，接受一个URI对象。Type用于指定URI对应的MIME类型，组件能显示图形数据却不能用来播放音频文件，我们可以自定义MIME类型，只要是符合abc/xyz的格式的字符串即可。<br>SetData() 方法指定数据作为一个URI， SetType()指定一个MIME类型，SetDataAndType()同时指定URI和MIME类型。 Data属性函数读取URI， Type属性读取类型。</p>
+<h2 id="Extras-额外"><a href="#Extras-额外" class="headerlink" title="Extras(额外)"></a>Extras(额外)</h2><p>附加键值对信息，用于组件之间传递数据.Extras属性是Bundle对象，更多传递数据知识参考<a href="http://www.xamarin.xyz/2016/04/29/activity2/">http://www.xamarin.xyz/2016/04/29/activity2/</a></p>
+<p>通过PutExtra方法插入数据，通过GetXXXExtra方法获取数据。Bundle对象要通过Extras属性获取。</p>
+<h2 id="Flags-标记"><a href="#Flags-标记" class="headerlink" title="Flags(标记)"></a>Flags(标记)</h2><p>指示Android如何启动Activity（例如：Activity属于那个任务）启动后如何处理（例如：是否属于现在Activity 的列表）,具体参考<a href="http://www.xamarin.xyz/2016/05/02/activity3/中介绍。">http://www.xamarin.xyz/2016/05/02/activity3/中介绍。</a></p>
+<p>AddFlags方法设置，Flags属性读取。</p>
+
       
     </div>
     
@@ -321,13 +316,13 @@ localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></p>
+        <p><span>本文标题:</span><a href="/2016/05/18/intent/">Xamarin.Android Intent简介</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
-        <p><span>发布时间:</span>2016-05-11, 22:38:37</p>
-        <p><span>最后更新:</span>2016-05-11, 22:40:29</p>
+        <p><span>发布时间:</span>2016-05-18, 23:35:07</p>
+        <p><span>最后更新:</span>2016-05-18, 23:38:59</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/11/localbroadcastmanager/" title="Xamarin.Android LocalBroadcastManager使用介绍">http://www.xamarin.xyz/2016/05/11/localbroadcastmanager/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/11/localbroadcastmanager/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/18/intent/" title="Xamarin.Android Intent简介">http://www.xamarin.xyz/2016/05/18/intent/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/18/intent/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -339,16 +334,10 @@ localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/14/contentprovider1/">
-                    Xamarin.Android ContentProvider使用介绍
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/11/broadcastreceiver/">
-                    Xamarin.Android 广播接收器使用介绍
+                <a href="/2016/05/16/contentprovider2/">
+                    Xamarin.Android 自定义ContentProvider
                 </a>
             </div>
         
@@ -359,7 +348,7 @@ localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LocalBroadcastManager使用介绍"><span class="toc-number">1.</span> <span class="toc-text">LocalBroadcastManager使用介绍</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Intent介绍"><span class="toc-number">1.</span> <span class="toc-text">Intent介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Intent属性介绍"><span class="toc-number">2.</span> <span class="toc-text">Intent属性介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ComponentName-组件名称"><span class="toc-number">2.1.</span> <span class="toc-text">ComponentName(组件名称)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Action-动作"><span class="toc-number">2.2.</span> <span class="toc-text">Action(动作)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Category-类别"><span class="toc-number">2.3.</span> <span class="toc-text">Category(类别)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-数据-和Type-MIME类型"><span class="toc-number">2.4.</span> <span class="toc-text">Data(数据)和Type(MIME类型)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extras-额外"><span class="toc-number">2.5.</span> <span class="toc-text">Extras(额外)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flags-标记"><span class="toc-number">2.6.</span> <span class="toc-text">Flags(标记)</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -416,7 +405,7 @@ localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android LocalBroadcastManager使用介绍　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android Intent简介　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -432,7 +421,7 @@ localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/05/11/localbroadcastmanager/" data-title="Xamarin.Android LocalBroadcastManager使用介绍" data-url="http://www.xamarin.xyz/2016/05/11/localbroadcastmanager/"></div>
+    <div class="ds-thread" data-thread-key="2016/05/18/intent/" data-title="Xamarin.Android Intent简介" data-url="http://www.xamarin.xyz/2016/05/18/intent/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -457,15 +446,13 @@ localBroadcastManager.RegisterReceiver (customBroadcastReceiver, intentFilter);
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/05/14/contentprovider1/" title="上一篇: Xamarin.Android ContentProvider使用介绍">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/05/11/broadcastreceiver/" title="下一篇: Xamarin.Android 广播接收器使用介绍">
+            <a href="/2016/05/16/contentprovider2/" title="下一篇: Xamarin.Android 自定义ContentProvider">
                 <i class="fa fa-angle-right"></i>
             </a>
         

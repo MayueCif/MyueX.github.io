@@ -114,6 +114,11 @@
                         </div>
                         
                         
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
                     </div>
                     
                 </div>
@@ -125,6 +130,8 @@
                         
                         <li>友情链接</li>
                         
+                        
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -168,7 +175,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li></ul>
                     </div>
                 </section>
                 
@@ -181,10 +188,18 @@
                     
                       <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
                     
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
                     </div>
                 </section>
                 
 
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于移动端开发</div>
+                </section>
                 
             </div>
         </div>
@@ -238,6 +253,73 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-intent" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/18/intent/" class="article-date">
+      <time datetime="2016-05-18T15:35:07.000Z" itemprop="datePublished">2016-05-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/18/intent/">Xamarin.Android Intent简介</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="Intent介绍"><a href="#Intent介绍" class="headerlink" title="Intent介绍"></a>Intent介绍</h1><p>前面的四大组件介绍中有频繁的用到Intent，Activity、Service和BroadcastReceiver都有使用到Intent，Intent（意图）主要是解决Android应用的各项组件之间的通讯。Intent负责对应用中一次操作的动作、动作涉及数据、附加数据进行描述，Android则根据此Intent的描述，负责找到对应的组件，将 Intent传递给调用的组件，并完成组件的调用。</p>
+<p>实际使用中Intent有显式和隐式两种，显式Intent通过组件名启动目标组件，也是实际使用中最常用到的。隐式Intent不指定组件名而是指定Intent的Action，Category和Data等，启动组件时，根据我们AndroidManifest.xml中注册intent—filter匹配出满足属性的组件，如果有多个组件满足条件会弹出选择框。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intent/">Intent</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/05/18/intent/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-contentprovider2" class="article article-type-post" itemscope itemprop="blogPost">
   
