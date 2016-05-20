@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Android Fragment 使用详解 | Myue&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Fragment 介绍Fragment的出现是为了解决一个App无法同时使用手机和平板而出现的，可以把Fragment当成Activity中的模块，一个Fragment必须嵌入到Activity中，它有自己的布局和生命周期且生命周期受Activity的生命周期影响。
+Fragment 生命周期虽然Fragment有自己独立的生命周期，但是与之关联的Activity的生命周期会直接影响到Fragme">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Android Fragment 使用详解">
+<meta property="og:url" content="http://www.xamarin.xyz/2016/05/20/fragment/index.html">
+<meta property="og:site_name" content="Myue's Blog">
+<meta property="og:description" content="Fragment 介绍Fragment的出现是为了解决一个App无法同时使用手机和平板而出现的，可以把Fragment当成Activity中的模块，一个Fragment必须嵌入到Activity中，它有自己的布局和生命周期且生命周期受Activity的生命周期影响。
+Fragment 生命周期虽然Fragment有自己独立的生命周期，但是与之关联的Activity的生命周期会直接影响到Fragme">
+<meta property="og:image" content="https://developer.xamarin.com/guides/android/platform_features/fragments/part_1_-_creating_a_fragment/Images/fragment_lifecycle.png">
+<meta property="og:updated_time" content="2016-05-20T02:20:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Android Fragment 使用详解">
+<meta name="twitter:description" content="Fragment 介绍Fragment的出现是为了解决一个App无法同时使用手机和平板而出现的，可以把Fragment当成Activity中的模块，一个Fragment必须嵌入到Activity中，它有自己的布局和生命周期且生命周期受Activity的生命周期影响。
+Fragment 生命周期虽然Fragment有自己独立的生命周期，但是与之关联的Activity的生命周期会直接影响到Fragme">
+<meta name="twitter:image" content="https://developer.xamarin.com/guides/android/platform_features/fragments/part_1_-_creating_a_fragment/Images/fragment_lifecycle.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <!--[if lt IE 9]>
+<style> body { background: orange !important;} div#container { display: none;} </style>
+<p id="ie-updater">
+    
+        珍爱生命，远离 IE！<br>本站不支持 IE6/7/8，请升级浏览器！<br>
+    
+    <a href="//www.bing.com/search?q=Chrome" target="_blank">Chrome</a>, <a href="//www.bing.com/search?q=Firefox" target="_blank">Firefox</a><br>
+    Hexo Theme <a href="//github.com/MOxFIVE/hexo-theme-yelee" target="_blank">Yelee</a> by MOxFIVE
+</p>
+<![endif]-->
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myue</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">移动开发</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        <li>
+                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=76f8b2638997afc52c1d1f1d88da33d90a46472b409ffdcc5098b19e0be1c3ce">
+                                <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Xamarin招聘、求职" title="Xamarin招聘、求职">
+                            </a>
+                        </li>
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于移动端开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">移动开发</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-fragment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/20/fragment/" class="article-date">
+      <time datetime="2016-05-20T02:17:52.000Z" itemprop="datePublished">2016-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Xamarin.Android Fragment 使用详解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fragment/">Fragment</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Fragment-介绍"><a href="#Fragment-介绍" class="headerlink" title="Fragment 介绍"></a>Fragment 介绍</h1><p>Fragment的出现是为了解决一个App无法同时使用手机和平板而出现的，可以把Fragment当成Activity中的模块，一个Fragment必须嵌入到Activity中，它有自己的布局和生命周期且生命周期受Activity的生命周期影响。</p>
+<h1 id="Fragment-生命周期"><a href="#Fragment-生命周期" class="headerlink" title="Fragment 生命周期"></a>Fragment 生命周期</h1><p>虽然Fragment有自己独立的生命周期，但是与之关联的Activity的生命周期会直接影响到Fragment的什么周期。例如Activity进入Pause状态，Fragment同样会回调OnPause方法。</p>
+<a id="more"></a>
+<p>用一张图描述Fragment的生命周期：<br><img src="https://developer.xamarin.com/guides/android/platform_features/fragments/part_1_-_creating_a_fragment/Images/fragment_lifecycle.png" alt="Fragment Lifecycle"></p>
+<p>这里只介绍Fragment比Activity额外多的生命周期回调方法。</p>
+<h2 id="OnAttach"><a href="#OnAttach" class="headerlink" title="OnAttach()"></a>OnAttach()</h2><p>当Fragment与Activity发生关联时调用，是Fragment生命周期中第一回调的方法，一些初始化操作应该在这个方法中实现。</p>
+<h2 id="OnCreateView"><a href="#OnCreateView" class="headerlink" title="OnCreateView()"></a>OnCreateView()</h2><p>在OnCreate()方法执行完回调，创建Fragment的视图，返回Fragment的布局View。一些UI操作应该在这个方法中实现而不是OnCreate方法。</p>
+<h2 id="OnActivityCreated"><a href="#OnActivityCreated" class="headerlink" title="OnActivityCreated()"></a>OnActivityCreated()</h2><p>当Activity的OnCreate执行完成时掉用该方法，如果与Activity中的UI有交互应该在这个方法中实现。</p>
+<h2 id="OnDestroyView"><a href="#OnDestroyView" class="headerlink" title="OnDestroyView()"></a>OnDestroyView()</h2><p>Fragment中的布局被移除时掉用，清除Fragment中视图相关资源。</p>
+<h2 id="OnDetach"><a href="#OnDetach" class="headerlink" title="OnDetach()"></a>OnDetach()</h2><p>Fragment与Activity解除关联时调用。Fragment不再使用，所有相关资源都应该释放。</p>
+<blockquote>
+<p>这里要对绿色虚线生命周期进行说明，例如旋转屏幕Activity会重新创建，我们可以在Fragment的OnCreate方法中设置RetainInstance = true,使Fragment不会彻底被销毁，提高运行效率。当Fragment恢复时会跳过OnCreate()和OnDestroy()方法，因此不能在onCreate()中放置一些初始化逻辑.</p>
+</blockquote>
+<h1 id="Fragment-使用"><a href="#Fragment-使用" class="headerlink" title="Fragment 使用"></a>Fragment 使用</h1><p>首先自定义一个Fragment。通过NewInstance方法获取Fragment实例，参考Android Studio生成的模版代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class MyFragment : Fragment</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">		public override void OnCreate (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnCreate (savedInstanceState);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		/// &lt;summary&gt;</span><br><span class="line">		/// Returns a new instance of this fragment for the given section number.</span><br><span class="line">		/// &lt;/summary&gt;</span><br><span class="line">		/// &lt;returns&gt;The instance.&lt;/returns&gt;</span><br><span class="line">		/// &lt;param name=&quot;sectionNumber&quot;&gt;Section number.&lt;/param&gt;</span><br><span class="line">		public static MyFragment NewInstance (int sectionNumber)</span><br><span class="line">		&#123;</span><br><span class="line">			MyFragment fragment = new MyFragment ();</span><br><span class="line">			Bundle args = new Bundle ();</span><br><span class="line">			args.PutInt (&quot;section_number&quot;, sectionNumber);</span><br><span class="line">			fragment.Arguments = args;</span><br><span class="line">			return fragment;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			View rootView = inflater.Inflate (Resource.Layout.MyFragment, container, false);</span><br><span class="line"></span><br><span class="line">			return rootView;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Fragment必须要实现没有参数的构造函数（Fragment sub-classes must have a public default no argument constructor.）</p>
+</blockquote>
+<p>定义好的Fragment有两种使用方式，（静态）Declaratively和动态（Programmatically）。静态使用是在.axml布局文件中增加一个<fragment>标签，引用自定义的Fagment。动态使用是代码方式通过FragmentManager管理Fragment。</fragment></p>
+<h2 id="静态使用Fragment"><a href="#静态使用Fragment" class="headerlink" title="静态使用Fragment"></a>静态使用Fragment</h2><p>添加Fragment标签引用Fragment，可以通过android:name 属性或class属性指定.使用示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fragment</span></span><br><span class="line">    <span class="attr">android:name</span>=<span class="string">"com.myue.fragment.MyFragment"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于android:name 属性或class属性的设置，我们可以有两种设置方式，一种是com.myue.fragment（包名）.MyFragment，另一种是fragment（命名控件）.MyFragment。</p>
+<p>尝试运行项目，抛出异常：Binary XML file line #1: Error inflating class fragment。</p>
+<p>查看堆栈输出信息：Must specify unique android:id, android:tag, or have a parent with an id for com.myue.fragment.MyFragment。</p>
+<p>Fragment使用时必须指定一个唯一标识符，可以是android:id 也可以是android:tag。完善我们的代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fragment</span></span><br><span class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/fragment"</span></span><br><span class="line">    <span class="attr">android:name</span>=<span class="string">"com.myue.fragment.MyFragment"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行项目正常。</p>
+<blockquote>
+<p>如果没有为Fragment指定id和tag中的一种，可以为Fragment所在的元素添加一个id，如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; &lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span><br><span class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/fragment_container"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fragment</span></span><br><span class="line">       	<span class="attr">android:name</span>=<span class="string">"com.myue.fragment.MyFragment"</span></span><br><span class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="动态使用Fragment"><a href="#动态使用Fragment" class="headerlink" title="动态使用Fragment"></a>动态使用Fragment</h2><p>动态使用Fragment要在布局文件中添加一个FrameLayout，并在代码中通过FragmentManager增加、更新、删除Fragment。</p>
+<p>修改布局文件替换fragment节点为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span>  </span><br><span class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/fragmentcontent"</span>  </span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span>  </span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在Activity 中通过FragmentManager属性获取FragmentManager实例。</p>
+<blockquote>
+<p>如果使用Android3.0以下的版本，需要引入v4的包，然后Activity继承FragmentActivity，然后通过SupportFragmentManager属性获得FragmentManager。</p>
+</blockquote>
+<p>在Activity的OnCreate方法中增加如下代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var transaction = FragmentManager.BeginTransaction ();  </span><br><span class="line">transaction.Add (Resource.Id.fragmentcontent, MyFragment.NewInstance (0)); </span><br><span class="line">transaction.Commit ();</span><br></pre></td></tr></table></figure>
+<p>通过FragmentManager.BeginTransaction方法获取到BeginTransaction对象，通过BeginTransaction对象完成Fragment的替换、增加、删除操作，最后调用Commit方法完成操作。Activity保存State信息同时会保存Fragment的信息，所以Commit方法必须在Activity.OnSaveInstanceState()之前调用否为灰抛出异常。</p>
+<blockquote>
+<p>Fragment常用的三个类：<br>Fragment 主要用于定义Fragment<br>FragmentManager 主要用于在Activity中操作Fragment<br>FragmentTransaction 保证一些列Fragment操作的一致性</p>
+</blockquote>
+<p>当我们调用FragmentTransaction的Add或Replace方法时前一个Fragment对象会被销毁。在Activity的管理中提到了会退栈（back stack），同样Fragment也可以放在一个回退栈中进行管理。添加一个Fragment事务到回退栈FragmentTransaction.AddToBackStack(string)。由于当前的事务添加到了回退栈，此时调用FragmentTransaction的Add或Replace方法，前一个Fragment实例不会被销毁，Replace方法使视图层次依然会被销毁，即会调用onDestoryView和onCreateView，而Add方法会避免视图重绘。</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Create a new fragment and a transaction.</span><br><span class="line">FragmentTransaction fragmentTx = this.FragmentManager.BeginTransaction();</span><br><span class="line">DetailsFragment aDifferentDetailsFrag = new DetailsFragment();</span><br><span class="line"></span><br><span class="line">// Replace the fragment that is in the View fragment_container (if applicable).</span><br><span class="line">fragmentTx.Replace(Resource.Id.fragment_container, aDifferentDetailsFrag);</span><br><span class="line"></span><br><span class="line">// Add the transaction to the back stack.</span><br><span class="line">fragmentTx.AddToBackStack(null);</span><br><span class="line"></span><br><span class="line">// Commit the transaction.</span><br><span class="line">fragmentTx.Commit();</span><br></pre></td></tr></table></figure>
+<h1 id="Fragment与Activity通信"><a href="#Fragment与Activity通信" class="headerlink" title="Fragment与Activity通信"></a>Fragment与Activity通信</h1><p>在Activity中通过FragmentManager 的FindFragmentById或FindFragmentByTag方法获取指定的Fragment对象，在Activity中调用Fragment的public方法。在Fragment中可以通过Activity属性获取当前与Fragment关联的Activity。实际编码时为了降低Fragment与Activity的耦合，Fragment不应该直接操作其它Fragment，可以借助delegate或Listener 实现Fragment与Activity之间的通信。</p>
+<h1 id="Fragment状态管理"><a href="#Fragment状态管理" class="headerlink" title="Fragment状态管理"></a>Fragment状态管理</h1><p>同Activity一样，我们一样可以重写Fragment的OnSaveInstanceState方法管理Fragment的状态，使用方式同Activity。在Fragment的生命周期中OnCreate、OnCreateView和OnActivityCreated都会传入我们OnSaveInstanceState中保存数据的Bundle对象。获取保存的数据之前要判断savedInstanceState是否为null，如果为null，说明没有保存过数据。对于指定了ID的控件，Fragment同样会自动保存相关数据。</p>
+<h1 id="Fragment增加菜单"><a href="#Fragment增加菜单" class="headerlink" title="Fragment增加菜单"></a>Fragment增加菜单</h1><p>重写OnCreateOptionsMenu方法，为Fragment创建菜单。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public override void OnCreateOptionsMenu (IMenu menu, MenuInflater menuInflater)</span><br><span class="line">&#123;</span><br><span class="line">	menuInflater.Inflate (Resource.Menu.menu_fragment, menu);</span><br><span class="line">	base.OnCreateOptionsMenu (menu, menuInflater);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>menu_fragment的布局如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">menu</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:id</span>=<span class="string">"@+id/add_vehicle"</span></span><br><span class="line">        <span class="attr">android:icon</span>=<span class="string">"@drawable/ic_menu_add_data"</span></span><br><span class="line">        <span class="attr">android:title</span>=<span class="string">"@string/add_vehicle"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">menu</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在Fragment的OnCreate方法中调用SetHasOptionsMenu(true)；方法，告诉Android系统我们的Fragment有提供Menu，Fragment添加的菜单与Activity中添加的菜单会共同显示，Fragment中处理菜单的点击操作，需要重写Fragment的OnOptionsItemSelected方法。对菜单点击的处理会先进入Activity的OnMenuItemSelected方法，再进入Fragment的OnOptionsItemSelected方法，如果OnMenuItemSelected返回为false，Fragment不会再处理菜单的点击。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/20/fragment/">Xamarin.Android Fragment 使用详解</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
+        <p><span>发布时间:</span>2016-05-20, 10:17:52</p>
+        <p><span>最后更新:</span>2016-05-20, 10:20:27</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/20/fragment/" title="Xamarin.Android Fragment 使用详解">http://www.xamarin.xyz/2016/05/20/fragment/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/20/fragment/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/05/18/intent/">
+                    Xamarin.Android Intent简介
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment-介绍"><span class="toc-number">1.</span> <span class="toc-text">Fragment 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment-生命周期"><span class="toc-number">2.</span> <span class="toc-text">Fragment 生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OnAttach"><span class="toc-number">2.1.</span> <span class="toc-text">OnAttach()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnCreateView"><span class="toc-number">2.2.</span> <span class="toc-text">OnCreateView()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnActivityCreated"><span class="toc-number">2.3.</span> <span class="toc-text">OnActivityCreated()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnDestroyView"><span class="toc-number">2.4.</span> <span class="toc-text">OnDestroyView()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnDetach"><span class="toc-number">2.5.</span> <span class="toc-text">OnDetach()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment-使用"><span class="toc-number">3.</span> <span class="toc-text">Fragment 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#静态使用Fragment"><span class="toc-number">3.1.</span> <span class="toc-text">静态使用Fragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态使用Fragment"><span class="toc-number">3.2.</span> <span class="toc-text">动态使用Fragment</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment与Activity通信"><span class="toc-number">4.</span> <span class="toc-text">Fragment与Activity通信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment状态管理"><span class="toc-number">5.</span> <span class="toc-text">Fragment状态管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment增加菜单"><span class="toc-number">6.</span> <span class="toc-text">Fragment增加菜单</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android Fragment 使用详解　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/05/20/fragment/" data-title="Xamarin.Android Fragment 使用详解" data-url="http://www.xamarin.xyz/2016/05/20/fragment/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xamarin"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        //ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.src = 'http://www.xamarin.xyz/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/05/18/intent/" title="下一篇: Xamarin.Android Intent简介">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/fragment/">Xamarin.Android Fragment 使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/intent/">Xamarin.Android Intent简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/contentprovider2/">Xamarin.Android 自定义ContentProvider</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Myue
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
