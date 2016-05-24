@@ -9,12 +9,12 @@
 
   <meta charset="utf-8">
   
-  <title>Tag: BroadcastReceiver | Myue&#39;s Blog</title>
+  <title>Myue&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Myue's Blog">
-<meta property="og:url" content="http://www.xamarin.xyz/tags/BroadcastReceiver/index.html">
+<meta property="og:url" content="http://www.xamarin.xyz/page/2/index.html">
 <meta property="og:site_name" content="Myue's Blog">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -36,8 +36,13 @@
   
   <link rel="stylesheet" href="/css/style.css">
   
+      <style> .article { opacity: 0;} </style>
+  
   <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    
+    
   
   
       <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
@@ -48,10 +53,10 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: false,
+          isHome: true,
           isPost: false,
           isArchive: false,
-          isTag: true,
+          isTag: false,
           isCategory: false,
           open_in_new: false,
           fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -245,56 +250,216 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-activity3" class="article article-type-post" itemscope itemprop="blogPost">
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/05/11/broadcastreceiver/" class="archive-article-date">
-      <time datetime="2016-05-11T06:16:57.000Z" itemprop="datePublished">05-11</time>
+    <div class="article-meta">
+      <a href="/2016/05/02/activity3/" class="article-date">
+      <time datetime="2016-05-02T08:12:50.000Z" itemprop="datePublished">2016-05-02</time>
 </a>
-        </div>
-         
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a>
+      <a class="article-title" href="/2016/05/02/activity3/">Android Activity管理机制详解</a>
     </h1>
   
 
-        <div class="article-info info-on-archive">
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
+              <p>实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
     <div class="article-category tagcloud">
     <a class="article-category-link" href="/categories/Android/">Android</a>
     </div>
 
 
-          
+      
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
     </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      
+        <p class="article-more-link">
+          <a href="/2016/05/02/activity3/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
     
+  </div>
+  
+</article>
 
+
+
+
+
+
+
+
+
+  
+    <article id="post-activity2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/29/activity2/" class="article-date">
+      <time datetime="2016-04-29T07:08:21.000Z" itemprop="datePublished">2016-04-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>#Activity间传递数据</p>
+<blockquote>
+<p>Activity间传递数据是借助Intent（内部为Bundle）实现的</p>
+<p>在使用Bundle传递数据时，要注意，Bundle的大小是有限制的小于0.5MB，如果大于这个值 是会报TransactionTooLargeException异常的！！！（未验证）</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/04/29/activity2/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/28/activity1/" class="article-date">
+      <time datetime="2016-04-28T06:29:02.000Z" itemprop="datePublished">2016-04-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>本文将对Android四大组件之一的Activity进行简单介绍。</p>
+<p>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/04/28/activity1/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 </div>
       <footer id="footer">
     <div class="outer">

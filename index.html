@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
+  
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
   <meta charset="utf-8">
   
   <title>Myue&#39;s Blog</title>
@@ -68,16 +74,6 @@
   
 </head>
 <body>
-  <!--[if lt IE 9]>
-<style> body { background: orange !important;} div#container { display: none;} </style>
-<p id="ie-updater">
-    
-        珍爱生命，远离 IE！<br>本站不支持 IE6/7/8，请升级浏览器！<br>
-    
-    <a href="//www.bing.com/search?q=Chrome" target="_blank">Chrome</a>, <a href="//www.bing.com/search?q=Firefox" target="_blank">Firefox</a><br>
-    Hexo Theme <a href="//github.com/MOxFIVE/hexo-theme-yelee" target="_blank">Yelee</a> by MOxFIVE
-</p>
-<![endif]-->
   <div id="container">
     <div class="left-col">
     <div class="overlay"></div>
@@ -253,6 +249,74 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-special-fragment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/24/special-fragment/" class="article-date">
+      <time datetime="2016-05-24T06:07:55.000Z" itemprop="datePublished">2016-05-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/24/special-fragment/">Xamarin.Android 特殊Fragment讲解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。利用Fragment可以很方便的实现如图效果：</p>
+<p><img src="https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/Images/intro_screenshot.png" alt="fragment"></p>
+<p>与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fragment/">Fragment</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/05/24/special-fragment/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-fragment" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -852,211 +916,10 @@
 
 
   
-    <article id="post-activity3" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2016/05/02/activity3/" class="article-date">
-      <time datetime="2016-05-02T08:12:50.000Z" itemprop="datePublished">2016-05-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/02/activity3/">Android Activity管理机制详解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/05/02/activity3/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-activity2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/29/activity2/" class="article-date">
-      <time datetime="2016-04-29T07:08:21.000Z" itemprop="datePublished">2016-04-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>#Activity间传递数据</p>
-<blockquote>
-<p>Activity间传递数据是借助Intent（内部为Bundle）实现的</p>
-<p>在使用Bundle传递数据时，要注意，Bundle的大小是有限制的小于0.5MB，如果大于这个值 是会报TransactionTooLargeException异常的！！！（未验证）</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/04/29/activity2/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/28/activity1/" class="article-date">
-      <time datetime="2016-04-28T06:29:02.000Z" itemprop="datePublished">2016-04-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>本文将对Android四大组件之一的Activity进行简单介绍。</p>
-<p>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/04/28/activity1/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
@@ -1067,7 +930,7 @@
                 2016 Myue
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
