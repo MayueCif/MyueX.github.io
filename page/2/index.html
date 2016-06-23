@@ -171,7 +171,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gesture/">Gesture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li></ul>
                     </div>
                 </section>
                 
@@ -249,6 +249,72 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-service2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/08/service2/" class="article-date">
+      <time datetime="2016-05-08T03:51:31.000Z" itemprop="datePublished">2016-05-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="IntentService的使用"><a href="#IntentService的使用" class="headerlink" title="IntentService的使用"></a>IntentService的使用</h1><p>前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要我们控制、结束Service。多次启动IntentService，每个Service的操作会加入到一个工作队列依次执行.</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Service/">Service</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/05/08/service2/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-service1" class="article article-type-post" itemscope itemprop="blogPost">
   
