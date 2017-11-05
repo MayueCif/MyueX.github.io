@@ -1,303 +1,150 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-  
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
   <meta charset="utf-8">
   
-  <title>Xamarin.Android Activity入门介绍 | Myue&#39;s Blog</title>
+  <title>Xamarin.Android Activity入门介绍 | Mayue‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文将对Android四大组件之一的Activity进行简单介绍。
-Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="本文将对Android四大组件之一的Activity进行简单介绍。Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
+<meta name="keywords" content="Activity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xamarin.Android Activity入门介绍">
-<meta property="og:url" content="http://www.xamarin.xyz/2016/04/28/activity1/index.html">
-<meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description" content="本文将对Android四大组件之一的Activity进行简单介绍。
-Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
+<meta property="og:url" content="http://xamarin.xyz/2016/04/28/activity1/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="本文将对Android四大组件之一的Activity进行简单介绍。Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
 <meta property="og:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png">
 <meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2015/08/291262381.jpg">
 <meta property="og:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image3-sml.png">
-<meta property="og:updated_time" content="2016-05-02T02:58:58.000Z">
+<meta property="og:updated_time" content="2017-11-02T15:06:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xamarin.Android Activity入门介绍">
-<meta name="twitter:description" content="本文将对Android四大组件之一的Activity进行简单介绍。
-Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
+<meta name="twitter:description" content="本文将对Android四大组件之一的Activity进行简单介绍。Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！">
 <meta name="twitter:image" content="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png">
   
-    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
   
+    <link rel="icon" href="/favicon.ico">
   
-    <link rel="icon" href="/apple-touch-icon.png">
-  
-  
-      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
-  
-  
-  
-      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  
-  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-  
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false,
-          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
-      }
-  </script>
-
-  
-      <script>
-          yiliaConfig.rootUrl = "/";
-      </script>
+  <script src="/js/pace.min.js"></script>
   
 
   
   
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
 </head>
+
 <body>
   <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Myue</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">移动开发</p>
-        
-                
-
-
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
                     
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        <li>
-                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=76f8b2638997afc52c1d1f1d88da33d90a46472b409ffdcc5098b19e0be1c3ce">
-                                <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Xamarin招聘、求职" title="Xamarin招聘、求职">
-                            </a>
-                        </li>
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gesture/">Gesture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">专注于移动端开发</div>
-                </section>
-                
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">移动开发</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
             <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
             </nav>
-        </header>                
+        </div>
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
-</nav>
-      <div class="body-wrap"><article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/28/activity1/" class="article-date">
-      <time datetime="2016-04-28T06:29:02.000Z" itemprop="datePublished">2016-04-28</time>
-</a>
-    </div>
-  
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="post-title" itemprop="name">
       Xamarin.Android Activity入门介绍
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Android/">Android</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-04-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
           
-        <blockquote>
-<p>本文将对Android四大组件之一的Activity进行简单介绍。</p>
-<p>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！</p>
-</blockquote>
-<a id="more"></a>
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>本文将对Android四大组件之一的Activity进行简单介绍。<br>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！<br><a id="more"></a></p>
 <h1 id="Activity生命周期介绍"><a href="#Activity生命周期介绍" class="headerlink" title="Activity生命周期介绍"></a>Activity生命周期介绍</h1><p><img src="https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png" alt="Activity生命周期"></p>
 <p>建议自己写Demo查看各个生命周期调用时间。</p>
 <h2 id="OnCreate"><a href="#OnCreate" class="headerlink" title="OnCreate"></a>OnCreate</h2><p>当Activity创建时会调用此方法，是我们必须要重写的方法，该方法传入一个Bundle对象作为参数。如果bundle不为null，说明当前Activity是重新启动。可以通过bundle读取我们之前保存的数据，做相应的数据恢复工作。在这个方法中要执行的操作是：</p>
@@ -333,7 +180,7 @@ Activity是一个应用程序的组件，他在屏幕上提供了一个区域，
 <h2 id="定义Activity"><a href="#定义Activity" class="headerlink" title="定义Activity"></a>定义Activity</h2><p>我们自定义的Activity一定要继承Activity或其子类（如AppCompatActivity），并重写相关方法。OnCreate是必须重写的，在OnCreate中调用SetContentView方法加载相关联的视图。</p>
 <h2 id="声明Activity"><a href="#声明Activity" class="headerlink" title="声明Activity"></a>声明Activity</h2><p>在AndroidManifest中增加Activity节点。<br><a href="http://www.android-doc.com/guide/topics/manifest/activity-element.html" target="_blank" rel="external">参考文档</a></p>
 <p>Xamarin.Android中我们可以通过声明特性进行组件的声明。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Activity (Label = <span class="string">"activity1"</span>, MainLauncher = <span class="literal">true</span>, Icon = <span class="string">"@mipmap/icon"</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">Activity (Label = <span class="meta-string">"activity1"</span>, MainLauncher = true, Icon = <span class="meta-string">"@mipmap/icon"</span>)</span>]</div></pre></td></tr></table></figure>
 <p>项目编译时会根据我们声明的特性生成新的AndroidManifest.xml文件</p>
 <blockquote>
 <p>可在项目目录下 /项目名/obj/Debug or Release/android下查看</p>
@@ -342,8 +189,8 @@ Activity是一个应用程序的组件，他在屏幕上提供了一个区域，
 <ul>
 <li>显式启动 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent (this, typeof(Activity2));</span><br><span class="line">StartActivity (intent);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StartActivity(typeof(Activity2));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Intent intent = new Intent (this, typeof(Activity2));</div><div class="line">StartActivity (intent);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StartActivity(typeof(Activity2));</div></pre></td></tr></table></figure>
 <p>Intent对象可以在两个Activity间传递数据。</p>
 <ul>
 <li>隐式启动</li>
@@ -352,7 +199,7 @@ Activity是一个应用程序的组件，他在屏幕上提供了一个区域，
 <p><img src="http://www.runoob.com/wp-content/uploads/2015/08/291262381.jpg" alt="隐式启动"></p>
 <h1 id="生命周期中状态的保存"><a href="#生命周期中状态的保存" class="headerlink" title="生命周期中状态的保存"></a>生命周期中状态的保存</h1><h2 id="Bundle保存状态"><a href="#Bundle保存状态" class="headerlink" title="Bundle保存状态"></a>Bundle保存状态</h2><p>通过OnSaveInstanceState、OnRestoreInstanceState两个方法管理保存的状态（不是一定会执行的）</p>
 <p>以下代码，改变默认创建的Android项目，是一个简单保存状态的例子，可以通过横竖屏切换掉用OnSaveInstanceState、OnRestoreInstanceState方法。（这里提到横竖屏切换，我们可以为一个Activity分别提供不同情况下的布局文件，创建两个布局文件夹：layout-land横屏,layout-port竖屏 然后把两套布局文件丢这两文件夹里，文件名一样，Android就会自行判断加载相应布局）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[Activity (Label = &quot;activity1&quot;, MainLauncher = true, Icon = &quot;@mipmap/icon&quot;)]</span><br><span class="line">	public class MainActivity : Activity</span><br><span class="line">	&#123;</span><br><span class="line">		int count = 1;</span><br><span class="line">		Button button;</span><br><span class="line"></span><br><span class="line">		protected override void OnCreate (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnCreate (savedInstanceState);</span><br><span class="line"></span><br><span class="line">			// Set our view from the &quot;main&quot; layout resource</span><br><span class="line">			SetContentView (Resource.Layout.Main);</span><br><span class="line"></span><br><span class="line">			// Get our button from the layout resource,</span><br><span class="line">			// and attach an event to it</span><br><span class="line">			button = FindViewById&lt;Button&gt; (Resource.Id.myButton);</span><br><span class="line">			</span><br><span class="line">			button.Click += delegate &#123;</span><br><span class="line">				button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count++);</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		protected override void OnSaveInstanceState (Bundle outState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnSaveInstanceState (outState);</span><br><span class="line">			outState.PutInt (&quot;count&quot;, count);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		protected override void OnRestoreInstanceState (Bundle savedInstanceState)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnRestoreInstanceState (savedInstanceState);</span><br><span class="line">			count = savedInstanceState.GetInt (&quot;count&quot;);</span><br><span class="line">			button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">[Activity (Label = &quot;activity1&quot;, MainLauncher = true, Icon = &quot;@mipmap/icon&quot;)]</div><div class="line">	public class MainActivity : Activity</div><div class="line">	&#123;</div><div class="line">		int count = 1;</div><div class="line">		Button button;</div><div class="line"></div><div class="line">		protected override void OnCreate (Bundle savedInstanceState)</div><div class="line">		&#123;</div><div class="line">			base.OnCreate (savedInstanceState);</div><div class="line"></div><div class="line">			// Set our view from the &quot;main&quot; layout resource</div><div class="line">			SetContentView (Resource.Layout.Main);</div><div class="line"></div><div class="line">			// Get our button from the layout resource,</div><div class="line">			// and attach an event to it</div><div class="line">			button = FindViewById&lt;Button&gt; (Resource.Id.myButton);</div><div class="line">			</div><div class="line">			button.Click += delegate &#123;</div><div class="line">				button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count++);</div><div class="line">			&#125;;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnSaveInstanceState (Bundle outState)</div><div class="line">		&#123;</div><div class="line">			base.OnSaveInstanceState (outState);</div><div class="line">			outState.PutInt (&quot;count&quot;, count);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnRestoreInstanceState (Bundle savedInstanceState)</div><div class="line">		&#123;</div><div class="line">			base.OnRestoreInstanceState (savedInstanceState);</div><div class="line">			count = savedInstanceState.GetInt (&quot;count&quot;);</div><div class="line">			button.Text = string.Format (&quot;&#123;0&#125; clicks!&quot;, count);</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>事实上我们并不需要在OnSaveInstanceState方法中保存每个view的状态，只要指定view的ID，android系统会自动帮我们保存view的状态，如我们在布局文件中了添加一个EditText视图，并指定ID属性，运行项目，修改EditText的值，切换屏幕方向EditText中的值依然保存。</p>
 </blockquote>
@@ -366,239 +213,260 @@ Activity是一个应用程序的组件，他在屏幕上提供了一个区域，
 </blockquote>
 <h2 id="复杂数据的持久化"><a href="#复杂数据的持久化" class="headerlink" title="复杂数据的持久化"></a>复杂数据的持久化</h2><p>由于Bundle的限制，只适合保存简单的数据值如：int，string等。对于复杂数据的保存我们可以通过重写OnRetainNonConfigurationInstance返回一个Java.Lang.Object，恢复数据时LastNonConfigurationInstance返回保存的数据。这里列出一个Xamarin官网的例子：</p>
 <p>1.先定义我们要返回的类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class TweetListWrapper : Java.Lang.Object</span><br><span class="line">&#123;</span><br><span class="line">  public string[] Tweets &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class TweetListWrapper : Java.Lang.Object</div><div class="line">&#123;</div><div class="line">  public string[] Tweets &#123; get; set; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>2.Activity中处理数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">TweetListWrapper _savedInstance;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		protected override void OnCreate (Bundle bundle)</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnCreate (bundle);</span><br><span class="line"></span><br><span class="line">			var tweetsWrapper = LastNonConfigurationInstance as TweetListWrapper;</span><br><span class="line"></span><br><span class="line">			if (tweetsWrapper != null) &#123;</span><br><span class="line">				PopulateTweetList (tweetsWrapper.Tweets);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				SearchTwitter (&quot;xamarin&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public void SearchTwitter (string text)</span><br><span class="line">		&#123;</span><br><span class="line">			string searchUrl = String.Format (&quot;http://search.twitter.com/search.json?&quot; + &quot;q=&#123;0&#125;&amp;rpp=10&amp;include_entities=false&amp;&quot; + &quot;result_type=mixed&quot;, text);</span><br><span class="line">			Console.WriteLine (searchUrl);</span><br><span class="line">			var httpReq = (HttpWebRequest)HttpWebRequest.Create (new Uri (searchUrl));</span><br><span class="line">			httpReq.BeginGetResponse (new AsyncCallback (ResponseCallback), httpReq);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		void ResponseCallback (IAsyncResult ar)</span><br><span class="line">		&#123;</span><br><span class="line">			var httpReq = (HttpWebRequest)ar.AsyncState;</span><br><span class="line"></span><br><span class="line">			using (var httpRes = (HttpWebResponse)httpReq.EndGetResponse (ar)) &#123;</span><br><span class="line">				ParseResults (httpRes);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		void ParseResults (HttpWebResponse httpRes)</span><br><span class="line">		&#123;</span><br><span class="line">			var s = httpRes.GetResponseStream ();</span><br><span class="line">			var j = (JsonObject)JsonObject.Load (s);</span><br><span class="line"></span><br><span class="line">			var results = (from result in (JsonArray)j [&quot;results&quot;]</span><br><span class="line">			               let jResult = result as JsonObject</span><br><span class="line">			               select jResult [&quot;text&quot;].ToString ()).ToArray ();</span><br><span class="line"></span><br><span class="line">			RunOnUiThread (() =&gt; &#123;</span><br><span class="line">				PopulateTweetList (results);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		[Obsolete (&quot;deprecated&quot;)]</span><br><span class="line">		public override Java.Lang.Object OnRetainNonConfigurationInstance ()</span><br><span class="line">		&#123;</span><br><span class="line">			base.OnRetainNonConfigurationInstance ();</span><br><span class="line">			Console.WriteLine (&quot;OnRetainNonConfigurationInstance&quot;);</span><br><span class="line">			return _savedInstance;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		void PopulateTweetList (string[] results)</span><br><span class="line">		&#123;</span><br><span class="line">			ListAdapter = new ArrayAdapter&lt;string&gt; (this, Android.Resource.Layout.SimpleListItem1, results);</span><br><span class="line">			_savedInstance = new TweetListWrapper&#123; Tweets = results &#125;;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">TweetListWrapper _savedInstance;</div><div class="line"></div><div class="line"></div><div class="line">		protected override void OnCreate (Bundle bundle)</div><div class="line">		&#123;</div><div class="line">			base.OnCreate (bundle);</div><div class="line"></div><div class="line">			var tweetsWrapper = LastNonConfigurationInstance as TweetListWrapper;</div><div class="line"></div><div class="line">			if (tweetsWrapper != null) &#123;</div><div class="line">				PopulateTweetList (tweetsWrapper.Tweets);</div><div class="line">			&#125; else &#123;</div><div class="line">				SearchTwitter (&quot;xamarin&quot;);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public void SearchTwitter (string text)</div><div class="line">		&#123;</div><div class="line">			string searchUrl = String.Format (&quot;http://search.twitter.com/search.json?&quot; + &quot;q=&#123;0&#125;&amp;rpp=10&amp;include_entities=false&amp;&quot; + &quot;result_type=mixed&quot;, text);</div><div class="line">			Console.WriteLine (searchUrl);</div><div class="line">			var httpReq = (HttpWebRequest)HttpWebRequest.Create (new Uri (searchUrl));</div><div class="line">			httpReq.BeginGetResponse (new AsyncCallback (ResponseCallback), httpReq);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		void ResponseCallback (IAsyncResult ar)</div><div class="line">		&#123;</div><div class="line">			var httpReq = (HttpWebRequest)ar.AsyncState;</div><div class="line"></div><div class="line">			using (var httpRes = (HttpWebResponse)httpReq.EndGetResponse (ar)) &#123;</div><div class="line">				ParseResults (httpRes);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		void ParseResults (HttpWebResponse httpRes)</div><div class="line">		&#123;</div><div class="line">			var s = httpRes.GetResponseStream ();</div><div class="line">			var j = (JsonObject)JsonObject.Load (s);</div><div class="line"></div><div class="line">			var results = (from result in (JsonArray)j [&quot;results&quot;]</div><div class="line">			               let jResult = result as JsonObject</div><div class="line">			               select jResult [&quot;text&quot;].ToString ()).ToArray ();</div><div class="line"></div><div class="line">			RunOnUiThread (() =&gt; &#123;</div><div class="line">				PopulateTweetList (results);</div><div class="line">			&#125;);</div><div class="line">		&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">		[Obsolete (&quot;deprecated&quot;)]</div><div class="line">		public override Java.Lang.Object OnRetainNonConfigurationInstance ()</div><div class="line">		&#123;</div><div class="line">			base.OnRetainNonConfigurationInstance ();</div><div class="line">			Console.WriteLine (&quot;OnRetainNonConfigurationInstance&quot;);</div><div class="line">			return _savedInstance;</div><div class="line">		&#125;</div><div class="line"></div><div class="line"></div><div class="line">		void PopulateTweetList (string[] results)</div><div class="line">		&#123;</div><div class="line">			ListAdapter = new ArrayAdapter&lt;string&gt; (this, Android.Resource.Layout.SimpleListItem1, results);</div><div class="line">			_savedInstance = new TweetListWrapper&#123; Tweets = results &#125;;</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
 <p>可以注意到OnRetainNonConfigurationInstance方法已经是过期的，查看文档可以看到：</p>
 <blockquote>
 <p>Called by the system, as part of destroying an activity due to a configuration change, when it is known that a new instance will immediately be created for the new configuration. You can return any object you like here, including the activity instance itself, which can later be retrieved by calling Activity.LastNonConfigurationInstance in the new activity instance. If you are targeting Build+VERSION_CODES.Honeycomb or later, consider instead using a Fragment with Fragment.RetainInstance.</p>
 </blockquote>
 <p>我们可以用Fragment.RetainInstance完成同样的事情。</p>
-<h1 id="系统提供常用Activity"><a href="#系统提供常用Activity" class="headerlink" title="系统提供常用Activity"></a>系统提供常用Activity</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">//1.拨打电话</span><br><span class="line">// 给移动客服10086拨打电话</span><br><span class="line">Uri uri = Uri.Parse (&quot;tel:10086&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionDial, uri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line">//2.发送短信</span><br><span class="line">// 给10086发送内容为“Hello”的短信</span><br><span class="line">Uri uri = Uri.Parse (&quot;smsto:10086&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionSendto, uri);</span><br><span class="line">intent.PutExtra (&quot;sms_body&quot;, &quot;Hello&quot;);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//3.发送彩信（相当于发送带附件的短信）</span><br><span class="line">Intent intent = new Intent(Intent.ActionSend);</span><br><span class="line">intent.PutExtra(&quot;sms_body&quot;, &quot;Hello&quot;);</span><br><span class="line">Uri uri = Uri.Parse(&quot;content://media/external/images/media/23&quot;);</span><br><span class="line">intent.PutExtra(Intent.ExtraStream, uri);</span><br><span class="line">intent.SetType(&quot;image/png&quot;);</span><br><span class="line">StartActivity(intent);</span><br><span class="line"></span><br><span class="line">//4.打开浏览器:</span><br><span class="line">Uri uri = Uri.Parse (&quot;http://www.baidu.com&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionView, uri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//5.多媒体播放:</span><br><span class="line">Intent intent = new Intent(Intent.ActionView);</span><br><span class="line">Uri uri = Uri.Parse(&quot;file:///sdcard/foo.mp3&quot;);</span><br><span class="line">intent.SetDataAndType(uri, &quot;audio/mp3&quot;);</span><br><span class="line">StartActivity(intent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//6.打开摄像头拍照:</span><br><span class="line">// 打开拍照程序</span><br><span class="line">Intent intent = new Intent(MediaStore.ActionImageCapture); </span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line">// 取出照片数据</span><br><span class="line">Bundle extras = intent.Extras; </span><br><span class="line">Bitmap bitmap = (Bitmap) extras.Get(&quot;data&quot;);</span><br><span class="line"></span><br><span class="line">//另一种:</span><br><span class="line">//调用系统相机应用程序，并存储拍下来的照片</span><br><span class="line">Intent intent = new Intent(MediaStore.ActionImageCapture); </span><br><span class="line">var time = Calendar.GetInstance().TimeInMillis;</span><br><span class="line">intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(new File(path, time + &quot;.jpg&quot;)));</span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line"></span><br><span class="line">//7.获取并剪切图片</span><br><span class="line">// 获取并剪切图片</span><br><span class="line">Intent intent = new Intent(Intent.ActionGetContent);</span><br><span class="line">intent.SetType(&quot;image/*&quot;);</span><br><span class="line">intent.PutExtra(&quot;crop&quot;, &quot;true&quot;); // 开启剪切</span><br><span class="line">intent.PutExtra(&quot;aspectX&quot;, 1); // 剪切的宽高比为1：2</span><br><span class="line">intent.PutExtra(&quot;aspectY&quot;, 2);</span><br><span class="line">intent.PutExtra(&quot;outputX&quot;, 20); // 保存图片的宽和高</span><br><span class="line">intent.PutExtra(&quot;outputY&quot;, 40); </span><br><span class="line">intent.PutExtra(&quot;output&quot;, Uri.FromFile(new File(&quot;/mnt/sdcard/temp&quot;))); // 保存路径</span><br><span class="line">intent.PutExtra(&quot;outputFormat&quot;, &quot;JPEG&quot;);// 返回格式</span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line">// 剪切特定图片</span><br><span class="line">Intent intent = new Intent(&quot;com.android.camera.action.CROP&quot;); </span><br><span class="line">intent.SetClassName(&quot;com.android.camera&quot;, &quot;com.android.camera.CropImage&quot;); </span><br><span class="line">intent.SetData(Uri.FromFile(new File(&quot;/mnt/sdcard/temp&quot;))); </span><br><span class="line">intent.PutExtra(&quot;outputX&quot;, 1); // 剪切的宽高比为1：2</span><br><span class="line">intent.PutExtra(&quot;outputY&quot;, 2);</span><br><span class="line">intent.PutExtra(&quot;aspectX&quot;, 20); // 保存图片的宽和高</span><br><span class="line">intent.PutExtra(&quot;aspectY&quot;, 40);</span><br><span class="line">intent.PutExtra(&quot;scale&quot;, true);</span><br><span class="line">intent.PutExtra(&quot;noFaceDetection&quot;, true); </span><br><span class="line">intent.PutExtra(&quot;output&quot;, Uri.Parse(&quot;file:///mnt/sdcard/temp&quot;)); </span><br><span class="line">StartActivityForResult(intent, 0);</span><br><span class="line"></span><br><span class="line">//8.打开Google Market </span><br><span class="line">// 打开Google Market直接进入该程序的详细页面</span><br><span class="line">Uri uri = Uri.Parse (&quot;market://details?id=&quot; + &quot;com.demo.app&quot;);</span><br><span class="line">Intent intent = new Intent (Intent.ActionView, uri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line">//9.进入手机设置界面:</span><br><span class="line">// 进入无线网络设置界面（其它可以举一反三）  </span><br><span class="line">Intent intent = new Intent (Android.Provider.Settings.ActionWirelessSettings);</span><br><span class="line">StartActivityForResult (intent, 0);</span><br><span class="line"></span><br><span class="line">//10.安装apk:</span><br><span class="line">Uri installUri = Uri.FromParts(&quot;package&quot;, &quot;xxx&quot;, null);   </span><br><span class="line">Intent it = new Intent(Intent.ACTION_PACKAGE_ADDED, installUri);</span><br><span class="line">StartActivity(it);</span><br><span class="line"></span><br><span class="line">//11.卸载apk:</span><br><span class="line">Uri uri = Uri.FromParts(&quot;package&quot;, strPackageName, null);      </span><br><span class="line">Intent it = new Intent(Intent.ACTION_DELETE, uri);      </span><br><span class="line">StartActivity(it); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//12.进入联系人页面:</span><br><span class="line">Intent intent = new Intent ();</span><br><span class="line">intent.SetAction (Intent.ActionView);</span><br><span class="line">intent.SetData (Android.Provider.ContactsContract.Contacts.ContentUri);</span><br><span class="line">StartActivity (intent);</span><br><span class="line"></span><br><span class="line">//13.查看指定联系人:</span><br><span class="line">Uri personUri = ContentUris.WithAppendedId (Android.Provider.ContactsContract.Contacts.ContentUri, id);//id联系人ID</span><br><span class="line">Intent intent = new Intent ();</span><br><span class="line">intent.SetAction (Intent.ActionView);</span><br><span class="line">intent.SetData (personUri);</span><br><span class="line">StartActivity (intent);</span><br></pre></td></tr></table></figure>
+<h1 id="系统提供常用Activity"><a href="#系统提供常用Activity" class="headerlink" title="系统提供常用Activity"></a>系统提供常用Activity</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div></pre></td><td class="code"><pre><div class="line">//1.拨打电话</div><div class="line">// 给移动客服10086拨打电话</div><div class="line">Uri uri = Uri.Parse (&quot;tel:10086&quot;);</div><div class="line">Intent intent = new Intent (Intent.ActionDial, uri);</div><div class="line">StartActivity (intent);</div><div class="line"></div><div class="line">//2.发送短信</div><div class="line">// 给10086发送内容为“Hello”的短信</div><div class="line">Uri uri = Uri.Parse (&quot;smsto:10086&quot;);</div><div class="line">Intent intent = new Intent (Intent.ActionSendto, uri);</div><div class="line">intent.PutExtra (&quot;sms_body&quot;, &quot;Hello&quot;);</div><div class="line">StartActivity (intent);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//3.发送彩信（相当于发送带附件的短信）</div><div class="line">Intent intent = new Intent(Intent.ActionSend);</div><div class="line">intent.PutExtra(&quot;sms_body&quot;, &quot;Hello&quot;);</div><div class="line">Uri uri = Uri.Parse(&quot;content://media/external/images/media/23&quot;);</div><div class="line">intent.PutExtra(Intent.ExtraStream, uri);</div><div class="line">intent.SetType(&quot;image/png&quot;);</div><div class="line">StartActivity(intent);</div><div class="line"></div><div class="line">//4.打开浏览器:</div><div class="line">Uri uri = Uri.Parse (&quot;http://www.baidu.com&quot;);</div><div class="line">Intent intent = new Intent (Intent.ActionView, uri);</div><div class="line">StartActivity (intent);</div><div class="line"></div><div class="line"></div><div class="line">//5.多媒体播放:</div><div class="line">Intent intent = new Intent(Intent.ActionView);</div><div class="line">Uri uri = Uri.Parse(&quot;file:///sdcard/foo.mp3&quot;);</div><div class="line">intent.SetDataAndType(uri, &quot;audio/mp3&quot;);</div><div class="line">StartActivity(intent);</div><div class="line"></div><div class="line"></div><div class="line">//6.打开摄像头拍照:</div><div class="line">// 打开拍照程序</div><div class="line">Intent intent = new Intent(MediaStore.ActionImageCapture); </div><div class="line">StartActivityForResult(intent, 0);</div><div class="line">// 取出照片数据</div><div class="line">Bundle extras = intent.Extras; </div><div class="line">Bitmap bitmap = (Bitmap) extras.Get(&quot;data&quot;);</div><div class="line"></div><div class="line">//另一种:</div><div class="line">//调用系统相机应用程序，并存储拍下来的照片</div><div class="line">Intent intent = new Intent(MediaStore.ActionImageCapture); </div><div class="line">var time = Calendar.GetInstance().TimeInMillis;</div><div class="line">intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(new File(path, time + &quot;.jpg&quot;)));</div><div class="line">StartActivityForResult(intent, 0);</div><div class="line"></div><div class="line">//7.获取并剪切图片</div><div class="line">// 获取并剪切图片</div><div class="line">Intent intent = new Intent(Intent.ActionGetContent);</div><div class="line">intent.SetType(&quot;image/*&quot;);</div><div class="line">intent.PutExtra(&quot;crop&quot;, &quot;true&quot;); // 开启剪切</div><div class="line">intent.PutExtra(&quot;aspectX&quot;, 1); // 剪切的宽高比为1：2</div><div class="line">intent.PutExtra(&quot;aspectY&quot;, 2);</div><div class="line">intent.PutExtra(&quot;outputX&quot;, 20); // 保存图片的宽和高</div><div class="line">intent.PutExtra(&quot;outputY&quot;, 40); </div><div class="line">intent.PutExtra(&quot;output&quot;, Uri.FromFile(new File(&quot;/mnt/sdcard/temp&quot;))); // 保存路径</div><div class="line">intent.PutExtra(&quot;outputFormat&quot;, &quot;JPEG&quot;);// 返回格式</div><div class="line">StartActivityForResult(intent, 0);</div><div class="line">// 剪切特定图片</div><div class="line">Intent intent = new Intent(&quot;com.android.camera.action.CROP&quot;); </div><div class="line">intent.SetClassName(&quot;com.android.camera&quot;, &quot;com.android.camera.CropImage&quot;); </div><div class="line">intent.SetData(Uri.FromFile(new File(&quot;/mnt/sdcard/temp&quot;))); </div><div class="line">intent.PutExtra(&quot;outputX&quot;, 1); // 剪切的宽高比为1：2</div><div class="line">intent.PutExtra(&quot;outputY&quot;, 2);</div><div class="line">intent.PutExtra(&quot;aspectX&quot;, 20); // 保存图片的宽和高</div><div class="line">intent.PutExtra(&quot;aspectY&quot;, 40);</div><div class="line">intent.PutExtra(&quot;scale&quot;, true);</div><div class="line">intent.PutExtra(&quot;noFaceDetection&quot;, true); </div><div class="line">intent.PutExtra(&quot;output&quot;, Uri.Parse(&quot;file:///mnt/sdcard/temp&quot;)); </div><div class="line">StartActivityForResult(intent, 0);</div><div class="line"></div><div class="line">//8.打开Google Market </div><div class="line">// 打开Google Market直接进入该程序的详细页面</div><div class="line">Uri uri = Uri.Parse (&quot;market://details?id=&quot; + &quot;com.demo.app&quot;);</div><div class="line">Intent intent = new Intent (Intent.ActionView, uri);</div><div class="line">StartActivity (intent);</div><div class="line"></div><div class="line">//9.进入手机设置界面:</div><div class="line">// 进入无线网络设置界面（其它可以举一反三）  </div><div class="line">Intent intent = new Intent (Android.Provider.Settings.ActionWirelessSettings);</div><div class="line">StartActivityForResult (intent, 0);</div><div class="line"></div><div class="line">//10.安装apk:</div><div class="line">Uri installUri = Uri.FromParts(&quot;package&quot;, &quot;xxx&quot;, null);   </div><div class="line">Intent it = new Intent(Intent.ACTION_PACKAGE_ADDED, installUri);</div><div class="line">StartActivity(it);</div><div class="line"></div><div class="line">//11.卸载apk:</div><div class="line">Uri uri = Uri.FromParts(&quot;package&quot;, strPackageName, null);      </div><div class="line">Intent it = new Intent(Intent.ACTION_DELETE, uri);      </div><div class="line">StartActivity(it); </div><div class="line"></div><div class="line"></div><div class="line">//12.进入联系人页面:</div><div class="line">Intent intent = new Intent ();</div><div class="line">intent.SetAction (Intent.ActionView);</div><div class="line">intent.SetData (Android.Provider.ContactsContract.Contacts.ContentUri);</div><div class="line">StartActivity (intent);</div><div class="line"></div><div class="line">//13.查看指定联系人:</div><div class="line">Uri personUri = ContentUris.WithAppendedId (Android.Provider.ContactsContract.Contacts.ContentUri, id);//id联系人ID</div><div class="line">Intent intent = new Intent ();</div><div class="line">intent.SetAction (Intent.ActionView);</div><div class="line">intent.SetData (personUri);</div><div class="line">StartActivity (intent);</div></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月02日 23:06</p>
+        <p>原始链接： <a class="post-url" href="/2016/04/28/activity1/" title="Xamarin.Android Activity入门介绍">http://xamarin.xyz/2016/04/28/activity1/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
 
       
     </div>
-    
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/04/28/activity1/&title=《Xamarin.Android Activity入门介绍》 — Mayue‘s Blog&pic=https://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/Images/image2.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/04/28/activity1/&title=《Xamarin.Android Activity入门介绍》 — Mayue‘s Blog&source=本文将对Android四大组件之一的Activity进行简单介绍。Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/04/28/activity1/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Android Activity入门介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/04/28/activity1/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/04/28/activity1/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/04/28/activity1/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Activity/" class="color4">Activity</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
   </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
-        <p><span>发布时间:</span>2016-04-28, 14:29:02</p>
-        <p><span>最后更新:</span>2016-05-02, 10:58:58</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/04/28/activity1/" title="Xamarin.Android Activity入门介绍">http://www.xamarin.xyz/2016/04/28/activity1/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/04/28/activity1/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
-
-
-
-    <nav id="article-nav">
-        
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/04/29/activity2/">
-                    Xamarin.Android Activity用例介绍
-                </a>
-            </div>
-        
-        
-    </nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity生命周期介绍"><span class="toc-number">1.</span> <span class="toc-text">Activity生命周期介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OnCreate"><span class="toc-number">1.1.</span> <span class="toc-text">OnCreate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStart"><span class="toc-number">1.2.</span> <span class="toc-text">OnStart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnResume"><span class="toc-number">1.3.</span> <span class="toc-text">OnResume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnPause"><span class="toc-number">1.4.</span> <span class="toc-text">OnPause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnStop"><span class="toc-number">1.5.</span> <span class="toc-text">OnStop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnDestroy"><span class="toc-number">1.6.</span> <span class="toc-text">OnDestroy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OnRestart"><span class="toc-number">1.7.</span> <span class="toc-text">OnRestart</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity使用"><span class="toc-number">2.</span> <span class="toc-text">Activity使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义Activity"><span class="toc-number">2.1.</span> <span class="toc-text">定义Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明Activity"><span class="toc-number">2.2.</span> <span class="toc-text">声明Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Activity"><span class="toc-number">2.3.</span> <span class="toc-text">启动Activity</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生命周期中状态的保存"><span class="toc-number">3.</span> <span class="toc-text">生命周期中状态的保存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundle保存状态"><span class="toc-number">3.1.</span> <span class="toc-text">Bundle保存状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复杂数据的持久化"><span class="toc-number">3.2.</span> <span class="toc-text">复杂数据的持久化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统提供常用Activity"><span class="toc-number">4.</span> <span class="toc-text">系统提供常用Activity</span></a></li></ol>
-</div>
-<style>
-    .left-col .switch-btn {
-        display: none;
-    }
-    .left-col .switch-area {
-        display: none;
-    }
-</style>
 
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-            $(".switch-btn, .switch-area").fadeOut(300);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-            $(".switch-btn, .switch-area").fadeIn(500);
-        }
-    })
-
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-        $(".switch-btn, .switch-area").show();
-    }
-</script>
-
-
-
-
-
-    
-<div class="share">
-    
-        <div class="bdsharebuttonbox">
-            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
-            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
-        </div>
-        <script>
-            window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android Activity入门介绍　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-        </script>
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Activity生命周期介绍"><span class="post-toc-text">Activity生命周期介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnCreate"><span class="post-toc-text">OnCreate</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnStart"><span class="post-toc-text">OnStart</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnResume"><span class="post-toc-text">OnResume</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnPause"><span class="post-toc-text">OnPause</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnStop"><span class="post-toc-text">OnStop</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnDestroy"><span class="post-toc-text">OnDestroy</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OnRestart"><span class="post-toc-text">OnRestart</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Activity使用"><span class="post-toc-text">Activity使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义Activity"><span class="post-toc-text">定义Activity</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#声明Activity"><span class="post-toc-text">声明Activity</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动Activity"><span class="post-toc-text">启动Activity</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生命周期中状态的保存"><span class="post-toc-text">生命周期中状态的保存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bundle保存状态"><span class="post-toc-text">Bundle保存状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复杂数据的持久化"><span class="post-toc-text">复杂数据的持久化</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#系统提供常用Activity"><span class="post-toc-text">系统提供常用Activity</span></a></li></ol>
+        </nav>
+    </aside>
     
 
-    
-</div>
+<nav id="article-nav">
+  
+    <a href="/2016/04/29/activity2/" id="article-nav-newer" class="article-nav-link-wrap">
 
-
-
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/04/28/activity1/" data-title="Xamarin.Android Activity入门介绍" data-url="http://www.xamarin.xyz/2016/04/28/activity1/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"xamarin"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        //ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.src = 'http://www.xamarin.xyz/js/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-            <a href="/2016/04/29/activity2/" title="上一篇: Xamarin.Android Activity用例介绍">
-                <i class="fa fa-angle-left"></i>
-            </a>
+          Xamarin.Android Activity用例介绍
         
+      </span>
+    </a>
+  
+  
+</nav>
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/ontouchevent-gesturedetector/">Xamarin.Android OnTouchEvent和GestureDetector简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/26/custom-view/">Xamarin.Android 自定义控件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/24/special-fragment/">Xamarin.Android 特殊Fragment讲解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/fragment/">Xamarin.Android Fragment 使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/intent/">Xamarin.Android Intent简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/contentprovider2/">Xamarin.Android 自定义ContentProvider</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
-
-
-
-
-    <script>
-        
-    </script>
-</div>
+      </div>
       <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2016 Myue
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >本站到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
     </div>
+  </div>
 </footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
     </div>
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
 </div>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
   </div>
 </body>
 </html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Navigation介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack管理Page，如页面A跳转到页面B时，会将B压入栈定，此时页面B成为活动页面，执行Back操作时，页面B从栈定推出使页面A重新变为活动页面。每个应用程序都有一个特殊页作为应用程序的入口（main page, or the home page, o">
+<meta name="keywords" content="Forms,Navigation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Navigation介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack管理Page，如页面A跳转到页面B时，会将B压入栈定，此时页面B成为活动页面，执行Back操作时，页面B从栈定推出使页面A重新变为活动页面。每个应用程序都有一个特殊页作为应用程序的入口（main page, or the home page, o">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e111f182ae340d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-dfcc245de02a27c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3e9ab31fc98571c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-565fb861737c56dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-cc24c8f095b79b4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d036b41944aa14e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ec83fe44352aadac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d8aac46af2fc69b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-240032ce40974478.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f6f4321d7e842389.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:35:06.510Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Navigation介绍">
+<meta name="twitter:description" content="一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack管理Page，如页面A跳转到页面B时，会将B压入栈定，此时页面B成为活动页面，执行Back操作时，页面B从栈定推出使页面A重新变为活动页面。每个应用程序都有一个特殊页作为应用程序的入口（main page, or the home page, o">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-e111f182ae340d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Navigation介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Navigation介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-11-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack管理Page，如页面A跳转到页面B时，会将B压入栈定，此时页面B成为活动页面，执行Back操作时，页面B从栈定推出使页面A重新变为活动页面。<br>每个应用程序都有一个特殊页作为应用程序的入口（main page, or the home page, or the start page），Xamarin.Forms中由App的MainPage属性设置。<br><a id="more"></a></p>
+<p>一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack管理Page，如页面A跳转到页面B时，会将B压入栈定，此时页面B成为活动页面，执行Back操作时，页面B从栈定推出使页面A重新变为活动页面。<br>每个应用程序都有一个特殊页作为应用程序的入口（main page, or the home page, or the start page），Xamarin.Forms中由App的MainPage属性设置。</p>
+<h1 id="INavigation介绍"><a href="#INavigation介绍" class="headerlink" title="INavigation介绍"></a>INavigation介绍</h1><p>Xamarin.Forms中页面分为Modal pages(模态页面) 和 modeless pages(非模态页面)，跳转到一个新的页面可以通过<code>PushAsync</code>和<code>PushModalAsync</code>两个方法实现，两个方法均传入一个Page对象作为参数。同样提供了<code>PopAsync</code>和<code>PopModalAsync</code>两个方法返回前一个页面。PushAsync和PopAsync是对非模态页面的操作，PushModalAsync和PopModalAsync操作的是模态页面。PopToRootAsync方法表示回到导航栈低页面。RemovePage方法从导航栈中删除一个页面。InserPageBefore方法将一个page插入到指定page之前。通过这些方法操作Navigation Stack可以在不同Page间跳转。</p>
+<blockquote>
+<p>关于PopXXX和Push方法定义返回Task类型介绍参考（涉及的OnDisappearing和OnAppearing不在本文不再说明）：<br><a href="http://www.cnblogs.com/qiandi/p/5598742.html" target="_blank" rel="external">http://www.cnblogs.com/qiandi/p/5598742.html</a></p>
+</blockquote>
+<p>当我们调用PushAsync方法时必须修改App的MainPage属性为NavigationPage对象，否则报如下异常，使用NavigationPage时不必在为iOS单独设置Page的Padding属性解决页面和状态栏遮盖问题。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e111f182ae340d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>PopXXX和PushXXX提供的bool类型参数重载方法设置为true增加页面跳转动画。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-dfcc245de02a27c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="INavigation定义"></p>
+<p>INavigation还定义了两个IReadOnlyList<page>类型属性<code>ModalStack</code>和<code>NavigationStack</code>，NavigationStack表示非模态页面的集合，PushAsync和PopAsync会改变NavigationStack的内容，ModalStack表示模态页面的集合PushModalAsync和PopModalAsync会改变ModalStack的内容，这两个属性不能直接修改，且提供了类似堆栈的功能。这两个集合不能混合跳转，非模态页面可以导航到模态页面但是模态页面不能导航到非模态页面。<br>如果用<code>MainPage = new NavigationPage(new Page0());</code>初始化App的MainPage属性运行应用程序，此时IOS平台中ModalStack为空，Android和Windows平台ModalStack包含一个元素（MainPage对应NavigationPage实例）。三个平台中的NavigationStack集合包均含一个Page0的实例。</page></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3e9ab31fc98571c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Creating Mobile Apps with Xamarin.Forms》中示例截图"></p>
+<p>这些方法均定义在INavigation中，VisualElement提供了一个INavigation类型只读属性Navigation，可以通过调用Navigation的方法实现跳转。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-565fb861737c56dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>页面中调用代码<code>Navigation.PushAsync(new ModelessPage(), true);</code></p>
+<blockquote>
+<p>Programmers familiar with Android architecture are sometimes curious how Xamarin.Forms page navigation integrates with the aspect of Android application architecture known as the activity. A Xamarin.Forms application running on an Android device comprises only one activity, and the page navigation is built on top of that. A ContentPage is a Xamarin.Forms object; it is not an Android activity, or a fragment of an activity.<br>前面提到的参考链接有说明，什么意思自己看看吧！！！</p>
+</blockquote>
+<hr>
+<h1 id="NavigationPage介绍"><a href="#NavigationPage介绍" class="headerlink" title="NavigationPage介绍"></a>NavigationPage介绍</h1><p>NavigationPage的作用就是导航管理页面。</p>
+<h2 id="NavigationPage提供的属性"><a href="#NavigationPage提供的属性" class="headerlink" title="NavigationPage提供的属性"></a>NavigationPage提供的属性</h2><ul>
+<li><strong>BarBackgroundColor</strong> - 获取、设置NavigationPage顶部导航栏的背景色（iOS、Android、Windows 平台有效）。</li>
+<li><strong>BarTextColor</strong> - 获取、设置NavigationPage顶部导航栏显示文本颜色（iOS、Windows平台有效）。</li>
+</ul>
+<p>不同平台效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-cc24c8f095b79b4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li><strong>CurrentPage</strong> - 获取Navigation Stack最顶部页面，不管当前显示页面是模态页面还是非模态页面，CurrentPage都表示NavigationStack集合中的最后一项。</li>
+</ul>
+<blockquote>
+<p>when a modal page is active, CurrentPage continues to indicate the last modeless page that was active before navigation to a modal page</p>
+</blockquote>
+<h2 id="NavigationPage提供的BindableProperty"><a href="#NavigationPage提供的BindableProperty" class="headerlink" title="NavigationPage提供的BindableProperty"></a>NavigationPage提供的BindableProperty</h2><ul>
+<li><strong>HasBackButtonProperty</strong> - 是否显示非模态页面导航栏的返回按钮（iOS、Android起作用）<br>C#设置<code>NavigationPage.SetHasBackButton(this, false);</code><br>XAML设置<code>NavigationPage.HasBackButton=&quot;False&quot;</code></li>
+<li><strong>HasNavigationBarProperty</strong> - 是否显示导航栏</li>
+<li><strong>BackButtonTitleProperty</strong> - 设置返回按钮的文本（仅iOS平台）</li>
+<li><strong>TitleIconProperty</strong> - 设置导航栏上显示图标（iOS平台Icon代替Title，Android修改左侧图标显示，Windows 无效）</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d036b41944aa14e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="官方图片！！！"></p>
+<h1 id="屏蔽Android、Windows-Mobile-返回按键"><a href="#屏蔽Android、Windows-Mobile-返回按键" class="headerlink" title="屏蔽Android、Windows Mobile 返回按键"></a>屏蔽Android、Windows Mobile 返回按键</h1><p>Android和Windows Phone会包含一个返回键，返回键提供类似PopAsync或PopModalAsync的工能，程序中要屏蔽返回键的功能需要重写Page的<code>OnBackButtonPressed</code>方法。OnBackButtonPressed方法返回true值，程序不处理返回按键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">protected override bool OnBackButtonPressed()</div><div class="line">&#123;</div><div class="line">    //return base.OnBackButtonPressed();</div><div class="line">	return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Page还定义了<code>SendBackButtonPressed</code>方法，用来模拟返回按钮被按下。调用该方法与Android按下返回键功能类似。</p>
+<blockquote>
+<p>官方电子书中提到“Although this works on iOS and Android, it currently does not work on the Windows Runtime platforms.”这个方法只对iOS和Android有效，Windows Runtime platforms不能正常工作。 实际测试iOS无效，Android正常，Windows 无法测试。</p>
+</blockquote>
+<h1 id="页面间传值"><a href="#页面间传值" class="headerlink" title="页面间传值"></a>页面间传值</h1><p>一个应用程序会包含多个页面，把数据从一个页面传到另一个页面该怎么做？</p>
+<h2 id="构造函数传值"><a href="#构造函数传值" class="headerlink" title="构造函数传值"></a>构造函数传值</h2><p>页面跳转的PushXXX方法传入Page页面实例作为参数，可以通过Page页面的构造函数传入数据，如<code>Navigation.PushModalAsync(new DataPage(label.Text));</code>，在DataPage重载的构造函数中在处理接收的数据。</p>
+<h2 id="属性方法传值"><a href="#属性方法传值" class="headerlink" title="属性方法传值"></a>属性方法传值</h2><p>根据页面的属性或调用方法传值。如：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ec83fe44352aadac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>构造函数传值是单向的不能传递返回数据，通过属性传值可以从当前页面向前一个页面传值。应从NavigationStack集合中取得前一个页面实例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var stack = (App.Current.MainPage as NavigationPage).Navigation.NavigationStack;</div><div class="line"></div><div class="line">int lastIndex = stack.Count - 1;</div><div class="line">navigationPage homePage = stack[lastIndex] as navigationPage;</div><div class="line"></div><div class="line">if (homePage == null)</div><div class="line">&#123;</div><div class="line">	homePage = stack[lastIndex - 1] as navigationPage;</div><div class="line">&#125;</div><div class="line"></div><div class="line">homePage.SetText(Value + &quot;页面返回数据了&quot;);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>从模态页面跳转到非模态页面和模态页面跳转到模态页面两种情况，跳转前的页面在NavigationStack中有不同的位置。如果是非模态页面跳转到非模态页面？又要从ModalStack中获取前一个页面实例，所以通过属性和方法传值不推荐！！！</p>
+</blockquote>
+<h2 id="Messaging-Center传值"><a href="#Messaging-Center传值" class="headerlink" title="Messaging Center传值"></a>Messaging Center传值</h2><p>MessagingCenter是一个静态类，提供了Subscribe、Unsubscribe和Send三个公开的方法。Subscribe订阅接收的消息信息，参数、发送者类型等。Unsubscribe取消订阅，不在接收消息。Send发送指定类型消息。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d8aac46af2fc69b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Messaging Center传值示例：</p>
+<p>数据接收页面增加消息订阅代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">MessagingCenter.Subscribe&lt;navigationPage, string&gt;(this, &quot;Value&quot;, (arg1, arg2) =&gt;</div><div class="line">		&#123;</div><div class="line">			label.Text = arg2;</div><div class="line">		&#125;);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Subscribe包含两个范型参数，第一个为消息发送者类型，第二个为传递数据类型。Subscribe包含三个参数，第一个为消息接收者，第二个参数为字符串类型消息标示，第三个参数是一个lambda表达式，表示接收到消息后的动作。</p>
+</blockquote>
+<p>数据传递页面增加发送消息代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MessagingCenter.Send&lt;navigationPage, string&gt;(this, &quot;Value&quot;, label.Text);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Send两个范型参数与Subscribe方法相同。Send包含三个参数，第一个参数为消息发送者，第二个参数为消息标示，第三个参数为传递的数据对象。<br>本示例Send方法应在PushAsync后执行。PushAsync执行前消息没有订阅，Send发送消息此时没有接收者。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-240032ce40974478.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>不再接收消息时应该调用Unsubscribe取消指定消息的订阅,对资源回收释放。本示例取消订阅代码添加在Subscribe方法的lambda中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MessagingCenter.Unsubscribe&lt;navigationPage, string&gt;(this, &quot;Value&quot;);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Strictly speaking, however, unsubscribing shouldn’t be necessary because the MessagingCenter maintains WeakReference objects for subscribers。<br>MessagingCenter定义了一个<code>Dictionary&lt;Tuple&lt;string, Type, Type&gt;, List&lt;Tuple&lt;WeakReference, Action&lt;object, object&gt;&gt;&gt;&gt;</code>类型对象通过WeakReference管理subscribers，所以Unsubscribe方法不是必须的。</p>
+</blockquote>
+<h2 id="事件传值"><a href="#事件传值" class="headerlink" title="事件传值"></a>事件传值</h2><p>WinForm中常用的传值形式，事件传值。推荐数据回传时使用。</p>
+<p>Page1 跳转到Page2时，Page2添加事件定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public EventHandler&lt;string&gt; Value;</div></pre></td></tr></table></figure></p>
+<p>Page2 返回Page1 时，触发事件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">EventHandler&lt;string&gt; handler = Value;</div><div class="line">if (handler != null)</div><div class="line">&#123;</div><div class="line">	handler(this, &quot;增加返回字符串&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Page1 跳转到Page2时，订阅Page2的事件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var page = new Page2();</div><div class="line">page.Value += (sender, e) =&gt;</div><div class="line">&#123;</div><div class="line">		label.Text = e;</div><div class="line">&#125;;</div><div class="line">Navigation.PushAsync(page);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>传递复杂数据继承<code>EventArgs</code>实现传值</p>
+</blockquote>
+<h2 id="App-Class传值"><a href="#App-Class传值" class="headerlink" title="App Class传值"></a>App Class传值</h2><p>Xamarin.Forms应用程序会提供一个App类（继承Application）作为程序的入口，该对象在应用程序运行期间一直存在，可以借助App类实现不同页面之间数据传递。</p>
+<p>修改App代码定义属性保存、获取数据。如：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-f6f4321d7e842389.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>获取App类实例可以通过<code>(App)Application.Current)</code>获取。或着直接定义static 属性，直接通过App.Value 传值。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:35</p>
+        <p>原始链接： <a class="post-url" href="/2016/11/08/Xamarin-Forms-Navigation介绍/" title="Xamarin.Forms Navigation介绍">http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/&title=《Xamarin.Forms Navigation介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-3e9ab31fc98571c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/&title=《Xamarin.Forms Navigation介绍》 — Mayue‘s Blog&source=一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Navigation介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Navigation介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Navigation/" class="color1">Navigation</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#INavigation介绍"><span class="post-toc-text">INavigation介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NavigationPage介绍"><span class="post-toc-text">NavigationPage介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NavigationPage提供的属性"><span class="post-toc-text">NavigationPage提供的属性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NavigationPage提供的BindableProperty"><span class="post-toc-text">NavigationPage提供的BindableProperty</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#屏蔽Android、Windows-Mobile-返回按键"><span class="post-toc-text">屏蔽Android、Windows Mobile 返回按键</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#页面间传值"><span class="post-toc-text">页面间传值</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#构造函数传值"><span class="post-toc-text">构造函数传值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#属性方法传值"><span class="post-toc-text">属性方法传值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Messaging-Center传值"><span class="post-toc-text">Messaging Center传值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事件传值"><span class="post-toc-text">事件传值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#App-Class传值"><span class="post-toc-text">App Class传值</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/11/08/Xamarin-Forms-Page介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Page介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Views介绍（七）——TableView</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

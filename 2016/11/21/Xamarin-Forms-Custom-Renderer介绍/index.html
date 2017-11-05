@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Custom Renderer介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Xamarin.Forms 开发过程中需要平台特殊定制时可以同过Custom Renderer实现。定义自己的Custom Renderer应继承ViewRenderer类，ViewRenderer是一个泛型类。ViewRenderer单独定义在不同平台中，Android平台在Xamarin.Forms.Platform.Android下,iOS平台在Xamarin.Forms.Platform.">
+<meta name="keywords" content="Forms,Renderer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Custom Renderer介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Xamarin.Forms 开发过程中需要平台特殊定制时可以同过Custom Renderer实现。定义自己的Custom Renderer应继承ViewRenderer类，ViewRenderer是一个泛型类。ViewRenderer单独定义在不同平台中，Android平台在Xamarin.Forms.Platform.Android下,iOS平台在Xamarin.Forms.Platform.">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d43a5eeab315ca5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b64d58a1e18356c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0bfacee937b79f59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-74afa9aaa0a11935.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-09808e93b0b7c41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:37:47.860Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Custom Renderer介绍">
+<meta name="twitter:description" content="Xamarin.Forms 开发过程中需要平台特殊定制时可以同过Custom Renderer实现。定义自己的Custom Renderer应继承ViewRenderer类，ViewRenderer是一个泛型类。ViewRenderer单独定义在不同平台中，Android平台在Xamarin.Forms.Platform.Android下,iOS平台在Xamarin.Forms.Platform.">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-d43a5eeab315ca5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Custom-Renderer介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Custom Renderer介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-11-21
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Xamarin.Forms 开发过程中需要平台特殊定制时可以同过<code>Custom Renderer</code>实现。定义自己的Custom Renderer应继承<code>ViewRenderer</code>类，ViewRenderer是一个泛型类。ViewRenderer单独定义在不同平台中，Android平台在<code>Xamarin.Forms.Platform.Android</code>下,iOS平台在<code>Xamarin.Forms.Platform.iOS</code>下。ViewRenderer包含的两个范型参数<code>TView</code>和<code>TNativeView</code>（UWP下为TElement和TNativeElement），TView对应的是Xamarin.Forms中定义的视图元素，TNativeView则对应的是平台中定义的视图元素。<br><a id="more"></a></p>
+<p>Xamarin.Forms 开发过程中需要平台特殊定制时可以同过<code>Custom Renderer</code>实现。定义自己的Custom Renderer应继承<code>ViewRenderer</code>类，ViewRenderer是一个泛型类。ViewRenderer单独定义在不同平台中，Android平台在<code>Xamarin.Forms.Platform.Android</code>下,iOS平台在<code>Xamarin.Forms.Platform.iOS</code>下。ViewRenderer包含的两个范型参数<code>TView</code>和<code>TNativeView</code>（UWP下为TElement和TNativeElement），TView对应的是Xamarin.Forms中定义的视图元素，TNativeView则对应的是平台中定义的视图元素。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d43a5eeab315ca5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="通过Renderer自定义Label"><a href="#通过Renderer自定义Label" class="headerlink" title="通过Renderer自定义Label"></a>通过Renderer自定义Label</h1><p>借助Renderer实现下带划线、删除线的Label。</p>
+<blockquote>
+<p>Custom Renderer学习更多实例参靠：<a href="https://github.com/XLabs/Xamarin-Forms-Labs" target="_blank" rel="external">https://github.com/XLabs/Xamarin-Forms-Labs</a></p>
+</blockquote>
+<hr>
+<p>在PCL项目中添加CustomLabel定义，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class CustomLabel:Label</div><div class="line">&#123;</div><div class="line">	public CustomLabel()</div><div class="line">	&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static readonly BindableProperty IsUnderlineProperty =</div><div class="line">		BindableProperty.Create(&quot;IsUnderline&quot;,typeof(bool), typeof(CustomLabel), false);</div><div class="line"></div><div class="line">	public static readonly BindableProperty IsStrikeThroughProperty = </div><div class="line">		BindableProperty.Create(&quot;IsStrikeThrough&quot;, typeof(bool), typeof(CustomLabel), false);</div><div class="line"></div><div class="line">	public bool IsUnderline</div><div class="line">	&#123;</div><div class="line">		get</div><div class="line">		&#123;</div><div class="line">			return (bool)GetValue(IsUnderlineProperty);</div><div class="line">		&#125;</div><div class="line">		set</div><div class="line">		&#123;</div><div class="line">			SetValue(IsUnderlineProperty, value);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public bool IsStrikeThrough</div><div class="line">	&#123;</div><div class="line">		get</div><div class="line">		&#123;</div><div class="line">			return (bool)GetValue(IsStrikeThroughProperty);</div><div class="line">		&#125;</div><div class="line">		set</div><div class="line">		&#123;</div><div class="line">			SetValue(IsStrikeThroughProperty, value);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p>接下来就是在相应的平台定义Renderer。一定要为定义好的Renderer添加<code>ExportRenderer</code>特性，ExportRenderer同Dependency特性一样是程序集特性，需要标记在命名空间块之外。</p>
+<blockquote>
+<p>When a Xamarin.Forms application starts up, Xamarin.Forms uses .NET reflection to search through the various assemblies that comprise the application, looking for assembly attributes named ExportRenderer. An ExportRenderer attribute indicates the presence of a custom renderer that can supply support for a Xamarin.Forms element.</p>
+</blockquote>
+<p>本文示例会有如下特性定义在namespace上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[assembly: ExportRenderer(typeof(renderer.CustomLabel), typeof(renderer.iOS.CustomLabelRenderer))]</div></pre></td></tr></table></figure></p>
+<p>继承ViewRenderer的同时一定要重写<code>OnElementChanged</code>方法。该方法的作用是创建平台视图元素，会在CustomLabel初始化时调用。ViewRenderer定义了一个TNativeView类型属性<code>Control</code>，本示例中为UILabel。OnElementChanged第一次调用时Control属性为null，应该在OnElementChanged中初始化一个TNativeView元素，通过<code>SetNativeControl</code>方法赋值给Control属性。每一个Renderer实例都管理着一个平台视图对象（native object）即Control属性。</p>
+<p>ViewRenderer还定义了一个Element属性，Element是我们定义的Xamarin.Forms元素，本示例中为CustomLabel类型。</p>
+<p>OnElementChanged方法传入一个<code>ElementChangedEventArgs</code>范型参数,ElementChangedEventArgs<t>有两个<code>OldElement</code>和<code>NewElement</code>属性，类型由ElementChangedEventArgs传入的T决定。如果NewElement不为null，NewElement与ViewRenderer的Element属性表示同一对象,根据NewElement的属性，为Control（Natice）设置相应属性。而OldElement属性通常用作回收资源。</t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if (e.OldElement != null) &#123;</div><div class="line">    // Unsubscribe from event handlers and cleanup any resources</div><div class="line">&#125;</div><div class="line"></div><div class="line">if (e.NewElement != null) &#123;</div><div class="line">    // Configure the native control and subscribe to event handlers</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Android 自定义Renderer中OnElementChanged方法</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-b64d58a1e18356c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>CustomLabel中属性定义为BindableProperty类型，当BindableProperty类型属性改变时会触发PropertyChanged事件。Renderer对象同样会接收到BindableProperty发生改变的通知调用<code>OnElementPropertyChanged</code>方法。在OnElementPropertyChanged方法中判断<code>e.PropertyName</code>的值，为Control对应的原生视图元素设置相应属性。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0bfacee937b79f59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>根据以上介绍写出Android下自定义Renderer：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">[assembly: ExportRenderer(typeof(renderer.CustomLabel), typeof(renderer.Droid.CustomLabelRenderer))]</div><div class="line">namespace renderer.Droid</div><div class="line">&#123;</div><div class="line">	public class CustomLabelRenderer : ViewRenderer&lt;CustomLabel, TextView&gt;</div><div class="line">	&#123;</div><div class="line">		public CustomLabelRenderer()</div><div class="line">		&#123;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnElementChanged(ElementChangedEventArgs&lt;CustomLabel&gt; e)</div><div class="line">		&#123;</div><div class="line">			base.OnElementChanged(e);</div><div class="line"></div><div class="line">			if (Control == null)</div><div class="line">			&#123;</div><div class="line">				SetNativeControl(new TextView(Context));</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			if (e.NewElement != null)</div><div class="line">			&#123;</div><div class="line">				Control.Text = e.NewElement.Text;</div><div class="line"></div><div class="line">				if (e.NewElement.IsUnderline)</div><div class="line">				&#123;</div><div class="line">					Control.PaintFlags = Control.PaintFlags | PaintFlags.UnderlineText;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				if (e.NewElement.IsStrikeThrough)</div><div class="line">				&#123;</div><div class="line">					Control.PaintFlags = Control.PaintFlags | PaintFlags.StrikeThruText;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line"></div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)</div><div class="line">		&#123;</div><div class="line">			base.OnElementPropertyChanged(sender, e);</div><div class="line">			if (e.PropertyName == CustomLabel.IsUnderlineProperty.PropertyName)</div><div class="line">			&#123;</div><div class="line">				Control.PaintFlags = Control.PaintFlags | PaintFlags.UnderlineText;</div><div class="line">			&#125;</div><div class="line">			else if (e.PropertyName == CustomLabel.IsStrikeThroughProperty.PropertyName)</div><div class="line">			&#123;</div><div class="line">				Control.PaintFlags = Control.PaintFlags | PaintFlags.StrikeThruText;</div><div class="line">			&#125;</div><div class="line">			else if (e.PropertyName == CustomLabel.TextProperty.PropertyName)</div><div class="line">			&#123;</div><div class="line">				Control.Text = Element.Text;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>iOS同理Android不再过多说明。iOS项目中自定义Renderer：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">[assembly: ExportRenderer(typeof(renderer.CustomLabel), typeof(renderer.iOS.CustomLabelRenderer))]</div><div class="line">namespace renderer.iOS</div><div class="line">&#123;</div><div class="line">	public class CustomLabelRenderer : ViewRenderer&lt;CustomLabel, UILabel&gt;</div><div class="line">	&#123;</div><div class="line">		public CustomLabelRenderer()</div><div class="line">		&#123;</div><div class="line">		&#125;</div><div class="line"></div><div class="line"></div><div class="line">		protected override void OnElementChanged(ElementChangedEventArgs&lt;CustomLabel&gt; e)</div><div class="line">		&#123;</div><div class="line">			base.OnElementChanged(e);</div><div class="line"></div><div class="line">			if (Control == null)</div><div class="line">			&#123;</div><div class="line">				SetNativeControl(new UILabel());</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			if (e.NewElement != null)</div><div class="line">			&#123;</div><div class="line">				InitView(e.NewElement);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)</div><div class="line">		&#123;</div><div class="line">			base.OnElementPropertyChanged(sender, e);</div><div class="line">			if (e.PropertyName == CustomLabel.IsUnderlineProperty.PropertyName ||</div><div class="line">				e.PropertyName == CustomLabel.IsStrikeThroughProperty.PropertyName ||</div><div class="line">				e.PropertyName == CustomLabel.TextProperty.PropertyName)</div><div class="line">			&#123;</div><div class="line">				InitView(Element);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		private void InitView(CustomLabel element)</div><div class="line">		&#123;</div><div class="line">			var underline = element.IsUnderline ? NSUnderlineStyle.Single : NSUnderlineStyle.None;</div><div class="line">			var strikethrough = element.IsStrikeThrough ? NSUnderlineStyle.Single : NSUnderlineStyle.None;</div><div class="line"></div><div class="line">			Control.AttributedText = new NSMutableAttributedString(element.Text,</div><div class="line">			Control.Font,</div><div class="line">			underlineStyle: underline,</div><div class="line">			strikethroughStyle: strikethrough);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>XAML测试代码，CustomLabel定义在项目内，所以直接用上文定义好的local命名空间：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-74afa9aaa0a11935.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Android 和iOS的运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-09808e93b0b7c41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>原本iOS和Android中很容易实现的功能，再Xamarin.Forms中却变得有些复杂。。。。。,考虑开发成本和维护成本，这点痛算什么！三方库支持完善起来时Xamarin.Forms开发应该会比较乐观吧。</strong></p>
+<hr>
+<p>Xamarin.Forms中的每个视图（page, layout, view）都对应一个原生视图渲染，我们自定义时可以直接使用Xamarin.Forms提供的Renderer类。<br>对应关系查看：<a href="https://developer.xamarin.com/guides/xamarin-forms/custom-renderer/renderers/" target="_blank" rel="external">https://developer.xamarin.com/guides/xamarin-forms/custom-renderer/renderers/</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:37</p>
+        <p>原始链接： <a class="post-url" href="/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" title="Xamarin.Forms Custom Renderer介绍">http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/&title=《Xamarin.Forms Custom Renderer介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-09808e93b0b7c41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/&title=《Xamarin.Forms Custom Renderer介绍》 — Mayue‘s Blog&source=Xamarin.Forms 开发过程中需要平台特殊定制时可以同过Custom Renderer实现。定义自己的Custom Renderer应继承View..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Custom Renderer介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Renderer/" class="color4">Renderer</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过Renderer自定义Label"><span class="post-toc-text">通过Renderer自定义Label</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/11/29/Xamarin-Forms-自定义布局介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms 自定义布局介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/11/14/Xamarin-Forms-Platform-Specific-API/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Platform-Specific API</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

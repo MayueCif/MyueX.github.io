@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms MVVM介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：http://baike.baidu.com/view/3507915.htm MVVM架构分为三层：• Model负责访问数据，为ViewModel提供数据。• ViewModel连接Model层和View层. ViewModel帮助管理Model提供的数据">
+<meta name="keywords" content="Forms,MVVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms MVVM介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：http://baike.baidu.com/view/3507915.htm MVVM架构分为三层：• Model负责访问数据，为ViewModel提供数据。• ViewModel连接Model层和View层. ViewModel帮助管理Model提供的数据">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-cb4ab945f09a8553.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-39f494c0feaa5eb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-43bcd438d7c06e08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-01e1c0f85b04db04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-20f1eae9619c4dad.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-10de54ff21ac32ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-a683f72300f8d28f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ba8da2f5c674c359.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-1abaa35d02c981ba.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2017-11-04T02:35:43.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms MVVM介绍">
+<meta name="twitter:description" content="MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：http://baike.baidu.com/view/3507915.htm MVVM架构分为三层：• Model负责访问数据，为ViewModel提供数据。• ViewModel连接Model层和View层. ViewModel帮助管理Model提供的数据">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-cb4ab945f09a8553.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-MVVM介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms MVVM介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-10-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：<a href="http://baike.baidu.com/view/3507915.htm" target="_blank" rel="external">http://baike.baidu.com/view/3507915.htm</a></p>
+<p>MVVM架构分为三层：<br>• Model负责访问数据，为ViewModel提供数据。<br>• ViewModel连接Model层和View层. ViewModel帮助管理Model提供的数据.<br>• View层表现数据，通常为XAML定义的用户界面.<br><a id="more"></a></p>
+<p>MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：<a href="http://baike.baidu.com/view/3507915.htm" target="_blank" rel="external">http://baike.baidu.com/view/3507915.htm</a></p>
+<p>MVVM架构分为三层：<br>• Model负责访问数据，为ViewModel提供数据。<br>• ViewModel连接Model层和View层. ViewModel帮助管理Model提供的数据.<br>• View层表现数据，通常为XAML定义的用户界面.</p>
+<p>三层之间的调用关系：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-cb4ab945f09a8553.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>View层不允许直接调用Model层获取数据，View层获取数据需要通过调用ViewModel提供的方法或属性简介获取Model层提供的数据。</p>
+<p>同时为了实现双向通信，ViewModel和View会提供事件处理逐层向下反馈用户处理。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-39f494c0feaa5eb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>再简单的MVVM示例中Model层是被省略的，ViewModel负责全部业务逻辑。ViewModel和View之间通过Data Binding通信，其中View作为Target，ViewModel作为Source。</p>
+<h1 id="ViewModels-和-Data-Binding"><a href="#ViewModels-和-Data-Binding" class="headerlink" title="ViewModels 和 Data Binding"></a>ViewModels 和 Data Binding</h1><p>再Data Binding介绍中提到，Source必须是实现了INotifyPropertyChanged（INPC）接口的对象。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-43bcd438d7c06e08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="INotifyPropertyChanged定义"></p>
+<blockquote>
+<p>INotifyPropertyChanged接口包含一个PropertyChanged事件委托类型为<code>PropertyChangedEventHandler</code>。PropertyChangedEventHandler委托第二个参数类型为<code>PropertyChangedEventArgs</code>，PropertyChangedEventArgs包含一个string 类型的PropertyName属性,根据这个属性可以判断ViewModel的哪个属性发生改变。</p>
+</blockquote>
+<p>对Xamarin.Forms平台而言，ViewModel通常继承<code>BindableObject</code><br>即可，ViewModel公共属性定义为<code>BindableProperty</code>类型。BindableObject已经实现了INotifyPropertyChanged接口，定义为BindableProperty类型的属性改变时会自动触发PropertyChanged事件。</p>
+<p>简单INotifyPropertyChanged接口使用示例：一个Label标签显示当前时间，每过一秒Label时间更新一次。INotifyPropertyChanged ➕ Data Binding实现。<br>自定义ViewModel实现INotifyPropertyChanged接口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">public class DateTimeViewModel : INotifyPropertyChanged</div><div class="line">&#123;</div><div class="line">	DateTime dateTime = DateTime.Now;</div><div class="line"></div><div class="line">	public event PropertyChangedEventHandler PropertyChanged;</div><div class="line"></div><div class="line">	public DateTimeViewModel()</div><div class="line">	&#123;</div><div class="line">		Device.StartTimer(TimeSpan.FromSeconds(1), () =&gt;</div><div class="line">		&#123;</div><div class="line">			DateTime = DateTime.Now;</div><div class="line">			return true;</div><div class="line">		&#125;);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public DateTime DateTime</div><div class="line">	&#123;</div><div class="line">		private set</div><div class="line">		&#123;</div><div class="line">			if (dateTime != value)</div><div class="line">			&#123;</div><div class="line">				dateTime = value;</div><div class="line">				OnPropertyChanged(&quot;DateTime&quot;);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		get</div><div class="line">		&#123;</div><div class="line">			return dateTime;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	protected void OnPropertyChanged(string propertyName)</div><div class="line">	&#123;</div><div class="line">		if (PropertyChanged != null)</div><div class="line">		&#123;</div><div class="line">			PropertyChanged(this, new PropertyChangedEventArgs(propertyName));</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ViewModel除实现了INotifyPropertyChanged接口外还定义了DateTime类型的DateTime属性。在DateTime属性的set操作中检查属性对应的字段与value是否相等，如不想等对dateTime赋值的同时检查PropertyChanged的值是否为null，不为null调用PropertyChanged。</p>
+<p>OnPropertyChanged方法传入的string类型参数表示当前改变属性的字符串名，一个ViewModel内定义多个属性应确保调用OnPropertyChanged方法时传入一个正确的字符串，错误的字符串导致会使绑定失败。.Net 4.5之后的版本提供了一个特性类<code>CallerMemberName</code>,表调用者名且对应参数应设为可选参数具有默认值。修改后的OnPropertyChanged方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">protected void OnPropertyChanged([CallerMemberName] string propertyName = &quot;&quot;)</div><div class="line">&#123;</div><div class="line">	if (PropertyChanged != null)</div><div class="line">	&#123;</div><div class="line">		PropertyChanged(this, new PropertyChangedEventArgs(propertyName));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>属性的set操作中调用OnPropertyChanged方法的代码修改为<code>OnPropertyChanged();</code>。由于定义了CallerMemberNameAttribute可以省略参数传递。事实上CallerMemberNameAttribute类就是为了INotifyPropertyChanged接口使用定义的。</p>
+<p>进一步修改代码，定义ViewModel时定义一个SetProperty通用方法，第一个参数标记为ref，表示Property对应的字段，第二个参数为set提供的value。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">bool SetProperty&lt;T&gt;(ref T storage, T value, [CallerMemberName] string propertyName = &quot;&quot;)</div><div class="line">&#123;</div><div class="line">	if (Object.Equals(storage, value))</div><div class="line">		return false;</div><div class="line"></div><div class="line">	storage = value;</div><div class="line">	if (PropertyChanged != null)</div><div class="line">	&#123;</div><div class="line">		PropertyChanged(this, new PropertyChangedEventArgs(propertyName));</div><div class="line">	&#125;</div><div class="line">    return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果属性的set操作中只提供简单的赋值，调用定义的SetProperty方法即可。本例中DateTime属性的示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public DateTime DateTime</div><div class="line">&#123;</div><div class="line">	private set</div><div class="line">	&#123;</div><div class="line">		SetProperty&lt;DateTime&gt;(ref dateTime,value);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	get</div><div class="line">	&#123;</div><div class="line">		return dateTime;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>《Creating Mobile Apps with Xamarin.Forms》中代码示例，可以定义一个ViewModel基类，定义ViewModel时即成ViewModelBase类即可，不再考虑INotifyPropertyChanged接口。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-01e1c0f85b04db04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ViewModelBase定义"></p>
+<p>XAML界面定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ContentPage.Resources&gt;</div><div class="line">     &lt;ResourceDictionary&gt;</div><div class="line">         &lt;local:DateTimeViewModel x:Key=&quot;dateTimeViewModel&quot; /&gt;</div><div class="line">     &lt;/ResourceDictionary&gt;</div><div class="line">&lt;/ContentPage.Resources&gt;</div><div class="line">	</div><div class="line">&lt;Label Text=&quot;&#123;Binding Source=&#123;StaticResource dateTimeViewModel&#125; ,Path=DateTime &#125;&quot; </div><div class="line">       VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>运行效果：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-20f1eae9619c4dad.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>MVVM可以使用户界面与逻辑代码分离，如修改Label为Button，只需要编辑XAML代码即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;Button Text=&quot;&#123;Binding Source=&#123;StaticResource dateTimeViewModel&#125; ,Path=DateTime &#125;&quot; </div><div class="line">		VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="ICommand-接口介绍"><a href="#ICommand-接口介绍" class="headerlink" title="ICommand 接口介绍"></a>ICommand 接口介绍</h1><p>Data Binding 可以方便的连接View的属性和ViewModel的属性，有时候ViewModel还会定义公共方法给View调用，如ViewModel定义一个公共方法响应Button的点击事件。MVVM提供了<code>command interface</code>协议绑定方法，command interface只支持极少数的几个类：Button、MenuItem、ToolbarItem、SearchBar、TextCell、ImageCell、ListView、TapGestureRecognizer。当然也可以自定义类实现command interface的支持。</p>
+<p>通过command interface代替Button的Clicked事件示例。Button提供了Command和CommandParameter两个属性支持commanding。ViewModel需要定义一个类型为ICommand的公告属性连接Button的Command属性。ICommand定义在System.Windows.Input命名空间下。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-10de54ff21ac32ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ICommand接口定义"></p>
+<p>ICommand中定义了两个方法一个事件，当Button的Command属性绑定一个实现了ICommand接口的对象时，点击按钮触发Clicked事件的同时还会调用Command属性的Excute方法，Excute方法的参数通过Button的CommandParameter属性设置。CanExecute方法会在Command属性第一次赋值时调用，如果CanExecute返回false，表示Button不可用且不会发生Excute方法的调用。Button还会监听CanExecuteChanged事件，当CanExecuteChanged事件触发时会继续调用CanExecute方法判断Button是否可用。<br>实际使用通常不会自己实现ICommand接口，Forms提供了ICommand的实现类<code>Command</code>，同时也提供了<code>Command&lt;T&gt;</code>类.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-a683f72300f8d28f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Command类"></p>
+<p>Command出了实现ICommand接口还提供了<code>ChangeCanExecute</code>方法，调用该方法会触发CanExecuteChanged事件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ba8da2f5c674c359.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Command如上所示，构造函数提供的两个参数类型分别为Action和Func<bool>，excute表示Execute方法的调用，canExecute表示CanExecute方法的调用。</bool></p>
+<p>通过一个简单示例展示Commanding的用法。添加两个按钮使Label上显示的数字在＋3～－3之间增加和减小，效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-1abaa35d02c981ba.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>首先定义NumberViewModel类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">public class NumberViewModel : INotifyPropertyChanged</div><div class="line">&#123;</div><div class="line">	private int number = 0;</div><div class="line"></div><div class="line">	private const int Increase_Limit = 3, Decrease_Limit = -3;</div><div class="line"></div><div class="line">	public event PropertyChangedEventHandler PropertyChanged;</div><div class="line"></div><div class="line"></div><div class="line">	public NumberViewModel()</div><div class="line">	&#123;</div><div class="line">		IncreaseCommand = new Command(() =&gt; &#123; Number++; &#125;, () =&gt; &#123; return number &lt; Increase_Limit; &#125;);</div><div class="line">		DecreaseCommand = new Command(() =&gt; &#123; Number--; &#125;, () =&gt; &#123; return number &gt; Decrease_Limit; &#125;);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public int Number</div><div class="line">	&#123;</div><div class="line">		private set</div><div class="line">		&#123;</div><div class="line">			if (SetProperty&lt;int&gt;(ref number, value))</div><div class="line">			&#123;</div><div class="line">				IncreaseCommand.ChangeCanExecute();</div><div class="line">				DecreaseCommand.ChangeCanExecute();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		get</div><div class="line">		&#123;</div><div class="line">			return number;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	bool SetProperty&lt;T&gt;(ref T storage, T value, [CallerMemberName] string propertyName = &quot;&quot;)</div><div class="line">	&#123;</div><div class="line">		if (Object.Equals(storage, value))</div><div class="line">			return false;</div><div class="line"></div><div class="line">		storage = value;</div><div class="line">		if (PropertyChanged != null)</div><div class="line">		&#123;</div><div class="line">			PropertyChanged(this, new PropertyChangedEventArgs(propertyName));</div><div class="line">		&#125;</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	#region Command</div><div class="line">	public Command IncreaseCommand</div><div class="line">	&#123;</div><div class="line">		get;</div><div class="line">		set;</div><div class="line">	&#125;</div><div class="line">	public Command DecreaseCommand</div><div class="line">	&#123;</div><div class="line">		get;</div><div class="line">		set;</div><div class="line">	&#125;</div><div class="line">	#endregion</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>NumberViewModel类不止实现了INotifyPropertyChanged类还定义了两个Command类型（实现了ICommand接口）属性IncreaseCommand和DecreaseCommand，这两个属性分别会绑定到加1按钮和减1按钮的Command属性。两个属性在构造函数中初始化时第一个参数的匿名委托中一定要直接操作Number属性而不是number字段，否则不会触发PropertyChanged事件，第二个参数根据number的值判断按钮是否可以用从而控制number的变化范围。修改Number的set代码，改变number值的同时调用Command的ChangeCanExecute方法触发CanExecuteChanged事件从而调用CanExecute方法（前文提到的第二个参数）。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:35</p>
+        <p>原始链接： <a class="post-url" href="/2016/10/13/Xamarin-Forms-MVVM介绍/" title="Xamarin.Forms MVVM介绍">http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/&title=《Xamarin.Forms MVVM介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-39f494c0feaa5eb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/&title=《Xamarin.Forms MVVM介绍》 — Mayue‘s Blog&source=MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：http://..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms MVVM介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/10/13/Xamarin-Forms-MVVM介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/MVVM/" class="color5">MVVM</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ViewModels-和-Data-Binding"><span class="post-toc-text">ViewModels 和 Data Binding</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ICommand-接口介绍"><span class="post-toc-text">ICommand 接口介绍</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Views介绍（六）——ListView
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/10/07/Xamarin-Forms-Data-Binding介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Data Binding介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

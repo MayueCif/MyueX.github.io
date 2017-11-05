@@ -1,332 +1,183 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-  
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
   <meta charset="utf-8">
   
-  <title>Xamarin.Android 自定义控件 | Myue&#39;s Blog</title>
+  <title>Xamarin.Android 自定义控件 | Mayue‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。
-主要通过以下">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。 主要通过以下">
+<meta name="keywords" content="View">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xamarin.Android 自定义控件">
-<meta property="og:url" content="http://www.xamarin.xyz/2016/05/26/custom-view/index.html">
-<meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description" content="Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。
-主要通过以下">
-<meta property="og:image" content="http://www.xamarin.xyz/attach/custom_view/title_image_view.png">
-<meta property="og:updated_time" content="2016-05-26T08:48:52.000Z">
+<meta property="og:url" content="http://xamarin.xyz/2016/05/26/custom-view/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。 主要通过以下">
+<meta property="og:image" content="http://xamarin.xyz/attach/custom_view/title_image_view.png">
+<meta property="og:updated_time" content="2017-11-02T15:14:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xamarin.Android 自定义控件">
-<meta name="twitter:description" content="Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。
-主要通过以下">
-<meta name="twitter:image" content="http://www.xamarin.xyz/attach/custom_view/title_image_view.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
+<meta name="twitter:description" content="Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。 主要通过以下">
+<meta name="twitter:image" content="http://xamarin.xyz/attach/custom_view/title_image_view.png">
   
   
-    <link rel="icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico">
   
-  
-      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
-  
-  
-  
-      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  
-  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-  
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false,
-          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
-      }
-  </script>
-
-  
-      <script>
-          yiliaConfig.rootUrl = "/";
-      </script>
+  <script src="/js/pace.min.js"></script>
   
 
   
   
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
 </head>
+
 <body>
   <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Myue</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">移动开发</p>
-        
-                
-
-
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
                     
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        <li>
-                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=76f8b2638997afc52c1d1f1d88da33d90a46472b409ffdcc5098b19e0be1c3ce">
-                                <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Xamarin招聘、求职" title="Xamarin招聘、求职">
-                            </a>
-                        </li>
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gesture/">Gesture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">专注于移动端开发</div>
-                </section>
-                
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">移动开发</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
             <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
             </nav>
-        </header>                
+        </div>
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
-</nav>
-      <div class="body-wrap"><article id="post-custom-view" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/26/custom-view/" class="article-date">
-      <time datetime="2016-05-26T08:28:13.000Z" itemprop="datePublished">2016-05-26</time>
-</a>
-    </div>
-  
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-custom-view" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="post-title" itemprop="name">
       Xamarin.Android 自定义控件
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Android/">Android</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-05-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/View/">View</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
           
-        <p>Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。</p>
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们要通过自定义View实现想要的效果。创建一个自定义View，一般是继承View和ViewGroup及其子类，重写一些方法实现我们想要的效果或逻辑,如OnDraw，OnMeasure，OnLayout，OnTouchEvent等方法。</p>
 <p>主要通过以下五个方面创建一个自定义View：</p>
 <ol>
 <li>绘图，通过重写OnDraw方法控制View的渲染效果</li>
 <li>交互，重写OnTouchEvent方法实现与用户的交互</li>
 <li>测量，重写OnMeasure测量控件显示位置</li>
 <li>属性，attrs.xml中自定义控件的属性，通过TypedArray读取属性</li>
-<li>保存状态，避免配置改变时丢失View的状态，重写OnSaveInstanceState和OnRestoreInstanceState方法保存、恢复状态</li>
+<li>保存状态，避免配置改变时丢失View的状态，重写OnSaveInstanceState和OnRestoreInstanceState方法保存、恢复状态<a id="more"></a>
+</li>
 </ol>
-<a id="more"></a>
 <p>接下来通过一个例子详细的介绍一下如何自定义View，实现一个图片➕文字说明的控件。<br>自定义一个TitleImageView继承View，重写3个构造函数，布局定义View是调用的两个参数的构造函数，这里我们实现所有构造函数都调用三个参数的构造函数，在三个参数的构造函数中获取自定义属性。</p>
 <p>初步代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class TitleImageView:View</span><br><span class="line">&#123;</span><br><span class="line">	public TitleImageView (Context context) : this (context, null)</span><br><span class="line">	&#123;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TitleImageView (Context context, IAttributeSet attrs) : this (context, attrs, 0)</span><br><span class="line">	&#123;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TitleImageView (Context context, IAttributeSet attrs, int defStyle) : base (context, attrs, defStyle)</span><br><span class="line">	&#123;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class TitleImageView:View</div><div class="line">&#123;</div><div class="line">	public TitleImageView (Context context) : this (context, null)</div><div class="line">	&#123;</div><div class="line">			</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public TitleImageView (Context context, IAttributeSet attrs) : this (context, attrs, 0)</div><div class="line">	&#123;</div><div class="line">			</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public TitleImageView (Context context, IAttributeSet attrs, int defStyle) : base (context, attrs, defStyle)</div><div class="line">	&#123;</div><div class="line">			</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>一个良好的自定义控件应该能通过xml控制属性。自定义View的属性，在Resources／values下新建attrs.xml文件，在attrs中定义属性和声明样式。确定我们能在xml中定义的属性，然后写如下定义：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;  </span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleText"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextSize"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextColor"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"image"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"imageScaleType"</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"fillXY"</span> <span class="attr">value</span>=<span class="string">"0"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"center"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">attr</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"TitleImageView"</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleText"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextSize"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextColor"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"image"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"imageScaleType"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;  </div><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleText"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextSize"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextColor"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"image"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"imageScaleType"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"fillXY"</span> <span class="attr">value</span>=<span class="string">"0"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"center"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">attr</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"TitleImageView"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleText"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextSize"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextColor"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"image"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"imageScaleType"</span> /&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span>  </div><div class="line">  </div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>也可以有另外一种写法：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"TitleImageView"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleText"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextSize"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextColor"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"image"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"imageScaleType"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"fillXY"</span> <span class="attr">value</span>=<span class="string">"0"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"center"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">attr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"TitleImageView"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleText"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextSize"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"titleTextColor"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"image"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"imageScaleType"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"fillXY"</span> <span class="attr">value</span>=<span class="string">"0"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"center"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">attr</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>定义了自定义属性，我们就可以在xml中进行使用，不同的是我们自定义属性的命名空间是不同的，我们需要在布局的根节点或自定义View中加上定义命名空间才能使用自定义属性。</p>
 <blockquote>
 <p>format是指该属性的取值类型:一共有：string,color,demension,integer,enum,reference,float,boolean,fraction,flag;具体介绍参考：<a href="http://www.jb51.net/article/40069.htm" target="_blank" rel="external">http://www.jb51.net/article/40069.htm</a></p>
 </blockquote>
 <p>接下来完善TitleImageView三个参数的构造函数，在构造函数中借助TypedArray类提取我们定义的属性，并编写类属性可以通过代码设置View属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">class TitleImageView:View</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	private Bitmap image;</span><br><span class="line">	private ImageScale imageScaleType;</span><br><span class="line">	private string titleText;</span><br><span class="line">	private Color titleTextColor;</span><br><span class="line">	private int titleTextSize;</span><br><span class="line"></span><br><span class="line">	public Bitmap Image &#123;</span><br><span class="line">		get &#123; </span><br><span class="line">			return image;</span><br><span class="line">		&#125;</span><br><span class="line">		set &#123; </span><br><span class="line">			image = value;</span><br><span class="line">			Invalidate ();</span><br><span class="line">			RequestLayout ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public ImageScale ImageScaleType &#123;</span><br><span class="line">		get &#123; </span><br><span class="line">			return imageScaleType;</span><br><span class="line">		&#125;</span><br><span class="line">		set &#123; </span><br><span class="line">			imageScaleType = value;</span><br><span class="line">			Invalidate ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public string TitleText &#123;</span><br><span class="line">		get&#123; </span><br><span class="line">			return titleText;</span><br><span class="line">		&#125;</span><br><span class="line">		set&#123; </span><br><span class="line">			titleText = value;</span><br><span class="line">			Invalidate ();</span><br><span class="line">			RequestLayout ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Color TitleTextColor &#123;</span><br><span class="line">		get &#123; </span><br><span class="line">			return titleTextColor;</span><br><span class="line">		&#125;</span><br><span class="line">		set &#123; </span><br><span class="line">			titleTextColor = value;</span><br><span class="line">			Invalidate ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public int TitleTextSize &#123;</span><br><span class="line">		get&#123; </span><br><span class="line">			return titleTextSize;</span><br><span class="line">		&#125;</span><br><span class="line">		set&#123; </span><br><span class="line">			titleTextSize = value;</span><br><span class="line">			Invalidate ();</span><br><span class="line">			RequestLayout ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public enum ImageScale</span><br><span class="line">	&#123;</span><br><span class="line">		FillXY,</span><br><span class="line">		Center</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TitleImageView (Context context) : this (context, null)</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TitleImageView (Context context, IAttributeSet attrs) : this (context, attrs, 0)</span><br><span class="line">	&#123;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TitleImageView (Context context, IAttributeSet attrs, int defStyle) : base (context, attrs, defStyle)</span><br><span class="line">	&#123;</span><br><span class="line">		TypedArray typedArray = Context.Theme.ObtainStyledAttributes (attrs, Resource.Styleable.TitleImageView, defStyle, 0);</span><br><span class="line">		int count = typedArray.IndexCount;</span><br><span class="line">		try &#123;</span><br><span class="line">			for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">				int index = typedArray.GetIndex (i);</span><br><span class="line">				switch (index) &#123;</span><br><span class="line">				case Resource.Styleable.TitleImageView_image:</span><br><span class="line">					image = BitmapFactory.DecodeResource (Resources, typedArray.GetResourceId (index, 0));</span><br><span class="line">					break;</span><br><span class="line">				case Resource.Styleable.TitleImageView_imageScaleType:</span><br><span class="line">					imageScaleType = (ImageScale)typedArray.GetInt (index, 0);</span><br><span class="line">					break;</span><br><span class="line">				case Resource.Styleable.TitleImageView_titleText:</span><br><span class="line">					titleText = typedArray.GetString (index);</span><br><span class="line">					break;</span><br><span class="line">				case Resource.Styleable.TitleImageView_titleTextColor:</span><br><span class="line">					titleTextColor = typedArray.GetColor (index, Color.Black);</span><br><span class="line">					break;</span><br><span class="line">				case Resource.Styleable.TitleImageView_titleTextSize:</span><br><span class="line">					//获取尺寸三个方法的介绍：http://my.oschina.net/ldhy/blog/496420</span><br><span class="line">					titleTextSize = typedArray.GetDimensionPixelSize (index, (int)TypedValue.ApplyDimension (ComplexUnitType.Sp, 16, Resources.DisplayMetrics));</span><br><span class="line">					break;</span><br><span class="line">				default:</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (System.Exception ex) &#123;</span><br><span class="line">			throw ex;</span><br><span class="line">		&#125; finally &#123;</span><br><span class="line">			typedArray.Recycle ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line">class TitleImageView:View</div><div class="line">&#123;</div><div class="line"></div><div class="line">	private Bitmap image;</div><div class="line">	private ImageScale imageScaleType;</div><div class="line">	private string titleText;</div><div class="line">	private Color titleTextColor;</div><div class="line">	private int titleTextSize;</div><div class="line"></div><div class="line">	public Bitmap Image &#123;</div><div class="line">		get &#123; </div><div class="line">			return image;</div><div class="line">		&#125;</div><div class="line">		set &#123; </div><div class="line">			image = value;</div><div class="line">			Invalidate ();</div><div class="line">			RequestLayout ();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	public ImageScale ImageScaleType &#123;</div><div class="line">		get &#123; </div><div class="line">			return imageScaleType;</div><div class="line">		&#125;</div><div class="line">		set &#123; </div><div class="line">			imageScaleType = value;</div><div class="line">			Invalidate ();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public string TitleText &#123;</div><div class="line">		get&#123; </div><div class="line">			return titleText;</div><div class="line">		&#125;</div><div class="line">		set&#123; </div><div class="line">			titleText = value;</div><div class="line">			Invalidate ();</div><div class="line">			RequestLayout ();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public Color TitleTextColor &#123;</div><div class="line">		get &#123; </div><div class="line">			return titleTextColor;</div><div class="line">		&#125;</div><div class="line">		set &#123; </div><div class="line">			titleTextColor = value;</div><div class="line">			Invalidate ();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public int TitleTextSize &#123;</div><div class="line">		get&#123; </div><div class="line">			return titleTextSize;</div><div class="line">		&#125;</div><div class="line">		set&#123; </div><div class="line">			titleTextSize = value;</div><div class="line">			Invalidate ();</div><div class="line">			RequestLayout ();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public enum ImageScale</div><div class="line">	&#123;</div><div class="line">		FillXY,</div><div class="line">		Center</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public TitleImageView (Context context) : this (context, null)</div><div class="line">	&#123;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public TitleImageView (Context context, IAttributeSet attrs) : this (context, attrs, 0)</div><div class="line">	&#123;</div><div class="line">			</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public TitleImageView (Context context, IAttributeSet attrs, int defStyle) : base (context, attrs, defStyle)</div><div class="line">	&#123;</div><div class="line">		TypedArray typedArray = Context.Theme.ObtainStyledAttributes (attrs, Resource.Styleable.TitleImageView, defStyle, 0);</div><div class="line">		int count = typedArray.IndexCount;</div><div class="line">		try &#123;</div><div class="line">			for (int i = 0; i &lt; count; i++) &#123;</div><div class="line">				int index = typedArray.GetIndex (i);</div><div class="line">				switch (index) &#123;</div><div class="line">				case Resource.Styleable.TitleImageView_image:</div><div class="line">					image = BitmapFactory.DecodeResource (Resources, typedArray.GetResourceId (index, 0));</div><div class="line">					break;</div><div class="line">				case Resource.Styleable.TitleImageView_imageScaleType:</div><div class="line">					imageScaleType = (ImageScale)typedArray.GetInt (index, 0);</div><div class="line">					break;</div><div class="line">				case Resource.Styleable.TitleImageView_titleText:</div><div class="line">					titleText = typedArray.GetString (index);</div><div class="line">					break;</div><div class="line">				case Resource.Styleable.TitleImageView_titleTextColor:</div><div class="line">					titleTextColor = typedArray.GetColor (index, Color.Black);</div><div class="line">					break;</div><div class="line">				case Resource.Styleable.TitleImageView_titleTextSize:</div><div class="line">					//获取尺寸三个方法的介绍：http://my.oschina.net/ldhy/blog/496420</div><div class="line">					titleTextSize = typedArray.GetDimensionPixelSize (index, (int)TypedValue.ApplyDimension (ComplexUnitType.Sp, 16, Resources.DisplayMetrics));</div><div class="line">					break;</div><div class="line">				default:</div><div class="line">					break;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125; catch (System.Exception ex) &#123;</div><div class="line">			throw ex;</div><div class="line">		&#125; finally &#123;</div><div class="line">			typedArray.Recycle ();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>代码中View的属性发生改变时我们需要进行重绘和重新布局。所以在属性赋值时调用了Invalidate(重新绘制OnDraw)和RequestLayout（重新布局OnLayout）方法.</p>
 <p>重写OnMeasure方法，按照用户定义的宽度高度进行绘制，View会先做一次测量，计算出自己占用多大的面积。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">protected override void OnMeasure (int widthMeasureSpec, int heightMeasureSpec)</span><br><span class="line">&#123;</span><br><span class="line">	base.OnMeasure (widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">	</span><br><span class="line">	//计算宽度 以图片宽度作控件宽度</span><br><span class="line">	int minWidth = PaddingLeft + PaddingRight + image.Width;</span><br><span class="line">	var width = ResolveSizeAndState (minWidth, widthMeasureSpec, 0);</span><br><span class="line"></span><br><span class="line">	//计算高度</span><br><span class="line">	int minHeight = PaddingBottom + PaddingTop + image.Height + textBound.Height ();</span><br><span class="line">	var height = ResolveSizeAndState (minHeight, heightMeasureSpec, 0);</span><br><span class="line"></span><br><span class="line">	// 测量完成后必须调用setMeasuredDimension方法</span><br><span class="line">	SetMeasuredDimension (width, height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">protected override void OnMeasure (int widthMeasureSpec, int heightMeasureSpec)</div><div class="line">&#123;</div><div class="line">	base.OnMeasure (widthMeasureSpec, heightMeasureSpec);</div><div class="line">	</div><div class="line">	//计算宽度 以图片宽度作控件宽度</div><div class="line">	int minWidth = PaddingLeft + PaddingRight + image.Width;</div><div class="line">	var width = ResolveSizeAndState (minWidth, widthMeasureSpec, 0);</div><div class="line"></div><div class="line">	//计算高度</div><div class="line">	int minHeight = PaddingBottom + PaddingTop + image.Height + textBound.Height ();</div><div class="line">	var height = ResolveSizeAndState (minHeight, heightMeasureSpec, 0);</div><div class="line"></div><div class="line">	// 测量完成后必须调用setMeasuredDimension方法</div><div class="line">	SetMeasuredDimension (width, height);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>MeasureSpec代表了一组宽度和高度的要求。一个MeasureSpec由大小和模式组成。它有三种模式：UNSPECIFIED(未指定),父元素部队自元素施加任何束缚，子元素可以得到任意想要的大小；EXACTLY(完全)，父元素决定自元素的确切大小(设置了明确的值或者是MATCH_PARENT),子元素将被限定在给定的边界里而忽略它本身大小；AT_MOST(至多)，子元素至多达到指定大小的值(WARP_CONTENT)。</p>
 <p>ResolveSizeAndState方法返回一个合适的尺寸，只要将测量模式和我们计算的宽度高度传进去即可,该方法在新的api中才有，无法兼容3.0以下,我们可以根据源码定义自己的ResolveSizeAndState方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">private int ResolveSizeAndState(int size, int measureSpec, int childMeasuredState) &#123;</span><br><span class="line">	int result = size;</span><br><span class="line">	int specMode = MeasureSpec.GetMode(measureSpec);</span><br><span class="line">	int specSize =  MeasureSpec.GetSize(measureSpec);</span><br><span class="line">	switch (specMode) &#123;</span><br><span class="line">	case MeasureSpecMode.Unspecified:</span><br><span class="line">		result = size;</span><br><span class="line">		break;</span><br><span class="line">	case MeasureSpecMode.AtMost:</span><br><span class="line">		if (specSize &lt; size) &#123;</span><br><span class="line">			result = specSize | View.MeasuredStateTooSmall;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			result = size;</span><br><span class="line">		&#125;</span><br><span class="line">		break;</span><br><span class="line">	case MeasureSpecMode.Exactly:</span><br><span class="line">		result = specSize;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">	return result | (childMeasuredState&amp;View.MeasuredStateMask);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">private int ResolveSizeAndState(int size, int measureSpec, int childMeasuredState) &#123;</div><div class="line">	int result = size;</div><div class="line">	int specMode = MeasureSpec.GetMode(measureSpec);</div><div class="line">	int specSize =  MeasureSpec.GetSize(measureSpec);</div><div class="line">	switch (specMode) &#123;</div><div class="line">	case MeasureSpecMode.Unspecified:</div><div class="line">		result = size;</div><div class="line">		break;</div><div class="line">	case MeasureSpecMode.AtMost:</div><div class="line">		if (specSize &lt; size) &#123;</div><div class="line">			result = specSize | View.MeasuredStateTooSmall;</div><div class="line">		&#125; else &#123;</div><div class="line">			result = size;</div><div class="line">		&#125;</div><div class="line">		break;</div><div class="line">	case MeasureSpecMode.Exactly:</div><div class="line">		result = specSize;</div><div class="line">		break;</div><div class="line">	&#125;</div><div class="line">	return result | (childMeasuredState&amp;View.MeasuredStateMask);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在构造函数中初始化一个Paint和两个Rect。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rect = new Rect (); //图片位置</span><br><span class="line">paint = new Paint ();</span><br><span class="line">paint.TextSize = TitleTextSize;</span><br><span class="line">paint.Color = titleTextColor;</span><br><span class="line">textBound = new Rect ();//底部说明文字位置  </span><br><span class="line">// 计算了描绘字体需要的范围  </span><br><span class="line">paint.GetTextBounds (titleText, 0, titleText.Length, textBound);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">rect = new Rect (); //图片位置</div><div class="line">paint = new Paint ();</div><div class="line">paint.TextSize = TitleTextSize;</div><div class="line">paint.Color = titleTextColor;</div><div class="line">textBound = new Rect ();//底部说明文字位置  </div><div class="line">// 计算了描绘字体需要的范围  </div><div class="line">paint.GetTextBounds (titleText, 0, titleText.Length, textBound);</div></pre></td></tr></table></figure>
 <p>重写OnDraw方法，根据定义的属性绘制图形。在参数canvas上绘制我们希望的View样式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">protected override void OnDraw (Canvas canvas)</span><br><span class="line">&#123;</span><br><span class="line">	base.OnDraw (canvas);</span><br><span class="line"></span><br><span class="line">	rect.Left = PaddingLeft;  </span><br><span class="line">	rect.Right = Width - PaddingRight;  </span><br><span class="line">	rect.Top = PaddingTop;  </span><br><span class="line">	rect.Bottom = Height - PaddingBottom; </span><br><span class="line"></span><br><span class="line">	paint.TextSize = TitleTextSize;</span><br><span class="line">	paint.Color = titleTextColor;</span><br><span class="line">	paint.SetStyle (Paint.Style.Fill);</span><br><span class="line"></span><br><span class="line">	//当前设置的宽度小于字体需要的宽度，将字体改为xxx... </span><br><span class="line">	if (textBound.Width () &gt; Width) &#123;</span><br><span class="line">		TextPaint paint = new TextPaint (this.paint);  </span><br><span class="line">		string msg = TextUtils.Ellipsize (titleText, paint, (float)Width - PaddingLeft - PaddingRight, TextUtils.TruncateAt.End);  </span><br><span class="line">		canvas.DrawText (msg, PaddingLeft, Height - PaddingBottom, paint);  </span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		canvas.DrawText (titleText, Width / 2 - textBound.Width () / 2, Height - PaddingBottom, paint);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//取消使用掉的部分  </span><br><span class="line">	rect.Bottom -= textBound.Height ();</span><br><span class="line"></span><br><span class="line">	if (imageScaleType == ImageScale.FillXY) &#123;</span><br><span class="line">		canvas.DrawBitmap (image, null, rect, paint);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		rect.Left = Width / 2 - image.Width / 2;</span><br><span class="line">		rect.Right = Width / 2 + image.Width / 2;</span><br><span class="line">		rect.Top = (Height - textBound.Height ()) / 2 - image.Height / 2;  </span><br><span class="line">		rect.Bottom = (Height - textBound.Height ()) / 2 + image.Height / 2;  </span><br><span class="line"></span><br><span class="line">		canvas.DrawBitmap (image, null, rect, paint); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">protected override void OnDraw (Canvas canvas)</div><div class="line">&#123;</div><div class="line">	base.OnDraw (canvas);</div><div class="line"></div><div class="line">	rect.Left = PaddingLeft;  </div><div class="line">	rect.Right = Width - PaddingRight;  </div><div class="line">	rect.Top = PaddingTop;  </div><div class="line">	rect.Bottom = Height - PaddingBottom; </div><div class="line"></div><div class="line">	paint.TextSize = TitleTextSize;</div><div class="line">	paint.Color = titleTextColor;</div><div class="line">	paint.SetStyle (Paint.Style.Fill);</div><div class="line"></div><div class="line">	//当前设置的宽度小于字体需要的宽度，将字体改为xxx... </div><div class="line">	if (textBound.Width () &gt; Width) &#123;</div><div class="line">		TextPaint paint = new TextPaint (this.paint);  </div><div class="line">		string msg = TextUtils.Ellipsize (titleText, paint, (float)Width - PaddingLeft - PaddingRight, TextUtils.TruncateAt.End);  </div><div class="line">		canvas.DrawText (msg, PaddingLeft, Height - PaddingBottom, paint);  </div><div class="line">	&#125; else &#123;</div><div class="line">		canvas.DrawText (titleText, Width / 2 - textBound.Width () / 2, Height - PaddingBottom, paint);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//取消使用掉的部分  </div><div class="line">	rect.Bottom -= textBound.Height ();</div><div class="line"></div><div class="line">	if (imageScaleType == ImageScale.FillXY) &#123;</div><div class="line">		canvas.DrawBitmap (image, null, rect, paint);</div><div class="line">	&#125; else &#123;</div><div class="line">		rect.Left = Width / 2 - image.Width / 2;</div><div class="line">		rect.Right = Width / 2 + image.Width / 2;</div><div class="line">		rect.Top = (Height - textBound.Height ()) / 2 - image.Height / 2;  </div><div class="line">		rect.Bottom = (Height - textBound.Height ()) / 2 + image.Height / 2;  </div><div class="line"></div><div class="line">		canvas.DrawBitmap (image, null, rect, paint); </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个控件中我们不需要与用户交互，所以忽略OnTouchEvent方法，没有要保存的状态信息，也不需要重写OnSaveInstanceState和OnRestoreInstanceState方法。本文只是简单的介绍一下如何自定义控件，复杂实现要通过日后实际项目学习，不做记录。而OnLayout方法通常是自定义ViewGroup时，排列子View重写。</p>
 <p>在布局文件中定义我们的控件（通过代码定义未测试）：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view.TitleImageView</span>  </span><br><span class="line">	<span class="attr">xmlns:myue</span>=<span class="string">"http://schemas.android.com/apk/res/com.myue.view"</span></span><br><span class="line">   <span class="attr">android:layout_width</span>=<span class="string">"100dp"</span>  </span><br><span class="line">   <span class="attr">android:layout_height</span>=<span class="string">"200dp"</span>  </span><br><span class="line">   <span class="attr">android:layout_margin</span>=<span class="string">"10dp"</span>  </span><br><span class="line">   <span class="attr">android:padding</span>=<span class="string">"10dp"</span>  </span><br><span class="line">   <span class="attr">myue:image</span>=<span class="string">"@mipmap/icon"</span>  </span><br><span class="line">   <span class="attr">myue:imageScaleType</span>=<span class="string">"fillXY"</span>  </span><br><span class="line">   <span class="attr">myue:titleText</span>=<span class="string">"hello andorid ! "</span>  </span><br><span class="line">   <span class="attr">myue:titleTextColor</span>=<span class="string">"#ff0000"</span>  </span><br><span class="line">   <span class="attr">myue:titleTextSize</span>=<span class="string">"30sp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">view.TitleImageView</span>  </span></div><div class="line"><span class="tag">	<span class="attr">xmlns:myue</span>=<span class="string">"http://schemas.android.com/apk/res/com.myue.view"</span></span></div><div class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">"100dp"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">"200dp"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">android:layout_margin</span>=<span class="string">"10dp"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">android:padding</span>=<span class="string">"10dp"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">myue:image</span>=<span class="string">"@mipmap/icon"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">myue:imageScaleType</span>=<span class="string">"fillXY"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">myue:titleText</span>=<span class="string">"hello andorid ! "</span>  </span></div><div class="line"><span class="tag">   <span class="attr">myue:titleTextColor</span>=<span class="string">"#ff0000"</span>  </span></div><div class="line"><span class="tag">   <span class="attr">myue:titleTextSize</span>=<span class="string">"30sp"</span> /&gt;</span></div></pre></td></tr></table></figure>
 <p>要做几下几点说明：</p>
 <ul>
 <li>view.TitleImageView 为自定义控件的全局限定名</li>
@@ -335,237 +186,249 @@
 </ul>
 <p>运行效果图：<br><img src="/attach/custom_view/title_image_view.png" alt="titleimageview"></p>
 
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月02日 23:14</p>
+        <p>原始链接： <a class="post-url" href="/2016/05/26/custom-view/" title="Xamarin.Android 自定义控件">http://xamarin.xyz/2016/05/26/custom-view/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
       
     </div>
-    
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/05/26/custom-view/&title=《Xamarin.Android 自定义控件》 — Mayue‘s Blog&pic=/images/banner.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/05/26/custom-view/&title=《Xamarin.Android 自定义控件》 — Mayue‘s Blog&source=Android的UI是基于View（widgets）和ViewGroup（layouts），android为我们提供了很多控件用来创建UI界面，但有时我们..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/05/26/custom-view/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Android 自定义控件》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/05/26/custom-view/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/05/26/custom-view/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/05/26/custom-view/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/View/" class="color5">View</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
   </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/26/custom-view/">Xamarin.Android 自定义控件</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
-        <p><span>发布时间:</span>2016-05-26, 16:28:13</p>
-        <p><span>最后更新:</span>2016-05-26, 16:48:52</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/26/custom-view/" title="Xamarin.Android 自定义控件">http://www.xamarin.xyz/2016/05/26/custom-view/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/26/custom-view/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
-
-
-
-    <nav id="article-nav">
-        
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/06/24/ontouchevent-gesturedetector/">
-                    Xamarin.Android OnTouchEvent和GestureDetector简介
-                </a>
-            </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/24/special-fragment/">
-                    Xamarin.Android 特殊Fragment讲解
-                </a>
-            </div>
-        
-    </nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    
-</div>
-<style>
-    .left-col .switch-btn {
-        display: none;
-    }
-    .left-col .switch-area {
-        display: none;
-    }
-</style>
-
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-            $(".switch-btn, .switch-area").fadeOut(300);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-            $(".switch-btn, .switch-area").fadeIn(500);
-        }
-    })
-
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-        $(".switch-btn, .switch-area").show();
-    }
-</script>
 
 
+<nav id="article-nav">
+  
+    <a href="/2016/06/24/ontouchevent-gesturedetector/" id="article-nav-newer" class="article-nav-link-wrap">
 
-
-
-    
-<div class="share">
-    
-        <div class="bdsharebuttonbox">
-            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
-            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
-        </div>
-        <script>
-            window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android 自定义控件　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-        </script>
-    
-
-    
-</div>
-
-
-
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/05/26/custom-view/" data-title="Xamarin.Android 自定义控件" data-url="http://www.xamarin.xyz/2016/05/26/custom-view/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"xamarin"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        //ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.src = 'http://www.xamarin.xyz/js/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-            <a href="/2016/06/24/ontouchevent-gesturedetector/" title="上一篇: Xamarin.Android OnTouchEvent和GestureDetector简介">
-                <i class="fa fa-angle-left"></i>
-            </a>
+          Xamarin.Android OnTouchEvent和GestureDetector简介
         
+      </span>
+    </a>
+  
+  
+    <a href="/2016/05/24/special-fragment/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Android 特殊Fragment讲解</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
         
-            <a href="/2016/05/24/special-fragment/" title="下一篇: Xamarin.Android 特殊Fragment讲解">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/ontouchevent-gesturedetector/">Xamarin.Android OnTouchEvent和GestureDetector简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/26/custom-view/">Xamarin.Android 自定义控件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/24/special-fragment/">Xamarin.Android 特殊Fragment讲解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/fragment/">Xamarin.Android Fragment 使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/intent/">Xamarin.Android Intent简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/contentprovider2/">Xamarin.Android 自定义ContentProvider</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
-
-
-
-
-    <script>
-        
-    </script>
-</div>
+      </div>
       <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2016 Myue
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >本站到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
     </div>
+  </div>
 </footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
     </div>
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
 </div>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
   </div>
 </body>
 </html>

@@ -1,663 +1,881 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-  
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
   <meta charset="utf-8">
   
-  <title>Myue&#39;s Blog</title>
+  <title>Mayue‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="专注移动开发的技术博客">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Myue's Blog">
-<meta property="og:url" content="http://www.xamarin.xyz/page/2/index.html">
-<meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description">
+<meta property="og:title" content="Mayue‘s Blog">
+<meta property="og:url" content="http://xamarin.xyz/page/2/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="专注移动开发的技术博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Myue's Blog">
-<meta name="twitter:description">
-  
-    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
+<meta name="twitter:title" content="Mayue‘s Blog">
+<meta name="twitter:description" content="专注移动开发的技术博客">
   
   
-    <link rel="icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico">
   
-  
-      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
-  
-  
-  
-      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  
-      <style> .article { opacity: 0;} </style>
-  
-  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-    
-    
-  
-  
-      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-  
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: true,
-          isPost: false,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false,
-          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
-      }
-  </script>
-
-  
-      <script>
-          yiliaConfig.rootUrl = "/";
-      </script>
+  <script src="/js/pace.min.js"></script>
   
 
   
   
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
 </head>
+
 <body>
   <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Myue</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">移动开发</p>
-        
-                
-
-
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
                     
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        <li>
-                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=76f8b2638997afc52c1d1f1d88da33d90a46472b409ffdcc5098b19e0be1c3ce">
-                                <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Xamarin招聘、求职" title="Xamarin招聘、求职">
-                            </a>
-                        </li>
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gesture/">Gesture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">专注于移动端开发</div>
-                </section>
-                
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">移动开发</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
             <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
             </nav>
-        </header>                
-    </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
-</nav>
-      <div class="body-wrap">
-  
-    <article id="post-service2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/08/service2/" class="article-date">
-      <time datetime="2016-05-08T03:51:31.000Z" itemprop="datePublished">2016-05-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="IntentService的使用"><a href="#IntentService的使用" class="headerlink" title="IntentService的使用"></a>IntentService的使用</h1><p>前面介绍Service时已经说过Service是运行在主线程中的，我们需要在一个单独的线程中处理耗时的操作，在Service中自定义线程无疑增加了我们的代码量且可能因为我们不适当的处理引起应用程序的ANR异常，Android为我们提供了IntentService来解决这个问题。IntentService继承与Service提送了一个线程来处理我们的耗时操作，且不需要我们控制、结束Service。多次启动IntentService，每个Service的操作会加入到一个工作队列依次执行.</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Service/">Service</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/05/08/service2/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-service1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/06/service1/" class="article-date">
-      <time datetime="2016-05-06T00:37:27.000Z" itemprop="datePublished">2016-05-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>Service作为Android四大组件之一,它主要用于在后台处理一些耗时的逻辑，没有UI界面，我们可以在程序退出的情况下，让Service在后台继续保持运行状态。注意Service不是Thread。Android的服务可以分为本地服务（主进程）和远程服务（Remote，独立的进程），本地服务是处理我们自己应用程序的逻辑，远程服务是提供系统服务的Service（AIDL的使用）。本文着重介绍本地服务。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Service/">Service</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/05/06/service1/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-activity3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/02/activity3/" class="article-date">
-      <time datetime="2016-05-02T08:12:50.000Z" itemprop="datePublished">2016-05-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/02/activity3/">Android Activity管理机制详解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>实际开发中，我们的App是由多个Activity构成的，为了能够管理Activity，Android为我们提供了Task的概念，默认情况下一个应用的所有Activity是管理在一个Task中的。Task是一种Stack类型的数据结构，启动App会创建一个Task，Activity特性设置MainLauncher = true或者AndroidManifest中配置了Main和Launcher的Activity会被压入栈中，新启动的Activity会执行入栈操作，关闭的Activity执行出栈操作。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/05/02/activity3/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-activity2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/29/activity2/" class="article-date">
-      <time datetime="2016-04-29T07:08:21.000Z" itemprop="datePublished">2016-04-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>#Activity间传递数据</p>
-<blockquote>
-<p>Activity间传递数据是借助Intent（内部为Bundle）实现的</p>
-<p>在使用Bundle传递数据时，要注意，Bundle的大小是有限制的小于0.5MB，如果大于这个值 是会报TransactionTooLargeException异常的！！！（未验证）</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/04/29/activity2/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-activity1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/28/activity1/" class="article-date">
-      <time datetime="2016-04-28T06:29:02.000Z" itemprop="datePublished">2016-04-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>本文将对Android四大组件之一的Activity进行简单介绍。</p>
-<p>Activity是一个应用程序的组件，他在屏幕上提供了一个区域，允许用户在上面做一些交互性的操作， 比如打电话，照相，发送邮件，或者显示一个地图！Activity可以理解成一个绘制用户界面的窗口， 而这个窗口可以填满整个屏幕，也可能比屏幕小或者浮动在其他窗口的上方！</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/04/28/activity1/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2016 Myue
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
         </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >本站到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
     </div>
-</footer>
-    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap">
+  
+    <article id="post-Xamarin-Forms-Custom-Renderer介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/"  >Xamarin.Forms Custom Renderer介绍</a>
+    </h1>
+  
 
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-09808e93b0b7c41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Custom Renderer介绍" title="Xamarin.Forms Custom Renderer介绍">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>Xamarin.Forms 开发过程中需要平台特殊定制时可以同过<code>Custom Renderer</code>实现。定义自己的Custom Renderer应继承<code>ViewRenderer</code>类，ViewRenderer是一个泛型类。ViewRenderer单独定义在不同平台中，Android平台在<code>Xamarin.Forms.Platform.Android</code>下,iOS平台在<code>Xamarin.Forms.Platform.iOS</code>下。ViewRenderer包含的两个范型参数<code>TView</code>和<code>TNativeView</code>（UWP下为TElement和TNativeElement），TView对应的是Xamarin.Forms中定义的视图元素，TNativeView则对应的是平台中定义的视图元素。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-11-21</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Renderer/" class="color4">Renderer</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
 
 
+  
+    <article id="post-Xamarin-Forms-Platform-Specific-API" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/14/Xamarin-Forms-Platform-Specific-API/"  >Xamarin.Forms Platform-Specific API</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/11/14/Xamarin-Forms-Platform-Specific-API/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-d560be95721bfbb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Platform-Specific API" title="Xamarin.Forms Platform-Specific API">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要的功能，第三方组件可以在 <a href="https://components.xamarin.com" target="_blank" rel="external">https://components.xamarin.com</a> 搜索或者通过Github搜索，本文主要记录编码调用平台特有API。代码实现又分Use Portable Class Library（PCL）和Use Shared Library（SAP）两种方式。Use Portable Class Library以可移植库方式创建项目所有代码会编译成一个独立的DLL，Use Shared Library方式创建项目是一个共享项目，项目中的代码会被每个平台共享使用。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-11-14</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/11/14/Xamarin-Forms-Platform-Specific-API/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
 
 
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+  
+    <article id="post-Xamarin-Forms-Device类介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/10/Xamarin-Forms-Device类介绍/"  >Xamarin.Forms Device类介绍</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/11/10/Xamarin-Forms-Device类介绍/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-1fc6c4ec568a9c15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Device类介绍" title="Xamarin.Forms Device类介绍">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-11-10</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Device/" class="color2">Device</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/11/10/Xamarin-Forms-Device类介绍/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-Page介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/08/Xamarin-Forms-Page介绍/"  >Xamarin.Forms Page介绍</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/11/08/Xamarin-Forms-Page介绍/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-c640202a133b59ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Page介绍" title="Xamarin.Forms Page介绍">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Page的子类，最常用的就是<code>ContentPage</code>.<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-11-08</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Page/" class="color5">Page</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/11/08/Xamarin-Forms-Page介绍/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-Navigation介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/08/Xamarin-Forms-Navigation介绍/"  >Xamarin.Forms Navigation介绍</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/11/08/Xamarin-Forms-Navigation介绍/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-3e9ab31fc98571c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Navigation介绍" title="Xamarin.Forms Navigation介绍">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>一个常规的App是由多个Page组成的，出现多个Page就会涉及页面跳转问题。Xamarin.Forms页面之间的跳转通过Navigation Stack管理Page，如页面A跳转到页面B时，会将B压入栈定，此时页面B成为活动页面，执行Back操作时，页面B从栈定推出使页面A重新变为活动页面。<br>每个应用程序都有一个特殊页作为应用程序的入口（main page, or the home page, or the start page），Xamarin.Forms中由App的MainPage属性设置。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-11-08</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Navigation/" class="color1">Navigation</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/11/08/Xamarin-Forms-Navigation介绍/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-Views介绍（七）——TableView" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/"  >Xamarin.Forms Views介绍（七）——TableView</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-2b2bd095a301a28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Views介绍（七）——TableView" title="Xamarin.Forms Views介绍（七）——TableView">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，TableView没有ItemSource的概念需要手动设置Child。如借助TableView实现Setting界面。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-10-22</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/TableView/" class="color5">TableView</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-Views介绍（六）——ListView" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/"  >Xamarin.Forms Views介绍（六）——ListView</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-bb82fbf81008f37a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Views介绍（六）——ListView" title="Xamarin.Forms Views介绍（六）——ListView">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>ListView用来显示列表数据，适合单一类型数据集合。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-10-19</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/ListView/" class="color4">ListView</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-MVVM介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/13/Xamarin-Forms-MVVM介绍/"  >Xamarin.Forms MVVM介绍</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/10/13/Xamarin-Forms-MVVM介绍/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-39f494c0feaa5eb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms MVVM介绍" title="Xamarin.Forms MVVM介绍">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>MVVM是Model-View-ViewModel的简写，是由微软在WPF中提供的新技术，MVVM 架构使用的是数据绑定基础架构。更多介绍：<a href="http://baike.baidu.com/view/3507915.htm" target="_blank" rel="external">http://baike.baidu.com/view/3507915.htm</a></p>
+<p>MVVM架构分为三层：<br>• Model负责访问数据，为ViewModel提供数据。<br>• ViewModel连接Model层和View层. ViewModel帮助管理Model提供的数据.<br>• View层表现数据，通常为XAML定义的用户界面.<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-10-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/MVVM/" class="color5">MVVM</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/10/13/Xamarin-Forms-MVVM介绍/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-Data-Binding介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/07/Xamarin-Forms-Data-Binding介绍/"  >Xamarin.Forms Data Binding介绍</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/10/07/Xamarin-Forms-Data-Binding介绍/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-6861c90451d04986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Data Binding介绍" title="Xamarin.Forms Data Binding介绍">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                <p>很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连接两个View的对应属性即可，称为<code>Data Binding</code>。Data Binding在Model-View-ViewModel (MVVM)设计模式中起着重要作用。<br>Data Binding中设计两个概念<code>Source</code> 和 <code>Target</code>。当Source的值发生改变时Data Binding会自动将这个新的值更新到Target。对Target和Source有特殊要求，Target必须继承<code>BindableProperty</code>类（VisualElement通过继承Element继承了BindableObject，所以Xamarin.Forms中视图的大部分属性都是BindableProperty类型），Source必须实现<code>INotifyPropertyChanged</code>接口提供一种通知机制监听Source值的改变(BindableObject实现了INotifyPropertyChanged接口)。<br>
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-10-07</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Binding/" class="color3">Binding</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/10/07/Xamarin-Forms-Data-Binding介绍/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-Xamarin-Forms-Views介绍（五）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/30/Xamarin-Forms-Views介绍（五）/"  >Xamarin.Forms Views介绍（五）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2016/09/30/Xamarin-Forms-Views介绍（五）/" >
+                
+                <img src="http://upload-images.jianshu.io/upload_images/1129755-c057fb485130f716.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xamarin.Forms Views介绍（五）" title="Xamarin.Forms Views介绍（五）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                
+SearchBar使用SearchBar提供一个搜索框，方便用户实现搜索功能。
+
+SearchBar提供属性
+CancelButtonColor ：设置Cancel颜色。
+Placeholder ：SearchBar默认显示文本，Text为空时显示。
+Text ：SearchBar输入的文本。
+SearchCommand ：用于Data Binding。
+SearchC...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2016-09-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2016/09/30/Xamarin-Forms-Views介绍（五）/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/"><< Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next >></a>
+  </nav>
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: true,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
 </div>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
   </div>
 </body>
 </html>

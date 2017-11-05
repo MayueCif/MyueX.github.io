@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Views介绍（四） | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="BitMap表示一个位图文件，支持“JPEG, PNG, GIF, and BMP”所有图片类型。Image不支持Gif图片显示。 Image属性 Aspect ：Aspect枚举类型，设置Image的缩放模式。Fill - 拉伸图片填充整个显示区域，可能会导致图像失真.AspectFill -剪切图片填充整个区域，不会使图像失真.AspectFit - 不对图像进行拉伸和剪切处理，根据图像的大">
+<meta name="keywords" content="Forms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Views介绍（四）">
+<meta property="og:url" content="http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="BitMap表示一个位图文件，支持“JPEG, PNG, GIF, and BMP”所有图片类型。Image不支持Gif图片显示。 Image属性 Aspect ：Aspect枚举类型，设置Image的缩放模式。Fill - 拉伸图片填充整个显示区域，可能会导致图像失真.AspectFill -剪切图片填充整个区域，不会使图像失真.AspectFit - 不对图像进行拉伸和剪切处理，根据图像的大">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-28b172e29ca25706.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8d3cc6f2b5938cfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-42b660dc9101307c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-de4e5f176df924de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-6c3085e427f68083.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8bbfc8ac5e1f9f97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:20:46.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Views介绍（四）">
+<meta name="twitter:description" content="BitMap表示一个位图文件，支持“JPEG, PNG, GIF, and BMP”所有图片类型。Image不支持Gif图片显示。 Image属性 Aspect ：Aspect枚举类型，设置Image的缩放模式。Fill - 拉伸图片填充整个显示区域，可能会导致图像失真.AspectFill -剪切图片填充整个区域，不会使图像失真.AspectFit - 不对图像进行拉伸和剪切处理，根据图像的大">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-28b172e29ca25706.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Views介绍（四）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Views介绍（四）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-09-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <a id="more"></a>
+<p>BitMap表示一个位图文件，支持“JPEG, PNG, GIF, and BMP”所有图片类型。Image不支持Gif图片显示。</p>
+<h2 id="Image属性"><a href="#Image属性" class="headerlink" title="Image属性"></a>Image属性</h2><ul>
+<li><strong>Aspect</strong> ：Aspect枚举类型，设置Image的缩放模式。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-28b172e29ca25706.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><strong>Fill</strong> - 拉伸图片填充整个显示区域，可能会导致图像失真.<br><strong>AspectFill</strong> -剪切图片填充整个区域，不会使图像失真.<br><strong>AspectFit</strong> - 不对图像进行拉伸和剪切处理，根据图像的大小上下或左右留白显示，默认值.<blockquote>
+<p>不同平台缩放效果可能会有所不同</p>
+</blockquote>
+</li>
+<li><strong>IsLoading</strong> ：bool类型，表示图片的加载状态。</li>
+<li><strong>IsOpaque</strong> ：bool类型，设置Image是否透明。</li>
+<li><strong>Source</strong> ：ImageSource类型，设置显示的图片资源。</li>
+</ul>
+<h3 id="ImageSource介绍"><a href="#ImageSource介绍" class="headerlink" title="ImageSource介绍"></a>ImageSource介绍</h3><p>ImageSource提供了四个静态方法来创建对象。</p>
+<ul>
+<li><strong>FromUri</strong> ：根据网络图片资源创建对象。</li>
+<li><strong>FromResource</strong> ：根据嵌入到PCL的图片资源创建对象。</li>
+<li><strong>FromFile</strong> ：根据各个平台提供的图片资源创建对象。</li>
+<li><strong>FromStream</strong> ：根据.NET Stream创建对象。</li>
+</ul>
+<p>Xamarin.Forms 提供了三个ImageSource的子类。</p>
+<ul>
+<li><strong>UriImageSource</strong> ：表示网络图片资源，对应FromUri。</li>
+<li><strong>FileImageSource</strong> ：表示平台相关图片资源，对应FromFile。</li>
+<li><strong>StreamImageSource</strong> ：表示流图片资源，对应FromStream。</li>
+</ul>
+<blockquote>
+<p>在XAML中定义ImageSource使用提供的ImageSource子类更方便，在代码中定义使用提供的静态方法更方便,静态方法内部实现就是返回系统提供的子类。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-8d3cc6f2b5938cfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</blockquote>
+<h2 id="访问网络图片资源"><a href="#访问网络图片资源" class="headerlink" title="访问网络图片资源"></a>访问网络图片资源</h2><p>FromUri代码示范：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Image image = new Image()</div><div class="line">&#123;</div><div class="line">	Source = ImageSource.FromUri(new Uri(&quot;http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png&quot;))</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>也可以直接设置Image的Source为string或Uri类型地址，会隐式转换为ImageSource。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Image image = new Image()</div><div class="line">&#123;</div><div class="line">	Source = &quot;http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png&quot;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>对应XAML为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image Source=&quot;http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>XAML定义UriImageSource示范：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Image HorizontalOptions=&quot;Center&quot; VerticalOptions=&quot;Center&quot; WidthRequest=&quot;200&quot; HeightRequest=&quot;200&quot; Aspect=&quot;Fill&quot;&gt;</div><div class="line">	&lt;Image.Source&gt;</div><div class="line">		&lt;UriImageSource Uri=&quot;http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png&quot;/&gt;</div><div class="line">	&lt;/Image.Source&gt;</div><div class="line">&lt;/Image&gt;</div></pre></td></tr></table></figure></p>
+<p>UriImageSource定义了<code>CachingEnabled</code>和<code>CachingValidity</code>连个属性。CachingEnabled表示是否启用缓存，bool类型默认为true。CachingValidity表示缓存的有效时间，TimeSpan类型，默认为1天。</p>
+<h2 id="访问嵌入到PCL图片资源"><a href="#访问嵌入到PCL图片资源" class="headerlink" title="访问嵌入到PCL图片资源"></a>访问嵌入到PCL图片资源</h2><p>图片资源添加到PCL项目中，设置图片的<code>Build Action</code>为<code>EmbeddedResource</code>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-42b660dc9101307c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>资源嵌入到项目中会有一个对应的资源ID，对应的资源ID为<code>程序集名.文件夹（若果有）.图片全名（包含扩展名）</code>,如果不能确定资源ID可以调用Assembly 对象的<code>GetManifestResourceNames</code>方法，返回一个string类型数组，表示项目中所有资源的ID。更简单的方法就是图片资源右键属性查看资源ID。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-de4e5f176df924de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>调用FromResource创建图片资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var imageResID = &quot;views.image.image.png&quot;;</div><div class="line">image.Source = ImageSource.FromResource(imageResID);</div></pre></td></tr></table></figure></p>
+<p>XAML中如何调用嵌入资源？如果你熟悉<code>x:FactoryMethod</code>使用，可能会想通过x:FactoryMethod调用<code>ImageSource.FromResource</code>方法，但是ImageSource.FromResource方法要求图片资源与调用方法在同一个程序集内，通过x:FactoryMethod调用ImageSource.FromResource方法时调用代码是在<code>Xamarin.Forms.Xaml</code>程序集内的。</p>
+<p>《Creating Mobile App with Xamarin.Forms》中介绍了解决方法，定义一个XAML扩展标记（先不多做介绍）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[ContentProperty(&quot;Source&quot;)]</div><div class="line">public class ResourceImageExtension : IMarkupExtension</div><div class="line">&#123;</div><div class="line"></div><div class="line">	public string Source</div><div class="line">	&#123;</div><div class="line">		get;</div><div class="line">		set;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public object ProvideValue(IServiceProvider serviceProvider)</div><div class="line">	&#123;</div><div class="line">		if (Source == null)</div><div class="line">			return null;</div><div class="line"></div><div class="line">		return ImageSource.FromResource(Source);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>定义了Source属性表示图片资源ID。添加ContentProperty特性，指定Source为ContentProperty，在使用ResourceImageExtension时不必明确指定“Source=”。</p>
+</blockquote>
+<p>XAML中定义，local表示ResourceImageExtension所在命名空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image x:Name=&quot;image&quot; Source=&quot;&#123;local:ResourceImageExtension views.image.image.png&#125;&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="访问单独平台图片资源"><a href="#访问单独平台图片资源" class="headerlink" title="访问单独平台图片资源"></a>访问单独平台图片资源</h2><p>由于每个平台对一些图片有特别的分辨率要求，所以有时候会为每个平台准备不同大小图片，<code>ImageSource.FromFile</code>静态方法和相应的<code>FileImageSource</code>类能方便访问存储在平台项目中的图片资源。</p>
+<p>各平台存储图片路径:<br><strong>iOS</strong> - 图片存储在<strong>Resources</strong> 目录中并设置<strong>Build Action</strong>为<strong>BundleResource</strong> （提供@2x命名文件，相关分辨率知识不做介绍）.<br><strong>Android</strong> - 图片存储在<strong>Resources/drawable</strong> 目录中并设置<strong>Build Action:</strong>为<strong>AndroidResource</strong>.  (不同分辨路图片放在Resources下<strong>drawable-ldpi</strong> 或<strong>drawable-hdpi</strong> 等子目录中 ).<br><strong>Windows Phone</strong> - 图片存储在<strong>Assets</strong>目录或其子目录下并设置<strong>Build Action</strong>为<strong>Content</strong> .</p>
+<p>示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">image.Source = new FileImageSource()</div><div class="line">&#123;</div><div class="line">	File = Device.OnPlatform(iOS: &quot;ios.png&quot;, Android: &quot;android.png&quot;, WinPhone: &quot;Assets/WindowsPhone.png&quot;)</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>对于iOS和Android直接指定文件名即可，这两个平台资源文件默认存储在Resources目录中，Windows Phone对应的路径应包含Assets目录。</p>
+<p>对应的XAML为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Image&gt;</div><div class="line">	&lt;Image.Source&gt;</div><div class="line">		&lt;OnPlatform x:TypeArguments=&quot;ImageSource&quot; iOS=&quot;ios.png&quot; Android=&quot;android.png&quot; WinPhone=&quot;Assets/WindowsPhone.png&quot; /&gt;</div><div class="line">	&lt;/Image.Source&gt;</div><div class="line">&lt;/Image&gt;</div></pre></td></tr></table></figure></p>
+<p>分别截取了Android和iOS模拟器的图片，运行起来效果有点怪。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-6c3085e427f68083.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS、Android运行效果"></p>
+<h2 id="通过Stream访问图片资源"><a href="#通过Stream访问图片资源" class="headerlink" title="通过Stream访问图片资源"></a>通过Stream访问图片资源</h2><p>通过Stream可以访问网络图片和嵌入项目中的图片资源。<code>ImageSource.FromStream</code>或者<code>StreamImageSource</code>可以帮助我们轻松的访问Stream对应的图片资源。</p>
+<p>FromStream方法的参数并不是Stream类型而是<code>Func&lt;Stream&gt;</code>类型（一个无参数，返回值为Stream的方法）。</p>
+<p>示例1——访问本地嵌入图片资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var imageResID = &quot;views.image.image.png&quot;;</div><div class="line">image.Source = ImageSource.FromStream(() =&gt;</div><div class="line">&#123;</div><div class="line">	Assembly assembly = GetType().GetTypeInfo().Assembly;</div><div class="line">	return assembly.GetManifestResourceStream(imageResID);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>示例2——访问网络图片资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var request = WebRequest.Create(new Uri(&quot;http://img2.myhsw.cn/2015-12-29/q9z0b418.jpg&quot;));</div><div class="line">request.BeginGetResponse((IAsyncResult arg) =&gt;</div><div class="line">&#123;</div><div class="line">	var stream = request.EndGetResponse(arg).GetResponseStream();</div><div class="line">	//Windows 平台特殊处理</div><div class="line">	if (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows)</div><div class="line">	&#123;</div><div class="line">		MemoryStream memStream = new MemoryStream();</div><div class="line">		stream.CopyTo(memStream);</div><div class="line">		memStream.Seek(0, SeekOrigin.Begin);</div><div class="line">		stream = memStream;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	var imageSource = ImageSource.FromStream(() =&gt; stream);</div><div class="line">	Device.BeginInvokeOnMainThread(() =&gt; &#123; image.Source = imageSource; &#125;);</div><div class="line"></div><div class="line">&#125;, null);</div></pre></td></tr></table></figure></p>
+<p>子线程中不允许更新UI，在子线程中更新UI借助<code>Device.BeginInvokeOnMainThread</code>方法完成。</p>
+<blockquote>
+<p>不同平台图片显示效果不同。<br>“On iOS and Android, the bitmap is displayed in its pixel size. In other words, the bitmap is rendered with a one-to-one mapping between the pixels of the bitmap and the pixels of the video display. The iPhone 6 simulator used for these screenshots has a screen width of 750 pixels, and you can see that the 256-pixel width of the bitmap is about one-third that width. The Android phone here is a Nexus 5, which has a pixel width of 1080, and the bitmap is about one-quarter that width.<br>On the Windows Runtime platforms, however, the bitmap is displayed in device-independent units—in this example, 256 device-independent units. The Nokia Lumia 925 used for these screenshots has a pixel width of 768, which is approximately the same as the iPhone 6. However, the screen width of this Windows 10 Mobile phone in device-independent units is 341, and you can see that the rendered bitmap is much wider than on the other platforms.”</p>
+</blockquote>
+<hr>
+<h1 id="Toolbar使用"><a href="#Toolbar使用" class="headerlink" title="Toolbar使用"></a>Toolbar使用</h1><p>Toolbar表示应用程序的工具栏，iOS和AndroidToolbar显示在屏幕顶部，Windows Phone显示在屏幕底部。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8bbfc8ac5e1f9f97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Toolbar 不同平台效果"></p>
+<p>Forms并没有提供Toolbar类，为Page类的ToolbarItems集合赋值即可实现Toolbar效果。Windows Phone平台ContentPage添加ToolbarItem正常显示，Android和iOS平台必须使用NavigationPage。</p>
+<p>ToolbarItem并不View实现而是继承MenuItem类，ToolbarItem定义了三个属性。<br><strong>Text</strong> - ToolbarItem显示的文本。<br><strong>Order</strong> - ToolbarItemOrder枚举类型，决定ToolbarItem显示图标（Primary）还是显示文字（Secondary）。<br><strong>Icon</strong> - FileImageSource类型，ToolbarItem显示的图标。FileImageSource类型说明图标文件是单独存储在平台项目中。</p>
+<p>XAML示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;ContentPage.ToolbarItems&gt;</div><div class="line">	&lt;ToolbarItem Text=&quot;Item 1&quot; Order=&quot;Primary&quot; Clicked=&quot;响应点击事件&quot;&gt;</div><div class="line">		&lt;ToolbarItem.Icon&gt;</div><div class="line">			&lt;OnPlatform x:TypeArguments=&quot;FileImageSource&quot;</div><div class="line">                            iOS=&quot;tc.png&quot;</div><div class="line">                            Android=&quot;tc.png&quot;/&gt;</div><div class="line">		&lt;/ToolbarItem.Icon&gt;</div><div class="line">	&lt;/ToolbarItem&gt;</div><div class="line">	&lt;ToolbarItem Text=&quot;Item 2&quot; Order=&quot;Primary&quot; &gt;</div><div class="line">		&lt;ToolbarItem.Icon&gt;</div><div class="line">			&lt;OnPlatform x:TypeArguments=&quot;FileImageSource&quot;</div><div class="line">                            iOS=&quot;tf.png&quot;</div><div class="line">                            Android=&quot;tf.png&quot;/&gt;</div><div class="line">		&lt;/ToolbarItem.Icon&gt;</div><div class="line">	&lt;/ToolbarItem&gt;</div><div class="line">	&lt;ToolbarItem Text=&quot;Item 3&quot; Order=&quot;Primary&quot; &gt;</div><div class="line">		&lt;ToolbarItem.Icon&gt;</div><div class="line">			&lt;OnPlatform x:TypeArguments=&quot;FileImageSource&quot;</div><div class="line">                            iOS=&quot;tg.png&quot;</div><div class="line">                            Android=&quot;tg.png&quot;/&gt;</div><div class="line">		&lt;/ToolbarItem.Icon&gt;</div><div class="line">	&lt;/ToolbarItem&gt;</div><div class="line"></div><div class="line">	&lt;ToolbarItem Text=&quot;Item 4&quot; Order=&quot;Secondary&quot; &gt;</div><div class="line">		&lt;ToolbarItem.Icon&gt;</div><div class="line">			&lt;OnPlatform x:TypeArguments=&quot;FileImageSource&quot;</div><div class="line">                            iOS=&quot;tf.png&quot;</div><div class="line">                            Android=&quot;tf.png&quot;/&gt;</div><div class="line">		&lt;/ToolbarItem.Icon&gt;</div><div class="line">	&lt;/ToolbarItem&gt;</div><div class="line">	&lt;ToolbarItem Text=&quot;Item 5&quot; Order=&quot;Secondary&quot; &gt;</div><div class="line">		&lt;ToolbarItem.Icon&gt;</div><div class="line">			&lt;OnPlatform x:TypeArguments=&quot;FileImageSource&quot;</div><div class="line">                            iOS=&quot;tg.png&quot;</div><div class="line">                            Android=&quot;tg.png&quot;/&gt;</div><div class="line">		&lt;/ToolbarItem.Icon&gt;</div><div class="line">	&lt;/ToolbarItem&gt;</div><div class="line">		</div><div class="line">&lt;/ContentPage.ToolbarItems&gt;</div></pre></td></tr></table></figure></p>
+<p>一定要修改App.xaml.cs文件中构造函数MainPage赋值的代码为<code>MainPage = new NavigationPage(new 自己的page类());</code></p>
+<h3 id="各平台图标像素要求"><a href="#各平台图标像素要求" class="headerlink" title="各平台图标像素要求"></a>各平台图标像素要求</h3><p>Android ToolbarItem图标像素：<br>• drawable-mdpi (medium DPI) — 32 pixels square<br>• drawable-hdpi (high DPI) — 48 pixels square<br>• drawable-xhdpi (extra high DPI) — 64 pixels square<br>• drawable-xxhdpi (extra extra high DPI) — 96 pixels square</p>
+<p>IOS ToolbarItem图标像素：<br>默认为20像素正方形，应提供@2x（40-pixel-square ）和@3x（60-pixel-square ）版本使iPhone5 和iPhone6有更好的显示效果。</p>
+<p>Windows Phone ToolbarItem图标像素要求：<br>大小为76像素的正方形图标。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:20</p>
+        <p>原始链接： <a class="post-url" href="/2016/09/28/Xamarin-Forms-Views介绍（四）/" title="Xamarin.Forms Views介绍（四）">http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/&title=《Xamarin.Forms Views介绍（四）》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-8bbfc8ac5e1f9f97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/&title=《Xamarin.Forms Views介绍（四）》 — Mayue‘s Blog&source=专注移动开发的技术博客" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Views介绍（四）》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/09/28/Xamarin-Forms-Views介绍（四）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Image属性"><span class="post-toc-text">Image属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ImageSource介绍"><span class="post-toc-text">ImageSource介绍</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问网络图片资源"><span class="post-toc-text">访问网络图片资源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问嵌入到PCL图片资源"><span class="post-toc-text">访问嵌入到PCL图片资源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问单独平台图片资源"><span class="post-toc-text">访问单独平台图片资源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过Stream访问图片资源"><span class="post-toc-text">通过Stream访问图片资源</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Toolbar使用"><span class="post-toc-text">Toolbar使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#各平台图标像素要求"><span class="post-toc-text">各平台图标像素要求</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/30/Xamarin-Forms-Views介绍（五）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Views介绍（五）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/09/27/Xamarin-Forms-Views介绍（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Views介绍（三）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

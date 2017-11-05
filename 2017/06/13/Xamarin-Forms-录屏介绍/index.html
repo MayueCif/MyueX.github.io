@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms 录屏介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Android原生项目中涉及到录屏相关的内容（MediaProjectionManager），就尝试写了Forms版本的录屏功能，系统要求Android 5.0+，iOS 9.0+。iOS下实现录屏比较简单，通过RPScreenRecorder.SharedRecorder.StartRecording方法调用iOS9.0中加入的录屏功能。">
+<meta name="keywords" content="Forms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms 录屏介绍">
+<meta property="og:url" content="http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Android原生项目中涉及到录屏相关的内容（MediaProjectionManager），就尝试写了Forms版本的录屏功能，系统要求Android 5.0+，iOS 9.0+。iOS下实现录屏比较简单，通过RPScreenRecorder.SharedRecorder.StartRecording方法调用iOS9.0中加入的录屏功能。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d8a1c4d8a4c57598.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4e7efbda28184b65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-01b5b1e7bc1d670d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-919a92041afbe0de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0a532176ca5b3982.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3f4f0052ef52cdb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-1530f3bef3ec5680.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-89d9886d4dc4ca77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4eb7e9153700c75f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2e4d18a915a5fb95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:40:01.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms 录屏介绍">
+<meta name="twitter:description" content="Android原生项目中涉及到录屏相关的内容（MediaProjectionManager），就尝试写了Forms版本的录屏功能，系统要求Android 5.0+，iOS 9.0+。iOS下实现录屏比较简单，通过RPScreenRecorder.SharedRecorder.StartRecording方法调用iOS9.0中加入的录屏功能。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-d8a1c4d8a4c57598.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-录屏介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms 录屏介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-06-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Android原生项目中涉及到录屏相关的内容（MediaProjectionManager），就尝试写了Forms版本的录屏功能，系统要求Android 5.0+，iOS 9.0+。<br>iOS下实现录屏比较简单，通过<code>RPScreenRecorder.SharedRecorder.StartRecording</code>方法调用iOS9.0中加入的录屏功能。<br><a id="more"></a></p>
+<p>Android原生项目中涉及到录屏相关的内容（MediaProjectionManager），就尝试写了Forms版本的录屏功能，系统要求Android 5.0+，iOS 9.0+。</p>
+<h1 id="iOS录屏实现"><a href="#iOS录屏实现" class="headerlink" title="iOS录屏实现"></a>iOS录屏实现</h1><p>iOS下实现录屏比较简单，通过<code>RPScreenRecorder.SharedRecorder.StartRecording</code>方法调用iOS9.0中加入的录屏功能。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-d8a1c4d8a4c57598.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>首次调用录屏会提示用户是否允许录屏，用户允许后接下来的8分钟都不会再提示。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-4e7efbda28184b65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>调用<code>RPScreenRecorder.SharedRecorder.StopRecording</code>停止录屏，录屏结束后可以通过<code>RPPreviewViewController</code>来预览录制的视频内容，也可以调用<code>RPScreenRecorder.SharedRecorder.DiscardRecording</code>丢弃录制的视频。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-01b5b1e7bc1d670d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>结束录屏后的预览界面：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-919a92041afbe0de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>预览界面点击Cancel或者Save都会调用iOS中<code>RPPreviewViewControllerDelegate</code>委托 的两个<code>DidFinish</code>方法。点击Cancel操作调用<code>DidFinish(RPPreviewViewController previewController)</code>方法，保存和分享操作调用重载方法<code>DidFinish(RPPreviewViewController previewController, Foundation.NSSet&lt;Foundation.NSString&gt; activityTypes)</code>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0a532176ca5b3982.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="Android录屏"><a href="#Android录屏" class="headerlink" title="Android录屏"></a>Android录屏</h1><p>原生参考：<a href="http://www.truiton.com/2015/05/capture-record-android-screen-using-mediaprojection-apis/" target="_blank" rel="external">http://www.truiton.com/2015/05/capture-record-android-screen-using-mediaprojection-apis/</a></p>
+<p>初始化<code>MediaProjectionManager</code>对象，调用MediaProjectionManager对象的<code>CreateScreenCaptureIntent</code>方法创建意图，通过<code>StartActivityForResult</code>方法启动系统提供的录屏功能。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3f4f0052ef52cdb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>屏蔽麦克风声音没有实现</p>
+</blockquote>
+<p>在Activity的<code>OnActivityResult</code>方法中接收录屏数据。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-1530f3bef3ec5680.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MainActivity的OnActivityResult方法"></p>
+<p>Android项目中通过继承<code>DialogFragment</code>自定义了两个Dialog，<code>PromptDialog</code>和<code>PreviewDialog</code>，PromptDialog用来确认用户的操作，是否放弃以录制视频。PreviewDialog模仿iOS端实现的视频预览，以达到相似的用户体验。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-89d9886d4dc4ca77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PromptDialog"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-4eb7e9153700c75f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PreviewDialog"></p>
+<blockquote>
+<p>目前已知的问题是VideoView被Toolbar遮挡，布局无效。MediaController播放控制不能显示。</p>
+</blockquote>
+<p>项目地址：<a href="https://github.com/MyueX/ScreenRecorder" target="_blank" rel="external">https://github.com/MyueX/ScreenRecorder</a></p>
+<hr>
+<p><strong>获取最新咨询请关注公众号：XamarinTop或扫描如下二维码</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-2e4d18a915a5fb95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XamarinTop"></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:40</p>
+        <p>原始链接： <a class="post-url" href="/2017/06/13/Xamarin-Forms-录屏介绍/" title="Xamarin.Forms 录屏介绍">http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/&title=《Xamarin.Forms 录屏介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-4e7efbda28184b65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/&title=《Xamarin.Forms 录屏介绍》 — Mayue‘s Blog&source=Android原生项目中涉及到录屏相关的内容（MediaProjectionManager），就尝试写了Forms版本的录屏功能，系统要求Android ..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms 录屏介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2017/06/13/Xamarin-Forms-录屏介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#iOS录屏实现"><span class="post-toc-text">iOS录屏实现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Android录屏"><span class="post-toc-text">Android录屏</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          5种方法提高Xamarn.Forms应用启动速度
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2017/06/09/Xamarin-Forms-3-0初体验(一)/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms 3.0初体验(一)</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

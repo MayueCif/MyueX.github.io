@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Data Binding介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连接两个View的对应属性即可，称为Data Binding。Data Binding在Model-View-ViewModel (MVVM)设计模式中起着重要作用。Data Binding中设计两个概念Source 和 Target。当Sourc">
+<meta name="keywords" content="Forms,Binding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Data Binding介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连接两个View的对应属性即可，称为Data Binding。Data Binding在Model-View-ViewModel (MVVM)设计模式中起着重要作用。Data Binding中设计两个概念Source 和 Target。当Sourc">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-305f670f7eb02d34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f2ae3129a61dded9.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-19ffdcacc9575ff0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-457febecea5b1bf8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4f6ca6ba0fe1bf6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-7095e3deb9165266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-6861c90451d04986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-395e9afe6949f08e.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-bef90f0c59836c89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b2b2e16d4af54fe9.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-9c4dea6bb271edfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c8557c26f3925fae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c3490210b1e420af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-af8fb94d32bb3d17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ae5a116e163a90d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8d739840725554ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4f256436ecf9db2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:37:13.100Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Data Binding介绍">
+<meta name="twitter:description" content="很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连接两个View的对应属性即可，称为Data Binding。Data Binding在Model-View-ViewModel (MVVM)设计模式中起着重要作用。Data Binding中设计两个概念Source 和 Target。当Sourc">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-305f670f7eb02d34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Data-Binding介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Data Binding介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-10-07
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连接两个View的对应属性即可，称为<code>Data Binding</code>。Data Binding在Model-View-ViewModel (MVVM)设计模式中起着重要作用。<br>Data Binding中设计两个概念<code>Source</code> 和 <code>Target</code>。当Source的值发生改变时Data Binding会自动将这个新的值更新到Target。对Target和Source有特殊要求，Target必须继承<code>BindableProperty</code>类（VisualElement通过继承Element继承了BindableObject，所以Xamarin.Forms中视图的大部分属性都是BindableProperty类型），Source必须实现<code>INotifyPropertyChanged</code>接口提供一种通知机制监听Source值的改变(BindableObject实现了INotifyPropertyChanged接口)。<br><a id="more"></a></p>
+<p>很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连接两个View的对应属性即可，称为<code>Data Binding</code>。Data Binding在Model-View-ViewModel (MVVM)设计模式中起着重要作用。<br>Data Binding中设计两个概念<code>Source</code> 和 <code>Target</code>。当Source的值发生改变时Data Binding会自动将这个新的值更新到Target。对Target和Source有特殊要求，Target必须继承<code>BindableProperty</code>类（VisualElement通过继承Element继承了BindableObject，所以Xamarin.Forms中视图的大部分属性都是BindableProperty类型），Source必须实现<code>INotifyPropertyChanged</code>接口提供一种通知机制监听Source值的改变(BindableObject实现了INotifyPropertyChanged接口)。</p>
+<h1 id="简单的Data-Binding使用"><a href="#简单的Data-Binding使用" class="headerlink" title="简单的Data Binding使用"></a>简单的Data Binding使用</h1><p>本示例以Slider的Value属性作Source，Label的Opacity属性作Target，实现拖动滑块影响Label透明度的效果。</p>
+<p>代码方式设置Data Binding:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-305f670f7eb02d34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>核心代码设置Target对象的<code>BindingContext</code>属性（BindableObject类型）。再调用Target 对象的<code>SetBinding</code>方法设置绑定属性关系,第一个参数targetProperty为BindableProperty类型，表示目标属性。第二个参数string类型，表示BindingContext的哪个属性为Source。本例调用的是5个参数的方法，后三个参数为默认值。</p>
+<p>代码运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-f2ae3129a61dded9.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>XAML方式设置Data Binding：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;StackLayout&gt;</div><div class="line">     &lt;Label Text=&quot;Opacity Binding Demo&quot;</div><div class="line">            FontSize=&quot;Large&quot;</div><div class="line">            VerticalOptions=&quot;CenterAndExpand&quot;</div><div class="line">            HorizontalOptions=&quot;Center&quot;</div><div class="line">            BindingContext=&quot;&#123;x:Reference Name=slider&#125;&quot;</div><div class="line">            Opacity=&quot;&#123;Binding Path=Value&#125;&quot; /&gt;</div><div class="line"></div><div class="line">     &lt;Slider x:Name=&quot;slider&quot; VerticalOptions=&quot;CenterAndExpand&quot; /&gt;</div><div class="line">&lt;/StackLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>查看Label定义，BindingContext属性通过<code>x:Reference</code>指定，Opacity为目标属性通过<code>Binding</code>扩展标记的Path设置。Path不仅可以是Property也可以是SubProperty或 Indexer.如<code>Content.Children[4].Value</code>.</p>
+<p>在整个视图树中子View是会继承父布局的BindingContext属性。如子View没有单独设置BindingContext属性，会查找上级视图若发现BindingContext赋值会直接继承，如果上级视图同样没有BindingContext赋值且存在上级视图会继续搜索上级视图BindingContext的赋值。本例修改XAML布局代码将Label的BindingContext删除添加到StackLayout中，同样会实现我们想要的效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;StackLayout BindingContext=&quot;&#123;x:Reference Name=slider&#125;&quot;&gt;</div><div class="line">     &lt;Label Text=&quot;Opacity Binding Demo&quot;</div><div class="line">            FontSize=&quot;Large&quot;</div><div class="line">            VerticalOptions=&quot;CenterAndExpand&quot;</div><div class="line">            HorizontalOptions=&quot;Center&quot;</div><div class="line">            Opacity=&quot;&#123;Binding Path=Value&#125;&quot; /&gt;</div><div class="line"></div><div class="line">     &lt;Slider x:Name=&quot;slider&quot; VerticalOptions=&quot;CenterAndExpand&quot; /&gt;</div><div class="line">&lt;/StackLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>同样可以使用属性节点定义方式设置Data Binding相关属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;Label Text=&quot;Opacity Binding Demo&quot;</div><div class="line">       FontSize=&quot;Large&quot;</div><div class="line">       VerticalOptions=&quot;CenterAndExpand&quot;</div><div class="line">       HorizontalOptions=&quot;Center&quot;&gt;</div><div class="line">       &lt;Label.BindingContext&gt;</div><div class="line">        	&lt;x:Reference Name=&quot;slider&quot; /&gt;</div><div class="line">    	&lt;/Label.BindingContext&gt;</div><div class="line">   	&lt;Label.Opacity&gt;</div><div class="line">        	&lt;Binding Path=&quot;Value&quot; /&gt;</div><div class="line">    	&lt;/Label.Opacity&gt;</div><div class="line">&lt;/Label&gt;</div></pre></td></tr></table></figure></p>
+<p>Reference对应的C#类为<code>ReferenceExtension</code>,Binding对应的类为<code>BindingExtension</code>。两个类的定义都指定了Content Property，分别为Name和Path，所以可以简化代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">BindingContext=&quot;&#123;x:Reference slider&#125;&quot;</div><div class="line">Opacity=&quot;&#123;Binding Value&#125;&quot;</div></pre></td></tr></table></figure></p>
+<p>前面是通过BindingContext指定Data Binding的Source，还可以通过Binding指定Source。对应的C#代码为SetBinding两个参数的方法：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-19ffdcacc9575ff0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><code>BindingBase</code>为abstract类，Forms提供了<code>Binding</code>类该类继承了BindingBase。<br>通过Binding指定Source，再将Binding对象作为参数传入SetBinding方法。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-457febecea5b1bf8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>Binding 提供了重载的构造函数和静态方法Create<tsource>来创建Binding对象，不作介绍。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-4f6ca6ba0fe1bf6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="构造函数示例"><br><img src="http://upload-images.jianshu.io/upload_images/1129755-7095e3deb9165266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Create&lt;TSource&gt;示例"></tsource></p>
+</blockquote>
+<p>同样XAML定义方式为，删除BindingContext属性赋值，修改Binding扩展标记。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-6861c90451d04986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>根据内容属性简化XAML代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Opacity=&quot;&#123;Binding Value , Source=&#123;x:Reference slider&#125;&#125;&quot;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>扩展标记定义在一对大括号内且大括号内不应出现双引号，指定多个属性值时通过逗号分隔。<br>关于内容属性定义的简化写法《Creating Mobile Apps with Xamarin.Forms》中有提到“Even though BindingExtension defines Path as its content property, the argument name can be eliminated only when that argument is the first among multiple arguments.”大概意思是要省略内容属性的参数名称必须将其放在第一个参数,但是测试发现<code>Opacity=&quot;{Binding Source={x:Reference slider} , Value}&quot;</code>这种写法同样可以。</p>
+</blockquote>
+<p>那么问题来了，如果我们给BindingContext赋值的同时也为Binding的Source赋值，应该将哪个属性对应的对象作为数据源。符合就近原则Source的优先级高于BindingContext，即指定Source时不在考虑BindingContext。且Source使用更加灵活，如一个对象的多个属性使用不同对象作为数据源只能通过Source方式指定。</p>
+<hr>
+<h1 id="Binding-Mode-介绍"><a href="#Binding-Mode-介绍" class="headerlink" title="Binding Mode 介绍"></a>Binding Mode 介绍</h1><p>现在要通过Data Binding实现两个Slider的Value相互影响。滑动一个Slider的同时另一个有相同变化。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-395e9afe6949f08e.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>愚蠢的办法是分别将两个Slider作为另一个的Source，即同时为两个Slider设置Data Binding。上一个Slider和Label的示例可以理解为Source影响Target，最简单的办法就是可以使Source和Target相互影响。<code>BindingMode</code>枚举可以帮助我们定义target 和 source之间的绑定模式。<br>BindingMode有四个枚举值：<br>• Default<br>• OneWay — Source 的改变影响Target的值(通常是这种情况).<br>• OneWayToSource — Target的改变影响Source的值.<br>• TwoWay — Source和Target值改变会相互影响.</p>
+<p>对于可读写的BindableProperty对象默认BindingMode为OneWay，只读的BindableProperty对象默认BindingMode为OneWayToSource。<br>大多数BindableProperty对象BindingMode默认值为OneWay，以下控件的Property的BindingMode方式默认是TwoWay：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-bef90f0c59836c89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>由于Slider的Value默认BindingMode为TwoWay，所以实现两个Slider连动XAMlL定义为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;StackLayout&gt;</div><div class="line">    &lt;Slider x:Name=&quot;slider&quot; VerticalOptions=&quot;CenterAndExpand&quot; /&gt;</div><div class="line">    &lt;Slider BindingContext=&quot;&#123;x:Reference Name=slider&#125;&quot; Value=&quot;&#123;Binding Path=Value&#125;&quot; VerticalOptions=&quot;CenterAndExpand&quot; /&gt;</div><div class="line">&lt;/StackLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>通过XAML明确指定BindingMode的值<code>Value=&quot;{Binding Path=Value Mode=TwoWay}&quot;</code>。通过C#代码指定BindingMode的值<code>slider.SetBinding(Slider.ValueProperty,&quot;Value&quot;,BindingMode.TwoWay);</code>。</p>
+<hr>
+<h1 id="Binding-StringFormat-介绍"><a href="#Binding-StringFormat-介绍" class="headerlink" title="Binding StringFormat 介绍"></a>Binding StringFormat 介绍</h1><p>再次把Slider作为Source，Label作为Target。将Slider的Value值绑定到Label的Text。Value值ToString后直接显示到Label上可能不是我们期望的，Binding类提供了<code>StringFormat</code>属性表示.NET格式化字符串。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-b2b2e16d4af54fe9.gif?imageMogr2/auto-orient/strip" alt="StringFormat效果"></p>
+<p>XAML中StringFormat使用,因为StringFormat本身会包含一对大括号，所以StringFormat赋值时要包含一对单引号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-9c4dea6bb271edfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>C#代码设置StringFormat：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label.SetBinding(Label.TextProperty, &quot;Value&quot;, stringFormat: &quot;Slider Value Is &#123;0:F3&#125;&quot;);</div></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="Binding-IValueConvert-介绍"><a href="#Binding-IValueConvert-介绍" class="headerlink" title="Binding IValueConvert 介绍"></a>Binding IValueConvert 介绍</h1><p>目前示例Target需要的数据为string，默认转换或StringFormat可以实现效果。但是Data Binding的Target接受数据类型为一个对象时如何处理？我们可以通过<code>value converter</code>类完成Source到Target的类型转换，需要实现<code>IValueConverter</code>接口，接口有<code>Convert</code>和<code>ConvertBack</code>两个方法。 </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c8557c26f3925fae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IValueConverter定义"></p>
+<p>当数据由Source转换到Target时调用Convert方法。Convert方法中value表示Source传递的值，你可以通过GetType来确定它的类型，也可以默认一种类型来处理。targetType表示Target需要的数据类型，Convert方法返回的类型应与targetType相同。parameter在Binding 中会用到，culture为CultureInfo类型需要和地域文化相关的转换时会用到。</p>
+<p>ConvertBack方法会在数据由Target转换到Source 时调用，只有Binding Mode为TwoWay 或者 OneWayToSource时才有必要实现该方法，否则直接返回null即可。value参数表示target传递的值，targetType表示source的Type类型。</p>
+<p>示例实现效果，一个Entry 和一个Button，当Entry中内容为空时Button不可用，点击Button清空Entry。</p>
+<p>定义IntToBoolConverter实现IValueConverter，本示例中Entry为Source，Entry的Text.Length为Path，Button为Target，IsEnabled为绑定的属性。所以自定义的Converter应有Int转换为bool的能力（Convert方法，本例中ConvertBack可直接返回null）。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c3490210b1e420af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IntToBoolConverter类定义"></p>
+<p>XAML中使用Converter要先在<code>Resources</code>字典中定义IntToBoolConverter对象，指定key值，在Binding时通过<code>StaticResource</code>赋值。其中Resources相关内容在Style中介绍。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-af8fb94d32bb3d17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XAML使用IValueConverter"></p>
+<p>如果Converter只使用一次，不必在Resources中定义，直接在Binding中通过属性节点定义即可。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ae5a116e163a90d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<hr>
+<p>《Creating Mobile Apps with Xamarin.Forms》中提供了一个bool转泛型的Converter类，可以将bool值转换为我们想要的值。定义如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8d739840725554ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BoolToObjectConverter定义"></p>
+<p>在XAML定义时，通过 <code>x:TypeArguments</code>指定我们需要的类型，并设置TrueObject和FalseObject属性。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-4f256436ecf9db2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:37</p>
+        <p>原始链接： <a class="post-url" href="/2016/10/07/Xamarin-Forms-Data-Binding介绍/" title="Xamarin.Forms Data Binding介绍">http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/&title=《Xamarin.Forms Data Binding介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-6861c90451d04986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/&title=《Xamarin.Forms Data Binding介绍》 — Mayue‘s Blog&source=很多时候我们需要将某个View1 值的改变显示在另外一个View2 上，对View1的对应事件编码可实现我们想要的效果，如果只是想处理值的改变，可以通过连..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Data Binding介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/10/07/Xamarin-Forms-Data-Binding介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Binding/" class="color3">Binding</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单的Data-Binding使用"><span class="post-toc-text">简单的Data Binding使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Binding-Mode-介绍"><span class="post-toc-text">Binding Mode 介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Binding-StringFormat-介绍"><span class="post-toc-text">Binding StringFormat 介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Binding-IValueConvert-介绍"><span class="post-toc-text">Binding IValueConvert 介绍</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/10/13/Xamarin-Forms-MVVM介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms MVVM介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/09/30/Xamarin-Forms-Views介绍（五）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Views介绍（五）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

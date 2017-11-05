@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Views介绍（七）——TableView | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，TableView没有ItemSource的概念需要手动设置Child。如借助TableView实现Setting界面。">
+<meta name="keywords" content="Forms,TableView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Views介绍（七）——TableView">
+<meta property="og:url" content="http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，TableView没有ItemSource的概念需要手动设置Child。如借助TableView实现Setting界面。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2b2bd095a301a28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4506b5285ef8736d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0d3dc4fc3af7036a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ad5b6f5e021c082d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-39943e45d270f6b0.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d8ce3441c225b867.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-51f2457175cf9d7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ffae798e4c26a517.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b31edd0a864f1432.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-03T01:07:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Views介绍（七）——TableView">
+<meta name="twitter:description" content="与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，TableView没有ItemSource的概念需要手动设置Child。如借助TableView实现Setting界面。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-2b2bd095a301a28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Views介绍（七）——TableView" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Views介绍（七）——TableView
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-10-22
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，TableView没有ItemSource的概念需要手动设置Child。如借助TableView实现Setting界面。<br><a id="more"></a></p>
+<p>与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，TableView没有ItemSource的概念需要手动设置Child。如借助TableView实现Setting界面：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-2b2bd095a301a28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="TableView属性"><a href="#TableView属性" class="headerlink" title="TableView属性"></a>TableView属性</h1><ul>
+<li><strong>HasUnevenRows</strong> ：bool类型的值，表示TableView是否有不均匀行。</li>
+<li><strong>Intent</strong> ：TableIntent类型，获取、设置列表底部的字符串或视图。</li>
+<li><strong>RowHeight</strong> ：int类型，设置TableView行高，如果HasUnevenRows为true忽略该属性。</li>
+<li><strong>Root</strong> ：TableRoot类型，获取设置TableView显示Items结构的根节点。<br>每个TableView包含一个TableRoot，TableRoot内有一个Title（只对Windows Phone有效）和多个TableSection，每个TableSection又包含一个Title和多个Cell。</li>
+</ul>
+<blockquote>
+<p>TableRoot 继承TableSectionBase<tablesection>，TableSection继承 TableSectionBase<cell>，都继承自TableSectionBase<t>，TableSectionBase<t>又实现了INotifyCollectionChanged接口，况且使用ObservableCollection<t>管理内部集合元素，所以我们可以通过代码动态增加和删除TableView中的字元素。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-4506b5285ef8736d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></t></t></t></cell></tablesection></p>
+</blockquote>
+<h1 id="TableView-定义"><a href="#TableView-定义" class="headerlink" title="TableView 定义"></a>TableView 定义</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;TableView Intent=&quot;Settings&quot;&gt;</div><div class="line">    &lt;TableRoot&gt;</div><div class="line">        &lt;TableSection Title=&quot;Section Title&quot;&gt;</div><div class="line">             &lt;EntryCell Text=&quot;EntryCell&quot; Label=&quot;EntryCell Label&quot;/&gt;</div><div class="line">      		 &lt;SwitchCell Text=&quot;SwitchCell&quot; On=&quot;true&quot; /&gt;</div><div class="line">		 	 &lt;TextCell Text=&quot;Cell Text&quot; Detail=&quot;Cell Detail&quot;/&gt;</div><div class="line">        &lt;/TableSection&gt;</div><div class="line">    &lt;/TableRoot&gt;</div><div class="line">&lt;/TableView&gt;</div></pre></td></tr></table></figure>
+<p>TableView默认填充整个屏幕，效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0d3dc4fc3af7036a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>TableView提供TableIntent类型属性<code>Intent</code>可以定义TableView的外观。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ad5b6f5e021c082d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li><strong>Data</strong> – TableView显示数据列表时使用。</li>
+<li><strong>Form</strong> – TableView每行提供对应动作时使用。</li>
+<li><strong>Menu</strong> – TableView显示成菜单样式.</li>
+<li><strong>Settings</strong> – TableView显示设置列表样式。</li>
+</ul>
+<p>除了Data对应样式的Title显示外没发现有什么不同，，，<br><img src="http://upload-images.jianshu.io/upload_images/1129755-39943e45d270f6b0.gif?imageMogr2/auto-orient/strip" alt="Intent对应的样式"></p>
+<h1 id="Cell介绍"><a href="#Cell介绍" class="headerlink" title="Cell介绍"></a>Cell介绍</h1><p>Forms提供了四个Cell方便我们的开发，这四个Cell分别是TextCell、ImageCell、SwitchCell、EntryCell，前两个通常用于ListView，介绍ListView时有Cell的相关介绍。SwitchCell和EntryCell多用于TableView的定义。</p>
+<h2 id="SwitchCell"><a href="#SwitchCell" class="headerlink" title="SwitchCell"></a>SwitchCell</h2><p>SwitchCell用来设置和显示一个bool值。</p>
+<ul>
+<li><strong>Text</strong>–左侧显示文本，对这个bool值进行描述。</li>
+<li><strong>On</strong>–表示Switch的状态对应这个bool值。</li>
+</ul>
+<h2 id="EntryCell"><a href="#EntryCell" class="headerlink" title="EntryCell"></a>EntryCell</h2><p>EntryCell提供了一个Entry让用户进行输入。</p>
+<ul>
+<li><strong>Keyboard</strong> – Entry获取焦点时显示软键盘的样式。</li>
+<li><strong>Label</strong> – 左侧显示的说明文本。</li>
+<li><strong>LabelColor</strong> – 左侧显示文本颜色。</li>
+<li><strong>Placeholder</strong> – Entry内容为空时显示的内容。</li>
+<li><strong>Text</strong> – Entry输入的内容。</li>
+<li><strong>HorizontalTextAlignment</strong> – Text水平对其方式。</li>
+</ul>
+<h2 id="自定Cell"><a href="#自定Cell" class="headerlink" title="自定Cell"></a>自定Cell</h2><p>当Forms提供的Cell不能满足需求时可以通过继承ViewCell自定义Cell实现。</p>
+<p>自定义PickerCell示例：<br>新建文件可以选择<code>Forms ContentView</code>或<code>Forms ContentView Xaml</code></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d8ce3441c225b867.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Forms ContentView用来通过代码定义Cell，Forms ContentView Xaml用XAML定义Cell。<br>本示例新建一个Forms ContentView Xaml文件，命名PickerCell。<br>修改XAML文件的根节点为ViewCell，并做如下修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;ViewCell xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; </div><div class="line">		x:Class=&quot;views.PickerCell&quot; x:Name=&quot;cell&quot;&gt;</div><div class="line">	&lt;ViewCell.View&gt;</div><div class="line">        &lt;StackLayout Orientation=&quot;Horizontal&quot;</div><div class="line">                     BindingContext=&quot;&#123;x:Reference cell&#125;&quot;</div><div class="line">                     Padding=&quot;16, 0&quot;&gt;</div><div class="line"></div><div class="line">            &lt;Label Text=&quot;&#123;Binding Label&#125;&quot;</div><div class="line">                   VerticalOptions=&quot;Center&quot; /&gt;</div><div class="line"></div><div class="line">            &lt;Picker x:Name=&quot;picker&quot;</div><div class="line">                    Title=&quot;&#123;Binding Title&#125;&quot;</div><div class="line">                    VerticalOptions=&quot;Center&quot;</div><div class="line">                    HorizontalOptions=&quot;FillAndExpand&quot;</div><div class="line">                    SelectedIndexChanged=&quot;OnPickerSelectedIndexChanged&quot; /&gt;</div><div class="line">			</div><div class="line">        &lt;/StackLayout&gt;</div><div class="line">    &lt;/ViewCell.View&gt;</div><div class="line">&lt;/ViewCell&gt;</div></pre></td></tr></table></figure></p>
+<p>给Cell添加Name属性，并设置StackLayout的BindingContext为Cell本身，用来绑定Label和Picker。</p>
+<p>CS文件实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">[ContentProperty(&quot;Items&quot;)]</div><div class="line">public partial class PickerCell : ViewCell</div><div class="line">&#123;</div><div class="line">	public static readonly BindableProperty LabelProperty = BindableProperty.Create(&quot;Label&quot;, typeof(string), typeof(PickerCell), default(string));</div><div class="line"></div><div class="line">	public static readonly BindableProperty TitleProperty = BindableProperty.Create(&quot;Title&quot;, typeof(string), typeof(PickerCell), default(string));</div><div class="line"></div><div class="line">	public static readonly BindableProperty SelectedValueProperty = BindableProperty.Create(&quot;SelectedValue&quot;, typeof(string), typeof(PickerCell), null,</div><div class="line">																							BindingMode.TwoWay, propertyChanged: (sender, oldValue, newValue) =&gt;</div><div class="line">																							&#123;</div><div class="line">																									PickerCell pickerCell = (PickerCell)sender;</div><div class="line">																									if (String.IsNullOrEmpty((string)newValue))</div><div class="line">																									&#123;</div><div class="line">																										pickerCell.picker.SelectedIndex = -1;</div><div class="line">																									&#125;</div><div class="line">																									else</div><div class="line">																									&#123;</div><div class="line">																										pickerCell.picker.SelectedIndex =</div><div class="line">																													  pickerCell.Items.IndexOf((string)newValue);</div><div class="line">																									&#125;</div><div class="line"></div><div class="line">																							&#125;);</div><div class="line"></div><div class="line">	public PickerCell()</div><div class="line">	&#123;</div><div class="line">		InitializeComponent();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public string Label</div><div class="line">	&#123;</div><div class="line">		get &#123; return (string)GetValue(LabelProperty); &#125;</div><div class="line">		set &#123; SetValue(LabelProperty, value); &#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public string Title</div><div class="line">	&#123;</div><div class="line">		get &#123; return (string)GetValue(TitleProperty); &#125;</div><div class="line">		set &#123; SetValue(TitleProperty, value); &#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public string SelectedValue</div><div class="line">	&#123;</div><div class="line">		get &#123; return (string)GetValue(SelectedValueProperty); &#125;</div><div class="line">		set &#123; SetValue(SelectedValueProperty, value); &#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public IList&lt;string&gt; Items</div><div class="line">	&#123;</div><div class="line">		get &#123; return picker.Items; &#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	void OnPickerSelectedIndexChanged(object sender, EventArgs args)</div><div class="line">	&#123;</div><div class="line">		if (picker.SelectedIndex == -1)</div><div class="line">		&#123;</div><div class="line">			SelectedValue = null;</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">			SelectedValue = Items[picker.SelectedIndex];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>[ContentProperty(&quot;Items&quot;)]</code>这段代码使我们XAML中定义Cell是直接指定Items的值不需要设置属性节点。对属性值的操作尽量通过BindableObject提供的SetValue方法完成，属性有更新时可以更新到XAML界面。</p>
+<p>定义TableView时使用自定义的PickerCell：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-51f2457175cf9d7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ffae798e4c26a517.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>为了方便，可以直接在XAML中定义TableView时自定义Cell：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-b31edd0a864f1432.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="响应TableView的点击事件"><a href="#响应TableView的点击事件" class="headerlink" title="响应TableView的点击事件"></a>响应TableView的点击事件</h1><p>TextCell and ImageCell提供了Command和CommandParameter属性，结合Data Binding中ICommand相关知识，定义ICommand对象，绑定到Cell的Command属性以响应Cell的点击操作。<br>太困，不详细记录。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月03日 09:07</p>
+        <p>原始链接： <a class="post-url" href="/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" title="Xamarin.Forms Views介绍（七）——TableView">http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/&title=《Xamarin.Forms Views介绍（七）——TableView》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-2b2bd095a301a28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/&title=《Xamarin.Forms Views介绍（七）——TableView》 — Mayue‘s Blog&source=与ListView不同，ListView提供ItemTemplate显示同类型数据集合，TableView通过不同Cell显示不同数据类型集合，Table..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Views介绍（七）——TableView》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/TableView/" class="color5">TableView</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TableView属性"><span class="post-toc-text">TableView属性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TableView-定义"><span class="post-toc-text">TableView 定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Cell介绍"><span class="post-toc-text">Cell介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SwitchCell"><span class="post-toc-text">SwitchCell</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#EntryCell"><span class="post-toc-text">EntryCell</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定Cell"><span class="post-toc-text">自定Cell</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#响应TableView的点击事件"><span class="post-toc-text">响应TableView的点击事件</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/11/08/Xamarin-Forms-Navigation介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Navigation介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Views介绍（六）——ListView</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

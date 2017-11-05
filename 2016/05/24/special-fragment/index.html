@@ -1,325 +1,169 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-  
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
   <meta charset="utf-8">
   
-  <title>Xamarin.Android 特殊Fragment讲解 | Myue&#39;s Blog</title>
+  <title>Xamarin.Android 特殊Fragment讲解 | Mayue‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。利用Fragment可以很方便的实现如图效果：
-
-与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。">
+<meta name="keywords" content="Fragment">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xamarin.Android 特殊Fragment讲解">
-<meta property="og:url" content="http://www.xamarin.xyz/2016/05/24/special-fragment/index.html">
-<meta property="og:site_name" content="Myue's Blog">
-<meta property="og:description" content="前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。利用Fragment可以很方便的实现如图效果：
-
-与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。">
-<meta property="og:image" content="https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/Images/intro_screenshot.png">
+<meta property="og:url" content="http://xamarin.xyz/2016/05/24/special-fragment/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。">
 <meta property="og:image" content="http://img.blog.csdn.net/20140306142800250">
-<meta property="og:updated_time" content="2016-05-24T06:10:00.000Z">
+<meta property="og:updated_time" content="2017-11-02T15:21:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xamarin.Android 特殊Fragment讲解">
-<meta name="twitter:description" content="前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。利用Fragment可以很方便的实现如图效果：
-
-与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。">
-<meta name="twitter:image" content="https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/Images/intro_screenshot.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Myue&#39;s Blog" type="application/atom+xml">
+<meta name="twitter:description" content="前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20140306142800250">
   
   
-    <link rel="icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico">
   
-  
-      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
-  
-  
-  
-      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  
-  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-  
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false,
-          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
-      }
-  </script>
-
-  
-      <script>
-          yiliaConfig.rootUrl = "/";
-      </script>
+  <script src="/js/pace.min.js"></script>
   
 
   
   
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
 </head>
+
 <body>
   <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Myue</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">移动开发</p>
-        
-                
-
-
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
                     
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        <li>
-                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=76f8b2638997afc52c1d1f1d88da33d90a46472b409ffdcc5098b19e0be1c3ce">
-                                <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Xamarin招聘、求职" title="Xamarin招聘、求职">
-                            </a>
-                        </li>
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gesture/">Gesture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LocalBroadcastManager/">LocalBroadcastManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">专注于移动端开发</div>
-                </section>
-                
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myue</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">Myue</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">移动开发</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
             <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:mayue8373@live.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/MyueX" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
             </nav>
-        </header>                
+        </div>
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
-</nav>
-      <div class="body-wrap"><article id="post-special-fragment" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/24/special-fragment/" class="article-date">
-      <time datetime="2016-05-24T06:07:55.000Z" itemprop="datePublished">2016-05-24</time>
-</a>
-    </div>
-  
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-special-fragment" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="post-title" itemprop="name">
       Xamarin.Android 特殊Fragment讲解
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Android/">Android</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-05-24
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fragment/">Fragment</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
           
-        <p>前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。利用Fragment可以很方便的实现如图效果：</p>
-<p><img src="https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/Images/intro_screenshot.png" alt="fragment"></p>
-<p>与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。</p>
-<a id="more"></a>
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。与Activity一样，Android同样为我们提供了一些特殊的Fragment简化我们的编码。本文主要介绍以下三个Fragment子类的使用：ListFragment，DialogFragment，PreferenceFragment。<br><a id="more"></a></p>
 <h1 id="ListFragment使用简介"><a href="#ListFragment使用简介" class="headerlink" title="ListFragment使用简介"></a>ListFragment使用简介</h1><p>ListFragment与ListActivity相似，提供了默认包含一个List的视图，在使用ListFragment时可以不重写OnCreateView方法。如果要自定义ListFragment显示的视图，一定要在布局文件中包含一个id为“@android:id/list”的ListView。</p>
 <p>先自定义我们的ListFragment。使用默认视图忽略OnCreateView方法，重写OnCreate或OnActivityCreated方法，初始化ListFragment.ListAdapter的属性（默认ListView的适配器）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public override void OnCreate (Bundle savedInstanceState)</span><br><span class="line">&#123;</span><br><span class="line">	base.OnCreate (savedInstanceState);</span><br><span class="line">	string[] values = new[] &#123; &quot;Android&quot;, &quot;iPhone&quot;, &quot;WindowsMobile&quot;,</span><br><span class="line">		&quot;Blackberry&quot;, &quot;WebOS&quot;, &quot;Ubuntu&quot;, &quot;Windows7&quot;, &quot;Max OS X&quot;,</span><br><span class="line">		&quot;Linux&quot;, &quot;OS/2&quot;</span><br><span class="line">	&#125;;</span><br><span class="line">	this.ListAdapter = new ArrayAdapter&lt;string&gt; (Activity, Android.Resource.Layout.SimpleExpandableListItem1, values);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public override void OnCreate (Bundle savedInstanceState)</div><div class="line">&#123;</div><div class="line">	base.OnCreate (savedInstanceState);</div><div class="line">	string[] values = new[] &#123; &quot;Android&quot;, &quot;iPhone&quot;, &quot;WindowsMobile&quot;,</div><div class="line">		&quot;Blackberry&quot;, &quot;WebOS&quot;, &quot;Ubuntu&quot;, &quot;Windows7&quot;, &quot;Max OS X&quot;,</div><div class="line">		&quot;Linux&quot;, &quot;OS/2&quot;</div><div class="line">	&#125;;</div><div class="line">	this.ListAdapter = new ArrayAdapter&lt;string&gt; (Activity, Android.Resource.Layout.SimpleExpandableListItem1, values);</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
 <p>处理ListView的点击事件，需要重写OnListItemClick方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public override void OnListItemClick (ListView l, Android.Views.View v, int position, long id)</span><br><span class="line">&#123;</span><br><span class="line">	base.OnListItemClick (l, v, position, id);</span><br><span class="line">	//事件响应代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public override void OnListItemClick (ListView l, Android.Views.View v, int position, long id)</div><div class="line">&#123;</div><div class="line">	base.OnListItemClick (l, v, position, id);</div><div class="line">	//事件响应代码</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="DialogFragment使用简介"><a href="#DialogFragment使用简介" class="headerlink" title="DialogFragment使用简介"></a>DialogFragment使用简介</h1><p>DialogFragment在android 3.0时被引入。用于在Activity的内容之上展示一个模态的对话框。在DialogFragment产生之前，我们创建对话框：一般采用AlertDialog或Dialog（不推荐直接使用Dialog创建对话框）。DialogFragment创建对话框的好处就是时Dialog与Fragment生命周期一致，且可以把Dialog内嵌到DialogFragment中使用。</p>
 <p>DialogFragment为我们提供了Show方法显示Fragment，调用Dismiss隐藏Fragment。我们一个可以显示一个其它的DialogFragment从而隐藏当前显示的DialogFragment。</p>
 <p>使用DialogFragment至少需要实现OnCreateView或OnCreateDIalog方法。OnCreateView使用定义的xml布局文件展示Dialog。OnCreateDialog使用AlertDialog创建Dialog。</p>
 <p>先定义AlertDialogFragment重写OnCreateDialog方法,通过AlertDialog.Builder创建Dialog。在按钮点击时显示MyDialogFragment，Show方法的第一参数为FragmentTransaction对象，第二个参数为字符串类型的tag(Fragment的字符串标识)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class AlertDialogFragment : DialogFragment</span><br><span class="line">&#123;</span><br><span class="line">	public override Dialog OnCreateDialog (Bundle savedInstanceState)</span><br><span class="line">	&#123;</span><br><span class="line">		var builder = new AlertDialog.Builder (Activity)</span><br><span class="line">			.SetMessage (&quot;This is my dialog.&quot;)</span><br><span class="line">			.SetPositiveButton (&quot;Ok&quot;, (sender, args) =&gt; &#123;</span><br><span class="line">			//显示MyDialogFragment</span><br><span class="line">			var transaction = FragmentManager.BeginTransaction ();</span><br><span class="line">			var dialogFragment = new MyDialogFragment ();</span><br><span class="line">			dialogFragment.Show (transaction, &quot;dialog_fragment_view&quot;);</span><br><span class="line">		&#125;).SetTitle (&quot;Custom Dialog&quot;);</span><br><span class="line">		return builder.Create ();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class AlertDialogFragment : DialogFragment</div><div class="line">&#123;</div><div class="line">	public override Dialog OnCreateDialog (Bundle savedInstanceState)</div><div class="line">	&#123;</div><div class="line">		var builder = new AlertDialog.Builder (Activity)</div><div class="line">			.SetMessage (&quot;This is my dialog.&quot;)</div><div class="line">			.SetPositiveButton (&quot;Ok&quot;, (sender, args) =&gt; &#123;</div><div class="line">			//显示MyDialogFragment</div><div class="line">			var transaction = FragmentManager.BeginTransaction ();</div><div class="line">			var dialogFragment = new MyDialogFragment ();</div><div class="line">			dialogFragment.Show (transaction, &quot;dialog_fragment_view&quot;);</div><div class="line">		&#125;).SetTitle (&quot;Custom Dialog&quot;);</div><div class="line">		return builder.Create ();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>自定义MyDialogFragment,重写OnCreateView方法，返回我们自定义的View。</p>
 <blockquote>
 <p>Dialog.RequestWindowFeature ((int)Android.Views.WindowFeatures.NoTitle);隐藏顶<br>部Title</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class MyDialogFragment : DialogFragment</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Bundle savedInstanceState)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		base.OnCreateView (inflater, container, savedInstanceState);</span><br><span class="line">		Dialog.RequestWindowFeature ((int)Android.Views.WindowFeatures.NoTitle);</span><br><span class="line">		var view = inflater.Inflate (Resource.Layout.fragment_dialog, container, false);</span><br><span class="line">		return view;</span><br><span class="line">	&#125;</span><br><span class="line">			</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class MyDialogFragment : DialogFragment</div><div class="line">&#123;</div><div class="line"></div><div class="line">	public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Bundle savedInstanceState)</div><div class="line">	&#123;</div><div class="line"></div><div class="line">		base.OnCreateView (inflater, container, savedInstanceState);</div><div class="line">		Dialog.RequestWindowFeature ((int)Android.Views.WindowFeatures.NoTitle);</div><div class="line">		var view = inflater.Inflate (Resource.Layout.fragment_dialog, container, false);</div><div class="line">		return view;</div><div class="line">	&#125;</div><div class="line">			</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>当AlertDialogFragment中的按钮点击时，MyDialogFragment被创建并显示，没有调用Dismiss方法的情况下AlertDialogFragment自动隐藏，而MyDialogFragment的隐藏则需要我们通过Dismiss方法隐藏。</p>
 <h1 id="PreferenceFragment-使用简介"><a href="#PreferenceFragment-使用简介" class="headerlink" title="PreferenceFragment 使用简介"></a>PreferenceFragment 使用简介</h1><p>PreferenceFragment与PreferenceActivity类似，可以帮我们配置一些信息，保存应用设置可以使用。应用内实现类似系统设置的效果：</p>
 <p><img src="http://img.blog.csdn.net/20140306142800250" alt="android setting"></p>
 <p>使用PreferenceFragment不是把layout布局文件作为填充界面而是在xml（resource／xml）文件夹中创建一个xml资源文件编写相应的preference节点,这些设置不需要我们自己保存用户设置的数据，它自己会将数据保存在xml文件当中，自动创建一个配置文件/data/data/your_package_name /shared_prefs/(your_package_name)_preferences.xml。</p>
 <p>官网中给出的示例代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">PreferenceScreen</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">PreferenceCategory</span> <span class="attr">android:title</span>=<span class="string">"Inline Preferences"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CheckBoxPreference</span> <span class="attr">android:key</span>=<span class="string">"checkbox_preference"</span></span><br><span class="line">                        <span class="attr">android:title</span>=<span class="string">"Checkbox Preference Title"</span></span><br><span class="line">                        <span class="attr">android:summary</span>=<span class="string">"Checkbox Preference Summary"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PreferenceCategory</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">PreferenceCategory</span> <span class="attr">android:title</span>=<span class="string">"Dialog Based Preferences"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">EditTextPreference</span> <span class="attr">android:key</span>=<span class="string">"edittext_preference"</span></span><br><span class="line">                        <span class="attr">android:title</span>=<span class="string">"EditText Preference Title"</span></span><br><span class="line">                        <span class="attr">android:summary</span>=<span class="string">"EditText Preference Summary"</span></span><br><span class="line">                        <span class="attr">android:dialogTitle</span>=<span class="string">"Edit Text Preferrence Dialog Title"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PreferenceCategory</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">PreferenceCategory</span> <span class="attr">android:title</span>=<span class="string">"Launch Preferences"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- This PreferenceScreen tag serves as a screen break (similar to page break</span><br><span class="line">             in word processing). Like for other preference types, we assign a key</span><br><span class="line">             here so it is able to save and restore its instance state. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PreferenceScreen</span> <span class="attr">android:key</span>=<span class="string">"screen_preference"</span></span><br><span class="line">                      <span class="attr">android:title</span>=<span class="string">"Title Screen Preferences"</span></span><br><span class="line">                      <span class="attr">android:summary</span>=<span class="string">"Summary Screen Preferences"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- You can place more preferences here that will be shown on the next screen. --&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">CheckBoxPreference</span> <span class="attr">android:key</span>=<span class="string">"next_screen_checkbox_preference"</span></span><br><span class="line">                          <span class="attr">android:title</span>=<span class="string">"Next Screen Toggle Preference Title"</span></span><br><span class="line">                          <span class="attr">android:summary</span>=<span class="string">"Next Screen Toggle Preference Summary"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">PreferenceScreen</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">PreferenceScreen</span> <span class="attr">android:title</span>=<span class="string">"Intent Preference Title"</span></span><br><span class="line">                      <span class="attr">android:summary</span>=<span class="string">"Intent Preference Summary"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">intent</span> <span class="attr">android:action</span>=<span class="string">"android.intent.action.VIEW"</span></span><br><span class="line">              <span class="attr">android:data</span>=<span class="string">"http://www.android.com"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">PreferenceScreen</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PreferenceCategory</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">PreferenceScreen</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">PreferenceScreen</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">PreferenceCategory</span> <span class="attr">android:title</span>=<span class="string">"Inline Preferences"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">CheckBoxPreference</span> <span class="attr">android:key</span>=<span class="string">"checkbox_preference"</span></span></div><div class="line"><span class="tag">                        <span class="attr">android:title</span>=<span class="string">"Checkbox Preference Title"</span></span></div><div class="line"><span class="tag">                        <span class="attr">android:summary</span>=<span class="string">"Checkbox Preference Summary"</span> /&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;/<span class="name">PreferenceCategory</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">PreferenceCategory</span> <span class="attr">android:title</span>=<span class="string">"Dialog Based Preferences"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">EditTextPreference</span> <span class="attr">android:key</span>=<span class="string">"edittext_preference"</span></span></div><div class="line"><span class="tag">                        <span class="attr">android:title</span>=<span class="string">"EditText Preference Title"</span></span></div><div class="line"><span class="tag">                        <span class="attr">android:summary</span>=<span class="string">"EditText Preference Summary"</span></span></div><div class="line"><span class="tag">                        <span class="attr">android:dialogTitle</span>=<span class="string">"Edit Text Preferrence Dialog Title"</span> /&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;/<span class="name">PreferenceCategory</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">PreferenceCategory</span> <span class="attr">android:title</span>=<span class="string">"Launch Preferences"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- This PreferenceScreen tag serves as a screen break (similar to page break</span></div><div class="line"><span class="comment">             in word processing). Like for other preference types, we assign a key</span></div><div class="line"><span class="comment">             here so it is able to save and restore its instance state. --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">PreferenceScreen</span> <span class="attr">android:key</span>=<span class="string">"screen_preference"</span></span></div><div class="line"><span class="tag">                      <span class="attr">android:title</span>=<span class="string">"Title Screen Preferences"</span></span></div><div class="line"><span class="tag">                      <span class="attr">android:summary</span>=<span class="string">"Summary Screen Preferences"</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="comment">&lt;!-- You can place more preferences here that will be shown on the next screen. --&gt;</span></div><div class="line"></div><div class="line">      <span class="tag">&lt;<span class="name">CheckBoxPreference</span> <span class="attr">android:key</span>=<span class="string">"next_screen_checkbox_preference"</span></span></div><div class="line"><span class="tag">                          <span class="attr">android:title</span>=<span class="string">"Next Screen Toggle Preference Title"</span></span></div><div class="line"><span class="tag">                          <span class="attr">android:summary</span>=<span class="string">"Next Screen Toggle Preference Summary"</span> /&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">PreferenceScreen</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">PreferenceScreen</span> <span class="attr">android:title</span>=<span class="string">"Intent Preference Title"</span></span></div><div class="line"><span class="tag">                      <span class="attr">android:summary</span>=<span class="string">"Intent Preference Summary"</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="tag">&lt;<span class="name">intent</span> <span class="attr">android:action</span>=<span class="string">"android.intent.action.VIEW"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:data</span>=<span class="string">"http://www.android.com"</span> /&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">PreferenceScreen</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;/<span class="name">PreferenceCategory</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">PreferenceScreen</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>在PreferenceFragment 的OnCreate方法中调用AddPreferencesFromResource ()方法填充界面.</p>
 <h2 id="Preference节点介绍"><a href="#Preference节点介绍" class="headerlink" title="Preference节点介绍"></a>Preference节点介绍</h2><ol>
 <li>PreferenceScreen：用作xml的根元素。用它可嵌套形成二级设置页面，还可以Intent启动指定的activity。</li>
@@ -346,237 +190,255 @@
 <p>如果需要清除数据，可以通过PreferenceScreen.RemovePreference清除某个prefernece，PreferenceScreen.RemoveAll清除所有的preferences。我们可以通过PreferenceScreen.Editor属性获取preferences的editor进行编辑，修改后通过Commit()将修改值保存。</p>
 <p><em>Querying Activities to Create a Preference Fragment<br><a href="https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/#Querying_Activities_to_Create_a_Preference_Fragment" target="_blank" rel="external">https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/#Querying_Activities_to_Create_a_Preference_Fragment</a></em></p>
 
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月02日 23:21</p>
+        <p>原始链接： <a class="post-url" href="/2016/05/24/special-fragment/" title="Xamarin.Android 特殊Fragment讲解">http://xamarin.xyz/2016/05/24/special-fragment/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
       
     </div>
-    
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/05/24/special-fragment/&title=《Xamarin.Android 特殊Fragment讲解》 — Mayue‘s Blog&pic=https://developer.xamarin.com/guides/android/platform_features/fragments/part_3_-_specialized_fragment_classes/Images/intro_screenshot.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/05/24/special-fragment/&title=《Xamarin.Android 特殊Fragment讲解》 — Mayue‘s Blog&source=前面介绍过Fragment的出现就是为了更好的适配手机屏幕和大屏幕的Android设备。与Activity一样，Android同样为我们提供了一些特殊的F..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/05/24/special-fragment/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Android 特殊Fragment讲解》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/05/24/special-fragment/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/05/24/special-fragment/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/05/24/special-fragment/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Fragment/" class="color4">Fragment</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
   </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/24/special-fragment/">Xamarin.Android 特殊Fragment讲解</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Myue</a></p>
-        <p><span>发布时间:</span>2016-05-24, 14:07:55</p>
-        <p><span>最后更新:</span>2016-05-24, 14:10:00</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/24/special-fragment/" title="Xamarin.Android 特殊Fragment讲解">http://www.xamarin.xyz/2016/05/24/special-fragment/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xamarin.xyz/2016/05/24/special-fragment/　　作者: Myue" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
-
-
-
-    <nav id="article-nav">
-        
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/26/custom-view/">
-                    Xamarin.Android 自定义控件
-                </a>
-            </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/20/fragment/">
-                    Xamarin.Android Fragment 使用详解
-                </a>
-            </div>
-        
-    </nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ListFragment使用简介"><span class="toc-number">1.</span> <span class="toc-text">ListFragment使用简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DialogFragment使用简介"><span class="toc-number">2.</span> <span class="toc-text">DialogFragment使用简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PreferenceFragment-使用简介"><span class="toc-number">3.</span> <span class="toc-text">PreferenceFragment 使用简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preference节点介绍"><span class="toc-number">3.1.</span> <span class="toc-text">Preference节点介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preference属性介绍"><span class="toc-number">3.2.</span> <span class="toc-text">Preference属性介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preferenece数据的操作"><span class="toc-number">3.3.</span> <span class="toc-text">Preferenece数据的操作</span></a></li></ol></li></ol>
-</div>
-<style>
-    .left-col .switch-btn {
-        display: none;
-    }
-    .left-col .switch-area {
-        display: none;
-    }
-</style>
 
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-            $(".switch-btn, .switch-area").fadeOut(300);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-            $(".switch-btn, .switch-area").fadeIn(500);
-        }
-    })
-
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-        $(".switch-btn, .switch-area").show();
-    }
-</script>
-
-
-
-
-
-    
-<div class="share">
-    
-        <div class="bdsharebuttonbox">
-            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
-            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
-        </div>
-        <script>
-            window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Xamarin.Android 特殊Fragment讲解　| Myue's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-        </script>
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListFragment使用简介"><span class="post-toc-text">ListFragment使用简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#DialogFragment使用简介"><span class="post-toc-text">DialogFragment使用简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PreferenceFragment-使用简介"><span class="post-toc-text">PreferenceFragment 使用简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Preference节点介绍"><span class="post-toc-text">Preference节点介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Preference属性介绍"><span class="post-toc-text">Preference属性介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Preferenece数据的操作"><span class="post-toc-text">Preferenece数据的操作</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
     
 
-    
-</div>
+<nav id="article-nav">
+  
+    <a href="/2016/05/26/custom-view/" id="article-nav-newer" class="article-nav-link-wrap">
 
-
-
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/05/24/special-fragment/" data-title="Xamarin.Android 特殊Fragment讲解" data-url="http://www.xamarin.xyz/2016/05/24/special-fragment/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"xamarin"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        //ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.src = 'http://www.xamarin.xyz/js/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-            <a href="/2016/05/26/custom-view/" title="上一篇: Xamarin.Android 自定义控件">
-                <i class="fa fa-angle-left"></i>
-            </a>
+          Xamarin.Android 自定义控件
         
+      </span>
+    </a>
+  
+  
+    <a href="/2016/05/20/fragment/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Android Fragment 使用详解</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
         
-            <a href="/2016/05/20/fragment/" title="下一篇: Xamarin.Android Fragment 使用详解">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/ontouchevent-gesturedetector/">Xamarin.Android OnTouchEvent和GestureDetector简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/26/custom-view/">Xamarin.Android 自定义控件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/24/special-fragment/">Xamarin.Android 特殊Fragment讲解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/fragment/">Xamarin.Android Fragment 使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/intent/">Xamarin.Android Intent简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/contentprovider2/">Xamarin.Android 自定义ContentProvider</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/contentprovider1/">Xamarin.Android ContentProvider使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/localbroadcastmanager/">Xamarin.Android LocalBroadcastManager使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/broadcastreceiver/">Xamarin.Android 广播接收器使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/service3/">Xamarin.Android Service详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/08/service2/">Xamarin.Android Service进阶教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/service1/">Xamarin.Android Service入门介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/02/activity3/">Android Activity管理机制详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/29/activity2/">Xamarin.Android Activity用例介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/28/activity1/">Xamarin.Android Activity入门介绍</a></li></ul>
-
-
-
-
-    <script>
-        
-    </script>
-</div>
+      </div>
       <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2016 Myue
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >本站到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
     </div>
+  </div>
 </footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
     </div>
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
 </div>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
   </div>
 </body>
 </html>

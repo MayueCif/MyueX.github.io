@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Device类介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。">
+<meta name="keywords" content="Forms,Device">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Device类介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c8a60d266cfc9304.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b3943d4485caa483.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-18aee2028c756761.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-12102ccacaf42199.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8c363a5c0cc2f1c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e0d7e6dae377c833.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2d995c61ceb47645.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-1fc6c4ec568a9c15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:36:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Device类介绍">
+<meta name="twitter:description" content="Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-c8a60d266cfc9304.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Device类介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Device类介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-11-10
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。<br><a id="more"></a></p>
+<p>Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。</p>
+<h1 id="Device-Idiom"><a href="#Device-Idiom" class="headerlink" title="Device.Idiom"></a>Device.Idiom</h1><p>Idiom属性，TargetIdiom枚举类型。可以根据Idiom判断当前设备的类型。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c8a60d266cfc9304.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>使用方式，移动端开发主要判断Phone和Tablet（平板）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-b3943d4485caa483.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="Device-OS"><a href="#Device-OS" class="headerlink" title="Device.OS"></a>Device.OS</h1><p>OS属性，TargetPlatform枚举类型。判断当前设备系统平台。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-18aee2028c756761.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>如单独设置iOS的Padding，解决页面与状态栏重叠问题：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-12102ccacaf42199.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="Device-OnPlatform"><a href="#Device-OnPlatform" class="headerlink" title="Device.OnPlatform"></a>Device.OnPlatform</h1><p><img src="http://upload-images.jianshu.io/upload_images/1129755-8c363a5c0cc2f1c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Device提供了两个OnPlatform方法。一个是范型方法，根据不同不同平台，返回对应设置的值，内部通过判断Device.OS属性实现。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e0d7e6dae377c833.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>XAML使用示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;OnPlatform x:TypeArguments=&quot;Color&quot;</div><div class="line">      iOS=&quot;Green&quot;</div><div class="line">      Android=&quot;#738182&quot;</div><div class="line">      WinPhone=&quot;Accent&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>还提供了一个接收Action类型参数的OnPlatform方法,会根据不同平台执行不同的动作。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-2d995c61ceb47645.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p><em>OnPlatform</em> does not currently support differentiating the Windows 8.1, Windows Phone 8.1, and UWP/Windows 10 platforms.</p>
+</blockquote>
+<h1 id="Device-Styles"><a href="#Device-Styles" class="headerlink" title="Device.Styles"></a>Device.Styles</h1><p>提供了定义好的适用于Label样式。包括：</p>
+<ul>
+<li><strong>BodyStyle</strong></li>
+<li><strong>CaptionStyle</strong></li>
+<li><strong>ListItemDetailTextStyle</strong></li>
+<li><strong>ListItemTextStyle</strong></li>
+<li><strong>SubtitleStyle</strong></li>
+<li><strong>TitleStyle</strong></li>
+</ul>
+<p>不同平台效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-1fc6c4ec568a9c15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>XAML使用示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;Label Text=&quot;TitleStyle&quot; VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot; </div><div class="line">Style=&quot;&#123;DynamicResource TitleStyle&#125;&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>C#使用示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">new Label</div><div class="line">&#123;</div><div class="line">	Text = &quot;TitleStyle&quot;,</div><div class="line">	Style = Device.Styles.TitleStyle</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h1 id="Device-GetNamedSize"><a href="#Device-GetNamedSize" class="headerlink" title="Device.GetNamedSize"></a>Device.GetNamedSize</h1><p>接收一个NamedSize类型参数和一个Type类型参数，根据传入的NamedSize返回当前平台Type类型对应最适合的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var label = new Label();</div><div class="line">label.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));</div></pre></td></tr></table></figure></p>
+<h1 id="Device-OpenUri"><a href="#Device-OpenUri" class="headerlink" title="Device.OpenUri"></a>Device.OpenUri</h1><p>根据传入的Uri调用系统提供的内置功能。</p>
+<p>打开网页：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Device.OpenUri(new Uri(&quot;https://www.baidu.com/&quot;));</div></pre></td></tr></table></figure></p>
+<p>拨打电话:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Device.OpenUri(new Uri(&quot;tel:10086&quot;));</div></pre></td></tr></table></figure></p>
+<p>打开地图定位：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if (Device.OS == TargetPlatform.iOS) &#123;</div><div class="line">	//https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html</div><div class="line">	Device.OpenUri(new Uri(&quot;http://maps.apple.com/?q=394+Pacific+Ave+San+Francisco+CA&quot;));</div><div class="line">&#125; else if (Device.OS == TargetPlatform.Android) &#123;</div><div class="line">	// opens the Maps app directly</div><div class="line">	Device.OpenUri(new Uri(&quot;geo:0,0?q=394+Pacific+Ave+San+Francisco+CA&quot;));</div><div class="line">&#125; else if (Device.OS == TargetPlatform.Windows || Device.OS == TargetPlatform.WinPhone) &#123;</div><div class="line">    Device.OpenUri(new Uri(&quot;bingmaps:?where=394 Pacific Ave San Francisco CA&quot;));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="Device-StartTimer"><a href="#Device-StartTimer" class="headerlink" title="Device.StartTimer"></a>Device.StartTimer</h1><p>启动一个简单的定时器，每隔TimeSpan时间会执行Func<bool>对应的动作。当Func<bool>返回false时，定时器停止。</bool></bool></p>
+<p>创建一个周期为1秒的定时器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Device.StartTimer(new TimeSpan(0, 0, 1), () =&gt;</div><div class="line">&#123;</div><div class="line">	label.Text = DateTime.Now.ToString(&quot;F&quot;);</div><div class="line">	return true;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h1 id="Device-BeginInvokeOnMainThread"><a href="#Device-BeginInvokeOnMainThread" class="headerlink" title="Device. BeginInvokeOnMainThread"></a>Device. BeginInvokeOnMainThread</h1><p>用户界面的相关操作是不允许在后台线程中执行。子线程中执行用户界面更新操作需要将代码放在<code>BeginInvokeOnMainThread</code>中执行，BeginInvokeOnMainThread作用类似于iOS中的InvokeOnMainThread, Android中的RunOnUiThread, Windows Phone中的Dispatcher.BeginInvoke。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Device.BeginInvokeOnMainThread(() =&gt;</div><div class="line">&#123;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:36</p>
+        <p>原始链接： <a class="post-url" href="/2016/11/10/Xamarin-Forms-Device类介绍/" title="Xamarin.Forms Device类介绍">http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/&title=《Xamarin.Forms Device类介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-1fc6c4ec568a9c15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/&title=《Xamarin.Forms Device类介绍》 — Mayue‘s Blog&source=Device是一个静态类，提供一些属性和方法帮助开发者判断平台类型、对不同平台提供不同处理。" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Device类介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/11/10/Xamarin-Forms-Device类介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Device/" class="color2">Device</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-Idiom"><span class="post-toc-text">Device.Idiom</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-OS"><span class="post-toc-text">Device.OS</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-OnPlatform"><span class="post-toc-text">Device.OnPlatform</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-Styles"><span class="post-toc-text">Device.Styles</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-GetNamedSize"><span class="post-toc-text">Device.GetNamedSize</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-OpenUri"><span class="post-toc-text">Device.OpenUri</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-StartTimer"><span class="post-toc-text">Device.StartTimer</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Device-BeginInvokeOnMainThread"><span class="post-toc-text">Device. BeginInvokeOnMainThread</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/11/14/Xamarin-Forms-Platform-Specific-API/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Platform-Specific API
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/11/08/Xamarin-Forms-Page介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Page介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

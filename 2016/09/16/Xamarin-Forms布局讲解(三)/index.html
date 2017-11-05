@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms布局讲解(三) | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Grid是一种横竖排列的布局，即九宫格。可以通过ColumnSpacing和RowSpacing设置每行每列之间的间隙。Xaml定义时会先通过RowDefinitions 和ColumnDefinitions确定Grid行和列的数量，RowDefinition的Height属性表示每行的高度，ColumnDefinition的’Width’属性表示每列的宽度。Height和Width都是’Grid">
+<meta name="keywords" content="Forms,Grid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms布局讲解(三)">
+<meta property="og:url" content="http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Grid是一种横竖排列的布局，即九宫格。可以通过ColumnSpacing和RowSpacing设置每行每列之间的间隙。Xaml定义时会先通过RowDefinitions 和ColumnDefinitions确定Grid行和列的数量，RowDefinition的Height属性表示每行的高度，ColumnDefinition的’Width’属性表示每列的宽度。Height和Width都是’Grid">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ec23b6b646029bcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-02d6ccb4f1dd14cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f30afdae70e3e519.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3d36f7c67bddfe85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e2ddad7d1fb415b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0981da54d660e7fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8b2e586d8febe29a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-79d33dd58e0cb311.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-85e5f3ed1c3bdc0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-03T01:11:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms布局讲解(三)">
+<meta name="twitter:description" content="Grid是一种横竖排列的布局，即九宫格。可以通过ColumnSpacing和RowSpacing设置每行每列之间的间隙。Xaml定义时会先通过RowDefinitions 和ColumnDefinitions确定Grid行和列的数量，RowDefinition的Height属性表示每行的高度，ColumnDefinition的’Width’属性表示每列的宽度。Height和Width都是’Grid">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-ec23b6b646029bcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms布局讲解(三)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms布局讲解(三)
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-09-16
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Grid是一种横竖排列的布局，即九宫格。可以通过<code>ColumnSpacing</code>和<code>RowSpacing</code>设置每行每列之间的间隙。Xaml定义时会先通过<code>RowDefinitions</code> 和<code>ColumnDefinitions</code>确定Grid行和列的数量，RowDefinition的<code>Height</code>属性表示每行的高度，ColumnDefinition的’Width’属性表示每列的宽度。Height和Width都是’GridLength’类型。<br><a id="more"></a></p>
+<h1 id="Grid介绍"><a href="#Grid介绍" class="headerlink" title="Grid介绍"></a>Grid介绍</h1><p>Grid是一种横竖排列的布局，即九宫格。可以通过<code>ColumnSpacing</code>和<code>RowSpacing</code>设置每行每列之间的间隙。Xaml定义时会先通过<code>RowDefinitions</code> 和<code>ColumnDefinitions</code>确定Grid行和列的数量，RowDefinition的<code>Height</code>属性表示每行的高度，ColumnDefinition的’Width’属性表示每列的宽度。Height和Width都是’GridLength’类型。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ec23b6b646029bcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>定义GridLength类型时可能会涉及到<code>GridUnitType</code>枚举类型的使用。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-02d6ccb4f1dd14cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>• Absolute—表示一个具体宽高值（device-independent units，在XAML中定义是用具体数字表示）<br>• Auto—表示宽高由内容决定 (在XAML中用“Auto” 表示)<br>• Star—余下的单元格按比例分配宽高 ( 在XAML中用“*”表示或数字+“*”)</p>
+<p>XAML定义示例，定义一个两行两列的Grid,第一行的高度是90，第二行的高度是180,第一列宽度是自适应Cell的宽度，第二列是填充剩余宽度：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;Grid&gt;</div><div class="line">  &lt;Grid.RowDefinitions&gt;</div><div class="line">    &lt;RowDefinition Height=&quot;90&quot; /&gt;</div><div class="line">    &lt;RowDefinition Height=&quot;180&quot; /&gt;</div><div class="line">  &lt;/Grid.RowDefinitions&gt;</div><div class="line">  &lt;Grid.ColumnDefinitions&gt;</div><div class="line">    &lt;ColumnDefinition Width=&quot;Auto&quot; /&gt;</div><div class="line">    &lt;ColumnDefinition Width=&quot;*&quot; /&gt;</div><div class="line">  &lt;/Grid.ColumnDefinitions&gt;</div><div class="line">  </div><div class="line">  ...</div><div class="line">  </div><div class="line">&lt;/Grid&gt;</div></pre></td></tr></table></figure></p>
+<p>代码定义只要调用Grid的RowDefinitions和ColumnDefinitions的Add方法即可：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-f30afdae70e3e519.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3d36f7c67bddfe85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Grid的行和列定义完之后，就可以确定每个视图所在的行和列。<br>将Grid的Xaml定义修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;Grid&gt;</div><div class="line">  	&lt;Grid.RowDefinitions&gt;</div><div class="line">    		&lt;RowDefinition Height=&quot;90&quot; /&gt;</div><div class="line">    		&lt;RowDefinition Height=&quot;180&quot; /&gt;</div><div class="line">  	&lt;/Grid.RowDefinitions&gt;</div><div class="line">  	&lt;Grid.ColumnDefinitions&gt;</div><div class="line">    		&lt;ColumnDefinition Width=&quot;Auto&quot; /&gt;</div><div class="line">    		&lt;ColumnDefinition Width=&quot;*&quot; /&gt;</div><div class="line">  	&lt;/Grid.ColumnDefinitions&gt;</div><div class="line"></div><div class="line">  	&lt;Label Text=&quot;Top Left&quot; Grid.Row=&quot;0&quot; Grid.Column=&quot;0&quot; BackgroundColor=&quot;Aqua&quot;/&gt;</div><div class="line">  	&lt;Label Text=&quot;Top Right&quot; Grid.Row=&quot;0&quot; Grid.Column=&quot;1&quot; BackgroundColor=&quot;Yellow&quot;/&gt;</div><div class="line">  	&lt;Label Text=&quot;Bottom Left&quot; Grid.Row=&quot;1&quot; Grid.Column=&quot;0&quot; BackgroundColor=&quot;Lime&quot;/&gt;</div><div class="line">  	&lt;Label Text=&quot;Bottom Right&quot; Grid.Row=&quot;1&quot; Grid.Column=&quot;1&quot; BackgroundColor=&quot;Red&quot;/&gt;</div><div class="line">&lt;/Grid&gt;</div></pre></td></tr></table></figure></p>
+<p>预览中IOS的效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e2ddad7d1fb415b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>子视图所在的位置是由<code>Grid.Row</code>和<code>Grid.Column</code>两个属性确定的（Grid提供的附加属性），两个属性的默认值都为0，即默认位置第一行的第一列。对于这两个属性有很灵活的代码设置方法。<br>可以通过Grid对象Children属性的Add方法添加视图时指定</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0981da54d660e7fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>其中view是我们要添加的视图，left和top对应Grid.Column和Grid.Row。</p>
+<p>除此之外还可以用Grid提供的静态方法<code>Grid.SetColumn</code>和<code>Gird.SetRow</code>方法指定子视图的位置。调用如下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8b2e586d8febe29a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>view表示子视图，第二个参数表示设置的值。</p>
+<p>观察SetColumn的方法实现：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-79d33dd58e0cb311.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>方法中调用了第一参数的SetValue方法。Forms中的所有视图都是BindableObject（特殊类型先不做介绍）类型的，继承关系是：<br>View<br> VisualElement<br>  Element<br>   BindableObject<br>所以可以直接调用子视图的SetValue方法设置：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-85e5f3ed1c3bdc0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>还有两个附加属性<code>Grid.ColumnSpan</code>和<code>Grid.RowSpan</code>表示子视图占据Grid的多少空间（几列和几行），<code>Grid.ColumnSpan=&quot;2&quot;</code>表示占2列。使用与<code>Grid.Row</code>和<code>Grid.Column</code>类似。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月03日 09:11</p>
+        <p>原始链接： <a class="post-url" href="/2016/09/16/Xamarin-Forms布局讲解(三)/" title="Xamarin.Forms布局讲解(三)">http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/&title=《Xamarin.Forms布局讲解(三)》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-e2ddad7d1fb415b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/&title=《Xamarin.Forms布局讲解(三)》 — Mayue‘s Blog&source=Grid是一种横竖排列的布局，即九宫格。可以通过ColumnSpacing和RowSpacing设置每行每列之间的间隙。Xaml定义时会先通过RowDef..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms布局讲解(三)》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/09/16/Xamarin-Forms布局讲解(三)/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Grid/" class="color5">Grid</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Grid介绍"><span class="post-toc-text">Grid介绍</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/17/Xamarin-Forms布局讲解(四)/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms布局讲解(四)
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/09/15/Xamarin-Forms-布局讲解（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms 布局讲解（二）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

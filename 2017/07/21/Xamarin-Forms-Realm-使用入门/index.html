@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Realm 使用入门 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Realm是一个移动端数据库，用来代替SQLite和ORMs。支持跨平台，本文简单介绍Realm在Xamarin.Forms中使用简单的实现一个任务列表增删改的Demo。">
+<meta name="keywords" content="Forms,Realm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Realm 使用入门">
+<meta property="og:url" content="http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Realm是一个移动端数据库，用来代替SQLite和ORMs。支持跨平台，本文简单介绍Realm在Xamarin.Forms中使用简单的实现一个任务列表增删改的Demo。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ad035eeaebbd74fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-416947e4ebb56d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-116c505a219a8848.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ba8f09ef00f431e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-7a31acad88341350.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-903ad4b87a57fcc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2e553a3de7fedfea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4ed3258f34ad9c74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-604e7eec52504345.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2a22e5ca7203d291.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-23499ae699a58c32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ae0d75af9acb3391.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8154e9077def99a1.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2017-11-04T02:23:43.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Realm 使用入门">
+<meta name="twitter:description" content="Realm是一个移动端数据库，用来代替SQLite和ORMs。支持跨平台，本文简单介绍Realm在Xamarin.Forms中使用简单的实现一个任务列表增删改的Demo。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-ad035eeaebbd74fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Realm-使用入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Realm 使用入门
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-07-21
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Realm是一个移动端数据库，用来代替SQLite和ORMs。支持跨平台，本文简单介绍Realm在Xamarin.Forms中使用简单的实现一个任务列表增删改的Demo。<br><a id="more"></a></p>
+<p>Realm是一个移动端数据库，用来代替SQLite和ORMs。支持跨平台，本文简单介绍Realm在Xamarin.Forms中使用简单的实现一个任务列表增删改的Demo。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ad035eeaebbd74fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="添加Realm包"><a href="#添加Realm包" class="headerlink" title="添加Realm包"></a>添加Realm包</h2><p>Nuget中搜索Realm，选择对应包添加到项目中，其中<code>Fody</code>作为依赖包添加到项目中。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-416947e4ebb56d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>成功添加包后会在项目中生成一个<code>FodyWeavers.xml</code>文件（前提是你项目中没有引用过Fody包）。对<code>FodyWeavers.xml</code>文件做如下修改：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-116c505a219a8848.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>PCL项目需要分别为平台项目和PCL添加Realm包，Shared项目则只在平台项目中添加Realm包即可</p>
+</blockquote>
+<h2 id="Model的定义"><a href="#Model的定义" class="headerlink" title="Model的定义"></a>Model的定义</h2><p>Realm中定义Model需要继承<code>RealmObject</code>类，在Model类中可以像普通的C#类一样定义自己方法和事件，需要注意的是你只能在对象的创建线程中使用它，并为属性提供<code>getters</code>和<code>setters</code>。Realm中Model类必须要有一个无参数的构造函数，在Model中没有定义任何的构造函数时，编译器会自动为你添加，如果你定义了任何一个包含参数的构造函数，同时必须定义一个无参数构造函数。</p>
+<blockquote>
+<p>Realm中Model必须直接继承<code>RealmObject</code>，不支持对<code>RealmObject</code>子类的继承</p>
+</blockquote>
+<h2 id="支持类型"><a href="#支持类型" class="headerlink" title="支持类型"></a>支持类型</h2><p>Realm提供了对基础无符号值类型的支持(<code>bool</code>,<code>char</code>,<code>byte</code>, <code>short</code>,<code>int</code>,<code>long</code>,<code>float</code>和<code>double</code>) ，以及<code>string</code> 和<code>DateTimeOffset</code>。同时支持类似<code>int?</code>形式的可空类型。<br>定义Realm的Model时间类型应该用<code>DateTimeOffset</code>代替<code>DateTime</code>。<br><code>IList&lt;RealmObject&gt;</code>和<code>IQueryable&lt;RealmObject&gt;</code>集合类型支持，定义该集合类型时，应只定义get操作否则会编译报错：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-ba8f09ef00f431e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>用 IList<realmobject> 和 RealmObject 建立诸如一对多、一对一的关系模型，使用IList时不需要初始化，Realm SDK会帮我们完成这项工作。</realmobject></p>
+</blockquote>
+<h2 id="特性说明"><a href="#特性说明" class="headerlink" title="特性说明"></a>特性说明</h2><p><code>Backlink</code>,<code>Ignored</code>,<code>Indexed</code>,<code>MapTo</code>,<code>PrimaryKey</code>,<code>Required</code></p>
+<ul>
+<li>Backlink—— Backlink标记的属性必须是IQueryable<realmobject>类型。当两个Model存在一对一或一对多关系时，通过Backlink实现反向链接避免手动同步出错。</realmobject></li>
+<li>Ignored——Model与表映射时忽略该属性，即在表中不会生成相应字段。</li>
+<li>Indexed——索引属性，目前只有string,int,bool和DateTimeOffset可以设置为索引属性。查询时把索引属性作为查询条件会加快查询速度。</li>
+<li>MapTo——当Model属性与表字段名不同时可以通过MapTo匹配。</li>
+<li>PrimaryKey——主键，可以指定Model中唯一属性为主键且只有char，int和string类型属性可以作为主键，主键的值具有唯一性。</li>
+<li>Required——表示该属性不能为空。</li>
+</ul>
+<blockquote>
+<p>For objects where you have specified a [PrimaryKey], you can pass in update: true in realm.Addto add the passed in object or update the existing one</p>
+</blockquote>
+<h1 id="Create、Update、Delete操作"><a href="#Create、Update、Delete操作" class="headerlink" title="Create、Update、Delete操作"></a>Create、Update、Delete操作</h1><p>Realm中所有增删改的操作都必须在事物中完成(a write transaction)。Realm提供了两种创建事务的方法<code>Realm.BeginWrite()</code>和<code>Realm.Write()</code>。</p>
+<ul>
+<li><p><code>Realm.BeginWrite()</code>返回<code>Transaction</code>对象，Transaction实现了<code>Dispose</code>接口，所以Realm.BeginWrite()通常与<code>using</code>代码块一起使用自动释放Transaction对象。所有操作结束后应手动调用Transaction的<code>Commit</code>方法提交事务。<br>使用方式如下：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-7a31acad88341350.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</li>
+<li><p><code>Realm.Write()</code>参数为一个Action对象，通常传入一个lambda表达式，当lambda主体中代码执行完成没有异常时会自动提交事务。<br>使用方式如下：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-903ad4b87a57fcc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</li>
+</ul>
+<p><em>更多介绍见Demo。</em></p>
+<h1 id="Demo介绍"><a href="#Demo介绍" class="headerlink" title="Demo介绍"></a>Demo介绍</h1><p>TaskUser实体定义<br><img src="http://upload-images.jianshu.io/upload_images/1129755-2e553a3de7fedfea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>TaskRecord实体定义<br><img src="http://upload-images.jianshu.io/upload_images/1129755-4ed3258f34ad9c74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>AddPage布局中使用DatePicker控件bindingTaskRecord的日期，DatePicker绑定的值为DateTime类型，Realm中用DateTimeOffset类型表示时间，所以必须增加一个Ignored特性标记的DateTime类型作为中间转换值。</p>
+</blockquote>
+<p>任务列表页定义<br><img src="http://upload-images.jianshu.io/upload_images/1129755-604e7eec52504345.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>任务列表页CS文件代码<br><img src="http://upload-images.jianshu.io/upload_images/1129755-2a22e5ca7203d291.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>任务添加（修改）页定义<br><img src="http://upload-images.jianshu.io/upload_images/1129755-23499ae699a58c32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>任务添加（修改）页CS文件定义<br><img src="http://upload-images.jianshu.io/upload_images/1129755-ae0d75af9acb3391.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Demo效果图</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8154e9077def99a1.gif?imageMogr2/auto-orient/strip" alt=""></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:23</p>
+        <p>原始链接： <a class="post-url" href="/2017/07/21/Xamarin-Forms-Realm-使用入门/" title="Xamarin.Forms Realm 使用入门">http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/&title=《Xamarin.Forms Realm 使用入门》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-ad035eeaebbd74fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/&title=《Xamarin.Forms Realm 使用入门》 — Mayue‘s Blog&source=Realm是一个移动端数据库，用来代替SQLite和ORMs。支持跨平台，本文简单介绍Realm在Xamarin.Forms中使用简单的实现一个任务列表增..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Realm 使用入门》 — Mayue‘s Blog&url=http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2017/07/21/Xamarin-Forms-Realm-使用入门/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Realm/" class="color1">Realm</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加Realm包"><span class="post-toc-text">添加Realm包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Model的定义"><span class="post-toc-text">Model的定义</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#支持类型"><span class="post-toc-text">支持类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特性说明"><span class="post-toc-text">特性说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Create、Update、Delete操作"><span class="post-toc-text">Create、Update、Delete操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Demo介绍"><span class="post-toc-text">Demo介绍</span></a>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2017/09/19/Xamarin-Forms-DataTemplateSelector介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin Forms DataTemplateSelector介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">5种方法提高Xamarn.Forms应用启动速度</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>5种方法提高Xamarn.Forms应用启动速度 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="此篇为译文，原文地址：https://blog.xamarin.com/5-ways-boost-xamarin-forms-app-startup-time/">
+<meta name="keywords" content="Forms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5种方法提高Xamarn.Forms应用启动速度">
+<meta property="og:url" content="http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="此篇为译文，原文地址：https://blog.xamarin.com/5-ways-boost-xamarin-forms-app-startup-time/">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8b5f60de5eb5afe7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f55b78e87a1d28d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f321f6af4c10c5ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d1adbb991617b020.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b316d5a0fd9d5891.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2e4d18a915a5fb95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:17:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5种方法提高Xamarn.Forms应用启动速度">
+<meta name="twitter:description" content="此篇为译文，原文地址：https://blog.xamarin.com/5-ways-boost-xamarin-forms-app-startup-time/">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-8b5f60de5eb5afe7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-5种方法提高Xamarn-Forms应用启动速度" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      5种方法提高Xamarn.Forms应用启动速度
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-06-17
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p> 此篇为译文，原文地址：<a href="https://blog.xamarin.com/5-ways-boost-xamarin-forms-app-startup-time/" target="_blank" rel="external">https://blog.xamarin.com/5-ways-boost-xamarin-forms-app-startup-time/</a><br><a id="more"></a></p>
+<h1 id="1-优先加载本地缓存数据"><a href="#1-优先加载本地缓存数据" class="headerlink" title="1.优先加载本地缓存数据"></a>1.优先加载本地缓存数据</h1><p>应用程序第一次加载数据应该提供Loading提示，对必要数据进行本地缓存，应用程序下次启动时优先加载本地缓存数据，再合适时间在获取服务器最新数据。<br>同时对数据的处理等耗时操作在服务器端进行。</p>
+<h1 id="2-资源文件优化"><a href="#2-资源文件优化" class="headerlink" title="2.资源文件优化"></a>2.资源文件优化</h1><p>为不同尺寸设备提供不同资源尺寸，避免操作系统帮助我们处理资源尺寸，加快渲染速度。<br> <a href="https://developer.android.com/guide/practices/screens_support.html" target="_blank" rel="external">Android多屏幕支持介绍</a>  </p>
+<ul>
+<li>ldpi (low) ~120dpi</li>
+<li>mdpi (medium) ~160dpi</li>
+<li>hdpi (high) ~240dpi</li>
+<li>xhdpi (extra-high) ~320dpi</li>
+<li>xxhdpi (extra-extra-high) ~480dpi</li>
+<li>xxxhdpi (extra-extra-extra-high) ~640dpi</li>
+</ul>
+<p>Xamarin.Android 7.0提供了<a href="https://developer.xamarin.com/guides/android/under_the_hood/build_process/#Resource_Properties" target="_blank" rel="external">AndroidExplicitCrunch</a>资源属性，加快项目编译速度。开启该功能，打开Android的<code>csproj</code>文件对<code>PropertyGroup</code>节点做如下修改：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8b5f60de5eb5afe7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><a href="https://developer.apple.com/tvos/human-interface-guidelines/icons-and-images/" target="_blank" rel="external">iOS图标、图片尺寸</a></p>
+<p>下面是网上找的一个关于iOS和Android设计规范的一个总结尺寸<br><img src="http://upload-images.jianshu.io/upload_images/1129755-f55b78e87a1d28d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="3-延迟加载"><a href="#3-延迟加载" class="headerlink" title="3.延迟加载"></a>3.延迟加载</h1><p>一些统一样式和字体为了方便调用我们通常会将这些资源放在<code>App.xaml Resources</code>中，App.xaml中的资源在应用程序启动时会全部加载，如果想进一步加快应用程序启动，应将不必要的资源放到单独的页面中。</p>
+<h1 id="4-编译XAML"><a href="#4-编译XAML" class="headerlink" title="4.编译XAML"></a>4.编译XAML</h1><p>Forms中有C#和XAML两种方式定义界面，使用C#代码定义界面，定义界面的代码会随着其他代码一起编译，加快编译速度。<a href="https://developer.xamarin.com/guides/xamarin-forms/xaml/xamlc/" target="_blank" rel="external">XAML Compilation(XAMLC)</a>可以帮助我们在使用XAML定义界面时达到同样的效果，并提供编译时检查。XAMLC把XAML转换成Intermediate Language (IL) 添加到程序集中，加快启动速度和提高运行效率。</p>
+<p>XAMLC有两种声明方式：</p>
+<p>1.程序集级启用XAMLC，影响整个应用程序</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-f321f6af4c10c5ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>2.类级别启用XAMLC，只对当前累起作用</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d1adbb991617b020.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="5-减少程序集的引用"><a href="#5-减少程序集的引用" class="headerlink" title="5.减少程序集的引用"></a>5.减少程序集的引用</h1><p>当我们的应用程序添加了过多的引用会拖慢应用程序的执行速度。</p>
+<blockquote>
+<p>Xamarin.Forms for example inspects all assemblies for <code>[ExportRenderer]</code> attributes and currently has no method to opt-in or opt-out. This is something we’re working to improve.<br>这句话是不是说还没有好的解决办法！英语太差，没懂！！！</p>
+</blockquote>
+<ul>
+<li>技巧1:Ahead of Time Compilation (AOT)<br>预编译（AOT）功能目前仅适用于Android，iOS 默认启用 <code>AOT</code> 和 <code>LLVM compiler</code>。</li>
+</ul>
+<p>如下图方式开启Android AOT功能，开启该功能能改善启动速度和减少即时编译的开销，代价是会增加应用程序大小，所以应综合考虑是否启用该功能。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-b316d5a0fd9d5891.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><em>Note: AOT is available on Xamarin Android 5.1 and 7.0+</em></p>
+<ul>
+<li>技巧2:加快生成速度<br>来自Xamarin工程师分享的一些经验，地址：<a href="https://github.com/brminnick/ImproveXamarinBuildTimes" target="_blank" rel="external">https://github.com/brminnick/ImproveXamarinBuildTimes</a></li>
+</ul>
+<p><strong>更多优化信息请阅读：<a href="https://developer.xamarin.com/guides/xamarin-forms/deployment-testing/performance/" target="_blank" rel="external">https://developer.xamarin.com/guides/xamarin-forms/deployment-testing/performance/</a></strong></p>
+<hr>
+<p><strong>获取最新咨询请关注公众号：XamarinTop或扫描如下二维码</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-2e4d18a915a5fb95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XamarinTop"></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:17</p>
+        <p>原始链接： <a class="post-url" href="/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/" title="5种方法提高Xamarn.Forms应用启动速度">http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/&title=《5种方法提高Xamarn.Forms应用启动速度》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-b316d5a0fd9d5891.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/&title=《5种方法提高Xamarn.Forms应用启动速度》 — Mayue‘s Blog&source= 此篇为译文，原文地址：https://blog.xamarin.com/5-ways-boost-xamarin-forms-app-startup-t..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《5种方法提高Xamarn.Forms应用启动速度》 — Mayue‘s Blog&url=http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2017/06/17/5种方法提高Xamarn-Forms应用启动速度/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-优先加载本地缓存数据"><span class="post-toc-text">1.优先加载本地缓存数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-资源文件优化"><span class="post-toc-text">2.资源文件优化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-延迟加载"><span class="post-toc-text">3.延迟加载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#4-编译XAML"><span class="post-toc-text">4.编译XAML</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#5-减少程序集的引用"><span class="post-toc-text">5.减少程序集的引用</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2017/07/21/Xamarin-Forms-Realm-使用入门/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Realm 使用入门
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2017/06/13/Xamarin-Forms-录屏介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms 录屏介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

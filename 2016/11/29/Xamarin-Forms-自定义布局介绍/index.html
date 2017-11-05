@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms 自定义布局介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Xamarin.Forms中提供了StackLayout、AbsoluteLayout、RelativeLayout、Grid四个布局类，借助这四个类可以方便的管理程序的布局。当现有布局类不能满足我们的功能时，可以通过自定义布局实现想要的效果。  在讲解布局时提到过StackLayout等继承Layout类，可以管理多个子视图。如果继承Layout类，只能管理单一子视图，如ContentView、">
+<meta name="keywords" content="Forms,Layout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms 自定义布局介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Xamarin.Forms中提供了StackLayout、AbsoluteLayout、RelativeLayout、Grid四个布局类，借助这四个类可以方便的管理程序的布局。当现有布局类不能满足我们的功能时，可以通过自定义布局实现想要的效果。  在讲解布局时提到过StackLayout等继承Layout类，可以管理多个子视图。如果继承Layout类，只能管理单一子视图，如ContentView、">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3b9322f66fe48782.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8869e675d88d04ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-a57c2b0c457da9eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e9d4cbc97bc3b4e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d0256acb7d0f73d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-fc0d6cf8235a9abe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-80e0e5c57fb093c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f1a568de030db855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ef9feafcff95f0c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ba3be4287c24f634.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e2143708b8ec71eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-478211ae5ead9a3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e2366b469a2c0ec1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-91168d0f487f0512.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-452ace6c1a02ffa1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-9ae09179ac667bed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0a2db796d301f925.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-bd8a2370078f0dba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c7bc486787096861.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b7b21fea24de03a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3d31f4ca743d5e5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-324373428de2a03c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:38:11.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms 自定义布局介绍">
+<meta name="twitter:description" content="Xamarin.Forms中提供了StackLayout、AbsoluteLayout、RelativeLayout、Grid四个布局类，借助这四个类可以方便的管理程序的布局。当现有布局类不能满足我们的功能时，可以通过自定义布局实现想要的效果。  在讲解布局时提到过StackLayout等继承Layout类，可以管理多个子视图。如果继承Layout类，只能管理单一子视图，如ContentView、">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-3b9322f66fe48782.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-自定义布局介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms 自定义布局介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-11-29
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Xamarin.Forms中提供了<code>StackLayout、AbsoluteLayout、RelativeLayout、Grid</code>四个布局类，借助这四个类可以方便的管理程序的布局。当现有布局类不能满足我们的功能时，可以通过自定义布局实现想要的效果。  在讲解布局时提到过StackLayout等继承Layout<view>类，可以管理多个子视图。如果继承Layout类，只能管理单一子视图，如ContentView、Frame、ScrollView等。<br><a id="more"></a></view></p>
+<p>Xamarin.Forms中提供了<code>StackLayout、AbsoluteLayout、RelativeLayout、Grid</code>四个布局类，借助这四个类可以方便的管理程序的布局。当现有布局类不能满足我们的功能时，可以通过自定义布局实现想要的效果。  在讲解布局时提到过StackLayout等继承Layout<view>类，可以管理多个子视图。如果继承Layout类，只能管理单一子视图，如ContentView、Frame、ScrollView等。</view></p>
+<h1 id="布局概述"><a href="#布局概述" class="headerlink" title="布局概述"></a>布局概述</h1><p>布局类是如何管理子视图的（确定子视图的大小和位置）？</p>
+<p>先看一个简单示例，HorizontalOptions和VerticalOptions属性默认值为LayoutOptions.Fill。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3b9322f66fe48782.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>显示效果，从红色外边框看出Frame大小为Page大小：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8869e675d88d04ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>对Frame属性做如下修改：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-a57c2b0c457da9eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>对应显示效果</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e9d4cbc97bc3b4e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><code>HorizontalOptions=&quot;Center&quot; VerticalOptions=&quot;Center&quot;</code>属性用来确定子视图大小，Frame请求大小为内部Label大小，再通过指定<code>WidthRequest=&quot;1000&quot;</code>明确Frame的宽度。从效果图看出布局分配给子视图的大小由子视图请求决定但又不能超出布局大小。</p>
+<p>布局（父元素）如何才能知道子元素的大小？子元素应提供一个公共方法由父元素调用，这个方法为<code>Layout</code>,Layout方法定义在<code>VisualElement</code>中。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d0256acb7d0f73d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Layout方法接收一个Rectangle类型参数bounds。<br>查看Bounds属性定义</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-fc0d6cf8235a9abe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Bounds属性的Set操作声明为private，且通过Set内代码看出Bounds的值即元素的显示位置（X，Y）和大小（Width，Height）。</p>
+<p>一个页面显示时首先会调用Page对象的Layout方法，Layout方法内在通过视图元素树（visual tree）依次调用子元素的Layout方法，这个过程称为布局的生命周期。旋转手机时会重新开始这个布局周期，这个布局周期也可以发生在元素树的一个子集内，如添加或移除子视图等操作都会调用父元素的Layout方法。</p>
+<blockquote>
+<p>视图的X，Y，Width和Height等属性都是在布局的生命周期执行后被赋予一个有效值，视图的构造函数内无法获取有效值。X、Y的默认值为0，Width和Height的默认值为－1。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-80e0e5c57fb093c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>执行Layout方法会一次调用SetSize-&gt;SizeAllocated方法。SizeAllocated方法接收的width和htight参数为Bounds属性的Width和Heiht值，SizeAllocated方法内部又调用一个虚方法<code>OnSizeAllocated</code>。OnSizeAllocated执行完，此时视图的大小已经发生变化，同时出发SizeChanged事件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-f1a568de030db855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>OnSizeAllocated方法用virtual关键字声明，但是只允许Page和Layout两个类重写该方法进行特殊处理。</p>
+<blockquote>
+<p>As an alternative to the SizeChanged event, it is possible for an application to override OnSizeAllocated in a ContentPage derivative to obtain the new size of the page. (If you do so, be sure to call the base class implementation of OnSizeAllocated.) You’ll find that OnSizeAllocated is sometimes called when the element’s size doesn’t actually change. The SizeChanged event is fired only when the size changes, and it’s better for size-specific handling on the application level.</p>
+</blockquote>
+<p>Page类内OnSizeAllocated方法实现(Layout内相同)，调用UpdateChildrenLayout：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-ef9feafcff95f0c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>查看UpdateChildrenLayout方法定义，UpdateChildrenLayout方法中调用LayoutChildren方法，并在方法结束前触发<code>LayoutChanged</code>事件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ba3be4287c24f634.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LayoutChildren方法在Page和Layout中有了不同的处理，Page类中LayoutChildren方法定义为virtual方法，Layout类中LayoutChildren定义为abstract方法。</p>
+<p>Page类中LayoutChildren的定义：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e2143708b8ec71eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Layout类中LayoutChildren的定义：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-478211ae5ead9a3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LayoutChildren是一个很重要的方法。查看Page的LayoutChildren方法代码实现循环所有子元素进入<code>LayoutChildIntoBoundingRegion</code>方法。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e2366b469a2c0ec1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>LayoutChildIntoBoundingRegion是一个静态方法，方法内部判断当前元素是否为视图，传入元素不是视图（即布局）则调用子布局的Layout方法，此时再次回到Layout方法，从而完成布局生命周期的调用过程。当我们继承Layout<view>编写自定义布局时应实现该方法以管理子视图。</view></p>
+<blockquote>
+<p>Layout传值到LayoutChildren时应考虑Padding属性值。如下布局所示，在360＊640的设备上，Page的Layout方法接收到的X,Y,Width,Height为(0, 0, 360, 640)，此时没有设置Padding 值传到LayoutChildren方法接收的值同样是(0, 0, 360, 640)，LayoutChildren方法内调用ContentView的Layout方法，所以ContentView的Layout方法接收到Bound的X，Y，Width和Height值不变(0, 0, 360, 640)。在ContentView的Layout方法传值到LayoutChildren方法此时Padding值为15，所以Width和Height减少30（上下左右各减少15）并且X和Y的值增加15。LayoutChildren接收到的值为（15,15,330,610），LayoutChildren方法内调用Label的Layout，此时接收到的Bounds属性对应的X，Y，Width和Height分别为（15,15,330,610）。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-91168d0f487f0512.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</blockquote>
+<p>在Page的LayoutChildIntoBoundingRegion方法中，传入child是一个View则调用子视图的<code>Measure</code>（过时方法为GetSizeRequest）方法计算子视图需要的大小，（此时child的Bounds属性或Width和Height属性还没有赋予有效值）。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-452ace6c1a02ffa1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>调用子元素的Layout方法前会调用Measure方法，Layout方法的参数取决Measure返回的结果。</p>
+</blockquote>
+<p> widthConstraint 和 heightConstraint表示宽高的约束值，表示父元素可以提供多少可用空间用来布局子元素。Measure方法内计算出所有子元素所需的大小与widthConstraint和heightConstraint比较，取较小值创建SizeRequest类型实例返回，SizeRequest包含Minimum和Request两个Size类型属性。Request表示元素需要的大小，Minimum表示元素的最小大小。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-9ae09179ac667bed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>通常Minimum和Request两个属性赋予相同值，Xamarin.Forms中ListView和TabeView两个元素对应的Minimum和Request值不同，Minimum的值为(40,40)。然而Minimum的值并没什么用。</p>
+</blockquote>
+<p>Measure内部调用已经过时的GetSizeRequest方法。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0a2db796d301f925.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>GetSizeRequest会调用OnMeasure方法，OnMeasure定义为虚方法。OnMeasure方法也是我们自定义布局时必须要重写的方法。</p>
+<hr>
+<h1 id="布局重绘"><a href="#布局重绘" class="headerlink" title="布局重绘"></a>布局重绘</h1><p>当元素的某些属性改变时会影响元素的大小，此时会引起元素的重绘。VisualElement定义一个<code>InvalidateMeasure</code>方法重绘元素，InvalidateMeasure是一个受保护的方法。自定义View时有某个BindableProperty类型属性可能改变元素大小，应该在该属性的propertyChanged内调用InvalidateMeasure方法。</p>
+<blockquote>
+<p>AnchorX, AnchorY, Rotation, RotationX, RotationY, Scale, TranslationX, TranslationY等属性影响的是元素的渲染大小并不能改变元素的布局大小，值的改变不会触发MeasureInvalidated事件。Bounds, X, Y, Width,Height等属性在Layout方法内被调用，这几个属性改变时同样不会调用InvalidateMeasure方法。</p>
+</blockquote>
+<p>InvalidateMeasure方法会触发<code>MeasureInvalidated</code>事件，以通知外部元素布局发生改变，通常是父元素处理MeasureInvalidated事件。</p>
+<p>Layout类提供了一个类似的方法<code>InvalidateLayout</code>,当布局内属性发生改变影响子元素的大小和位置时应调用InvalidateLayout方法，如Layout<t>中Children属性的added和removed操作会调用InvalidateLayout方法。</t></p>
+<p>如果想阻止增加或移除子元素时InvalidateLayout方法的调用可以重写ShouldInvalidateOnChildAdded和ShouldInvalidateOnChildRemoved方法，返回false即可。代码片段截图看出，还将<code>OnChildMeasureInvalidated</code>方法作为参数实例化EventHandler监听view的MeasureInvalidated事件，实际编码时可以重写OnChildMeasureInvalidated方法接收MeasureInvalidated触发的通知。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-bd8a2370078f0dba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Layout<t>类定义了OnAdded和OnRemoved两个虚方法，分别在重写Element类的OnChildAdded和OnChildRemoved方法时调用，自定义布局时可以根据自己需要重写这两个方法。</t></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c7bc486787096861.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Grid类重写OnAdded方法,添加子元素PropertyChanged监听示例（重写OnRemoved卸载监听，附加属性改变时调用InvalidateLayout方法，有兴趣可查看OnItemPropertyChanged内部实现）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-b7b21fea24de03a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>当我们必须重新绘制布局时，该调用InvalidateLayout还是InvalidateMeasure？调用InvalidateLayout重新开始一个布局周期！！！InvalidateMeasure方法适合改变了布局的大小且不影响子布局排列时调用。</p>
+<blockquote>
+<p>In most cases, the layout should call InvalidateLayout. This guarantees that the layout gets a call to its LayoutChildren method even if the layout is fully constrained in size. If the layout calls InvalidateMeasure, then a new layout pass will be generated only if the layout is not fully constrained in size. If the layout is constrained in size, then a call to InvalidateMeasure will do nothing.</p>
+</blockquote>
+<hr>
+<h1 id="自定义布局示例"><a href="#自定义布局示例" class="headerlink" title="自定义布局示例"></a>自定义布局示例</h1><p>通过继承Layout<t>实现瀑布流布局（只是简单示例）。如果想限制布局内子元素的类型可以T来指定，如Layout<label>。但更多时候是继承Layout<view>。</view></label></t></p>
+<p>重写LayoutChildren和OnMeasure方法，方法内循环所有子元素（忽略IsVisible属性为false的子元素）。LayoutChildren方法内调用Xamarin.Forms提供的LayoutChildIntoBoundingRegion（代替子元素的Layout 方法）方法简化编码，不必考虑LayoutOptions的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div></pre></td><td class="code"><pre><div class="line">public class FlowLayout : Layout&lt;View&gt;</div><div class="line">	&#123;</div><div class="line"></div><div class="line">		public static readonly BindableProperty ColumnSpacingProperty =</div><div class="line">				BindableProperty.Create(</div><div class="line">					&quot;ColumnSpacing&quot;,</div><div class="line">					typeof(double),</div><div class="line">					typeof(FlowLayout),</div><div class="line">					6.0,</div><div class="line">					propertyChanged: (bindable, oldvalue, newvalue) =&gt;</div><div class="line">					&#123;</div><div class="line">						((FlowLayout)bindable).InvalidateLayout();</div><div class="line">					&#125;);</div><div class="line"></div><div class="line">		public static readonly BindableProperty RowSpacingProperty =</div><div class="line">				BindableProperty.Create(</div><div class="line">					&quot;RowSpacing&quot;,</div><div class="line">					typeof(double),</div><div class="line">					typeof(FlowLayout),</div><div class="line">					6.0,</div><div class="line">					propertyChanged: (bindable, oldvalue, newvalue) =&gt;</div><div class="line">					&#123;</div><div class="line">						((FlowLayout)bindable).InvalidateLayout();</div><div class="line">					&#125;);</div><div class="line"></div><div class="line"></div><div class="line">		public double ColumnSpacing</div><div class="line">		&#123;</div><div class="line">			set &#123; SetValue(ColumnSpacingProperty, value); &#125;</div><div class="line">			get &#123; return (double)GetValue(ColumnSpacingProperty); &#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public double RowSpacing</div><div class="line">		&#123;</div><div class="line">			set &#123; SetValue(RowSpacingProperty, value); &#125;</div><div class="line">			get &#123; return (double)GetValue(RowSpacingProperty); &#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line"></div><div class="line">		protected override void LayoutChildren(double x, double y, double width, double height)</div><div class="line">		&#123;</div><div class="line">			double xChild = 0, yChild = 0;</div><div class="line">			//循环子视图</div><div class="line">			foreach (View child in Children)</div><div class="line">			&#123;</div><div class="line">				if (!child.IsVisible)</div><div class="line">				&#123;</div><div class="line">					continue;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				SizeRequest childSizeRequest = child.Measure(width, height);</div><div class="line"></div><div class="line">				// Initialize child position and size.</div><div class="line">				var childWidth = childSizeRequest.Request.Width;</div><div class="line">				var childHeight = childSizeRequest.Request.Height;</div><div class="line"></div><div class="line">				if (xChild + childWidth &gt; width)</div><div class="line">				&#123;</div><div class="line">					xChild = 0;</div><div class="line">					yChild += childHeight + RowSpacing;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				//判断HorizontalOptions和VerticalOptions的值计算子视图 x,y,width,height的值</div><div class="line">				//switch (child.HorizontalOptions.Alignment)</div><div class="line">				//&#123;</div><div class="line">				//	case LayoutAlignment.Start:</div><div class="line">				//		break;</div><div class="line">				//	case LayoutAlignment.Center:</div><div class="line">				//		//xChild += (width - childWidth) / 2;</div><div class="line">				//		break;</div><div class="line">				//	case LayoutAlignment.End:</div><div class="line">				//		//xChild += (width - childWidth);</div><div class="line">				//		break;</div><div class="line">				//	case LayoutAlignment.Fill:</div><div class="line">				//		//childWidth = width;</div><div class="line">				//		break;</div><div class="line">				//&#125;</div><div class="line"></div><div class="line">				// Layout the child.</div><div class="line">				LayoutChildIntoBoundingRegion(child, new Rectangle(xChild, yChild, width, childHeight));</div><div class="line"></div><div class="line">				xChild = xChild + childWidth + ColumnSpacing;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		/// &lt;summary&gt;</div><div class="line">		/// 计算出显示子元素所需大小 </div><div class="line">		/// &lt;/summary&gt;</div><div class="line">		/// &lt;returns&gt;The measure.&lt;/returns&gt;</div><div class="line">		/// &lt;param name=&quot;widthConstraint&quot;&gt;Width constraint.&lt;/param&gt;</div><div class="line">		/// &lt;param name=&quot;heightConstraint&quot;&gt;Height constraint.&lt;/param&gt;</div><div class="line">		protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)</div><div class="line">		&#123;</div><div class="line">			var size = new Size();</div><div class="line">			var width = 0.0;</div><div class="line"></div><div class="line">			//循环子视图</div><div class="line">			foreach (View child in Children)</div><div class="line">			&#123;</div><div class="line">				if (!child.IsVisible)</div><div class="line">				&#123;</div><div class="line">					continue;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				// Get the child&apos;s requested size.</div><div class="line">				SizeRequest childSizeRequest = child.Measure(widthConstraint, Double.PositiveInfinity);</div><div class="line">				// Initialize child position and size.</div><div class="line">				var childWidth = childSizeRequest.Request.Width;</div><div class="line">				var childHeight = childSizeRequest.Request.Height;</div><div class="line"></div><div class="line">				if (width + childWidth &gt;= widthConstraint)</div><div class="line">				&#123;</div><div class="line">					size.Height = size.Height + childHeight + RowSpacing;</div><div class="line">				&#125;</div><div class="line">				else</div><div class="line">				&#123;</div><div class="line">					width = width + childWidth + ColumnSpacing;</div><div class="line">					size.Width = Math.Max(size.Width, width);</div><div class="line">				&#125;</div><div class="line"></div><div class="line">			&#125;</div><div class="line">			//widthConstraint或heightConstraint的值可能为Double.PositiveInfinity，</div><div class="line">			//但是OnMeasure不能返回Double.PositiveInfinity所以不能有如下代码</div><div class="line">			//return new SizeRequest(new Size(widthConstraint, heightConstraint));</div><div class="line"></div><div class="line">			return new SizeRequest(size);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		#region 测试时编写的无关代码</div><div class="line"></div><div class="line">		protected override bool ShouldInvalidateOnChildAdded(View child)</div><div class="line">		&#123;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override bool ShouldInvalidateOnChildRemoved(View child)</div><div class="line">		&#123;</div><div class="line">			return base.ShouldInvalidateOnChildRemoved(child);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnAdded(View view)</div><div class="line">		&#123;</div><div class="line">			base.OnAdded(view);</div><div class="line">			//根据自己需要编码</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		protected override void OnRemoved(View view)</div><div class="line">		&#123;</div><div class="line">			base.OnRemoved(view);</div><div class="line">			//根据自己需要编码</div><div class="line">		&#125;</div><div class="line"></div><div class="line"></div><div class="line">		protected override void OnChildMeasureInvalidated()</div><div class="line">		&#123;</div><div class="line">			base.OnChildMeasureInvalidated();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		#endregion</div><div class="line"></div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>XAML使用示例：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3d31f4ca743d5e5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-324373428de2a03c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>更多自定义布局介绍情查看《Creating Mobile Apps with Xamarin.Forms》</strong></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:38</p>
+        <p>原始链接： <a class="post-url" href="/2016/11/29/Xamarin-Forms-自定义布局介绍/" title="Xamarin.Forms 自定义布局介绍">http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/&title=《Xamarin.Forms 自定义布局介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-324373428de2a03c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/&title=《Xamarin.Forms 自定义布局介绍》 — Mayue‘s Blog&source=Xamarin.Forms中提供了StackLayout、AbsoluteLayout、RelativeLayout、Grid四个布局类，借助这四个类可以..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms 自定义布局介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/11/29/Xamarin-Forms-自定义布局介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Layout/" class="color2">Layout</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#布局概述"><span class="post-toc-text">布局概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#布局重绘"><span class="post-toc-text">布局重绘</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自定义布局示例"><span class="post-toc-text">自定义布局示例</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2017/04/20/Xamarin-Forms-应用程序国际化/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms 应用程序国际化
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Custom Renderer介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

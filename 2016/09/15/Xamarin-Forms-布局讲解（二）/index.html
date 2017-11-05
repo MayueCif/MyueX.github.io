@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms 布局讲解（二） | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="RelativeLayout是一种相对布局，相对的位置可以是父布局（layout）或其它视图（view）。虽然名称和Android中的RelativeLayout布局相同，但是使用却有很大的差距，Forms RelativeLayout布局借助Constraints（约束）来确定子视图的位置和大小。">
+<meta name="keywords" content="Forms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms 布局讲解（二）">
+<meta property="og:url" content="http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="RelativeLayout是一种相对布局，相对的位置可以是父布局（layout）或其它视图（view）。虽然名称和Android中的RelativeLayout布局相同，但是使用却有很大的差距，Forms RelativeLayout布局借助Constraints（约束）来确定子视图的位置和大小。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-5c1f95c5a8ae1c5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-5269c0ce5cbfc434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-cce9eb3e171dd784.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-af15d044de6ca16d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-89f5702cf9e07788.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-02T13:53:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms 布局讲解（二）">
+<meta name="twitter:description" content="RelativeLayout是一种相对布局，相对的位置可以是父布局（layout）或其它视图（view）。虽然名称和Android中的RelativeLayout布局相同，但是使用却有很大的差距，Forms RelativeLayout布局借助Constraints（约束）来确定子视图的位置和大小。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-5c1f95c5a8ae1c5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-布局讲解（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms 布局讲解（二）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-09-15
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>RelativeLayout是一种相对布局，相对的位置可以是父布局（layout）或其它视图（view）。虽然名称和Android中的RelativeLayout布局相同，但是使用却有很大的差距，Forms RelativeLayout布局借助Constraints（约束）来确定子视图的位置和大小。<br><a id="more"></a></p>
+<p>#RelativeLayout介绍</p>
+<p>RelativeLayout是一种相对布局，相对的位置可以是父布局（layout）或其它视图（view）。虽然名称和Android中的RelativeLayout布局相同，但是使用却有很大的差距，Forms RelativeLayout布局借助Constraints（约束）来确定子视图的位置和大小。</p>
+<p>创建项目使用如下代码修改布局文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; </div><div class="line">xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; </div><div class="line">xmlns:local=&quot;clr-namespace:layout&quot; </div><div class="line">x:Class=&quot;layout.layoutPage&quot;&gt;</div><div class="line">	&lt;ContentPage.Padding&gt;</div><div class="line">		&lt;OnPlatform x:TypeArguments=&quot;Thickness&quot; </div><div class="line">		iOS=&quot;0, 20, 0, 0&quot; /&gt;</div><div class="line">	&lt;/ContentPage.Padding&gt;</div><div class="line">	&lt;RelativeLayout x:Name=&quot;layout&quot;&gt;</div><div class="line">	&lt;/RelativeLayout&gt;</div><div class="line">&lt;/ContentPage&gt;</div></pre></td></tr></table></figure></p>
+<p>xaml文件中定义涉及到ConstraintExpression的使用，为了更好的理解Constraint在RelativeLayout中的作用，先用代码的方式定义布局。</p>
+<p>在页面的构造函数中InitializeComponent方法后添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var label1 = new Label()</div><div class="line">&#123;</div><div class="line">	Text = &quot;Text 1&quot;,</div><div class="line">	BackgroundColor = Color.Red</div><div class="line">&#125;;</div><div class="line"></div><div class="line">layout.Children.Add(label1, </div><div class="line">Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">&#123;</div><div class="line">	return 100;</div><div class="line">&#125;), Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">&#123;</div><div class="line">	return 100;</div><div class="line">&#125;), Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">&#123;</div><div class="line">	return 200;</div><div class="line">&#125;), Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">	return 200;</div><div class="line">&#125;));</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>通常情况用户自己编写的代码要放在InitializeComponent方法后，InitializeComponent表示xaml定义的页面初始化完成。</p>
+</blockquote>
+<p>layout指的是我们在xaml文件中指定了x:Name的RelativeLayout布局。RelativeLayout的Children属性是<code>RelativeLayout.IRelativeList&lt;View&gt;</code>类型，提供了三种重载的Add方法.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-5c1f95c5a8ae1c5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>本文中调用第三个重载方法定义向RelativeLayout中添加子视图。<br>后四个参数分别代表子视图的x,y坐标和宽高的约束。相对于布局的约束还是其它子视图的约束可以通过Constraint的两个静态方法区分，<code>Constraint.RelativeToParent</code>创建相对于布局视图的约束，<code>Constraint.RelativeToView</code>创建相对于其它子视图的约束。参数中Func委托反悔的double是当前Constraint的值，即创建xConstraint时返回值对应视图的X坐标。运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-5269c0ce5cbfc434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>两个方法的实现就是根据我们传入的Func委托（RelativeToView方法多一个View视图）定义一个Constraint实例返回：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-cce9eb3e171dd784.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>继续添加如下代码，示范RelativeToView方法的使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">layout.Children.Add(new Label()</div><div class="line">&#123;</div><div class="line">	Text = &quot;Text 2&quot;,</div><div class="line">	BackgroundColor = Color.Blue</div><div class="line">&#125;, Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">&#123;</div><div class="line">	return 0;</div><div class="line">&#125;), Constraint.RelativeToView(label1, (layoutView, view) =&gt;</div><div class="line">&#123;</div><div class="line">	return view.Height + view.X + 100;</div><div class="line">&#125;), Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">&#123;</div><div class="line">	return 400;</div><div class="line">&#125;), Constraint.RelativeToParent((layoutView) =&gt;</div><div class="line">&#123;</div><div class="line">	return 100;</div><div class="line">&#125;));</div></pre></td></tr></table></figure></p>
+<p><code>RelativeToView</code>的第一个参数表示根据哪个视图创建约束，与第二个Func中的第二个参数应该表示同一个View。<br>运行项目查看效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-af15d044de6ca16d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>接下来示范如何直接在Xaml文件中定义RelativeLayout布局。<br>定义在RelativeLayout中的视图会有对应x,y,width,height约束的扩展属性如<code>RelativeLayout.XConstraint</code>,在xaml中通过<code>ConstraintExpression</code>设置对应的约束。</p>
+<p>修改xaml文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;RelativeLayout&gt;</div><div class="line">	&lt;Label x:Name=&quot;label1&quot; Text=&quot;Label 1&quot; </div><div class="line">		BackgroundColor=&quot;Blue&quot; WidthRequest=&quot;200&quot; HeightRequest=&quot;200&quot; </div><div class="line">		RelativeLayout.XConstraint = &quot;&#123;ConstraintExpression Type=RelativeToParent,Property=X,Factor=1,Constant=100&#125;&quot; </div><div class="line">		RelativeLayout.YConstraint = &quot;&#123;ConstraintExpression Type=RelativeToParent,Property=Y,Factor=1,Constant=100&#125;&quot;/&gt;</div><div class="line">       </div><div class="line">	&lt;Label Text=&quot;Label 2&quot; BackgroundColor=&quot;Red&quot; </div><div class="line">		RelativeLayout.XConstraint=&quot;&#123;ConstraintExpression Type=RelativeToParent,Property=X,Factor=1,Constant=0&#125;&quot;</div><div class="line">		RelativeLayout.YConstraint=&quot;&#123;ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Y,Factor=2,Constant=200&#125;&quot;</div><div class="line">		RelativeLayout.WidthConstraint=&quot;&#123;ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Width,Factor=2,Constant=0&#125;&quot;</div><div class="line">		RelativeLayout.HeightConstraint=&quot;&#123;ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Height,Factor=0.5,Constant=0&#125;&quot;/&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>通过<code>RelativeLayout.XConstraint</code>和<code>RelativeLayout.YConstraint</code>确定视图的位置（Position）,视图的大小可以通过设置<code>WidthRequest</code>和<code>HeightRequest</code>或者设置<code>RelativeLayout.WidthConstraint</code>和<code>RelativeLayout.HeightConstraint</code>两种方式确定。</p>
+<p>根据ConstraintExpression定义约束时每个字段含义介绍：<br><strong>Type</strong> – 以什么方式定义约束，RelativeToParent和RelativeToView<br><strong>Property</strong> – 以相对视图的哪个属性作为基础值.<br><strong>Factor</strong> – Property的倍数值.<br><strong>Constant</strong> – 约束Value的偏移数值.<br><strong>ElementName</strong> – 当Type定义为RelativeToView时,ElementName用来确定约束相对与哪个子视图.</p>
+<p>以Label 2 HeightConstraint的为例：<br><code>RelativeLayout.HeightConstraint=&quot;{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Height,Factor=0.5,Constant=0}&quot;</code><br>表示：Label 2 的高度 ＝ Label 1 的高度 （Property=Height）＊ 0.5（Factor=0.5） ＋ 0（Constant=0）<br>预览效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-89f5702cf9e07788.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月02日 21:53</p>
+        <p>原始链接： <a class="post-url" href="/2016/09/15/Xamarin-Forms-布局讲解（二）/" title="Xamarin.Forms 布局讲解（二）">http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/&title=《Xamarin.Forms 布局讲解（二）》 — Mayue‘s Blog&pic=/images/banner.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/&title=《Xamarin.Forms 布局讲解（二）》 — Mayue‘s Blog&source=RelativeLayout是一种相对布局，相对的位置可以是父布局（layout）或其它视图（view）。虽然名称和Android中的RelativeLa..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms 布局讲解（二）》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/09/15/Xamarin-Forms-布局讲解（二）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/16/Xamarin-Forms布局讲解(三)/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms布局讲解(三)
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/09/12/Xamarin-Forms-布局讲解（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms 布局讲解（一）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms 应用程序国际化 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="官网看到关于Forms应用程序国际化的相关内容，便一边练习一边总结一下，虽然这部分知识点很可能永远用不到！！！原文地址:https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/">
+<meta name="keywords" content="Forms,Localizing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms 应用程序国际化">
+<meta property="og:url" content="http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="官网看到关于Forms应用程序国际化的相关内容，便一边练习一边总结一下，虽然这部分知识点很可能永远用不到！！！原文地址:https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c62b843d374a26ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-852357a3e510c2fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-5ca4cae74220c0e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-34d191c45c4837cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-7614c6e4bfe7d1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ae7964da88ee4d9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-1423a561d3a4062b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c95066aaa1a48d60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:38:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms 应用程序国际化">
+<meta name="twitter:description" content="官网看到关于Forms应用程序国际化的相关内容，便一边练习一边总结一下，虽然这部分知识点很可能永远用不到！！！原文地址:https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-c62b843d374a26ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-应用程序国际化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms 应用程序国际化
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-04-20
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>官网看到关于Forms应用程序国际化的相关内容，便一边练习一边总结一下，虽然这部分知识点很可能永远用不到！！！<br>原文地址:<a href="https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/" target="_blank" rel="external">https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/</a><br><a id="more"></a></p>
+<p>官网看到关于Forms应用程序国际化的相关内容，便一边练习一边总结一下，虽然这部分知识点很可能永远用不到！！！<br>原文地址:<a href="https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/" target="_blank" rel="external">https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/</a></p>
+<h1 id="Xamarin-Forms-PCL-国际化"><a href="#Xamarin-Forms-PCL-国际化" class="headerlink" title="Xamarin.Forms PCL 国际化"></a>Xamarin.Forms PCL 国际化</h1><p>Forms PCL中的国际化借助资源文件（RESX）实现。</p>
+<h2 id="准备资源文件"><a href="#准备资源文件" class="headerlink" title="准备资源文件"></a>准备资源文件</h2><p>在可移植项目中添加资源文件：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c62b843d374a26ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加资源文件"></p>
+<p>会在项目中生成如下两个文件：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-852357a3e510c2fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>同时添加<code>Resources.en.resx</code>文件，提供英文环境下使用的字符串。记得修改文件的生成操作为<code>EmbeddedResource</code>。</p>
+<blockquote>
+<p>Xamarin Studio添加名称为Resources.en资源文件时提示Resources文件已经存在,此时可以先添加名称为Resources1的资源文件，然后修改Resources1.resx和Resources1.Designer.resx文件的名称为Resources.en.resx和Resources.en.Designer.resx</p>
+</blockquote>
+<p>Designer.cs文件不做修改，编辑.resx文件。<br>Resources.resx 添加如下data元素：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">data</span> <span class="attr">name</span>=<span class="string">"home"</span> <span class="attr">xml:space</span>=<span class="string">"preserve"</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">value</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">comment</span>&gt;</span>home page title<span class="tag">&lt;/<span class="name">comment</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>Resources.en.resx 添加如下data元素：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">data</span> <span class="attr">name</span>=<span class="string">"home"</span> <span class="attr">xml:space</span>=<span class="string">"preserve"</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">value</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">comment</span>&gt;</span>home page title<span class="tag">&lt;/<span class="name">comment</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>生成项目Designer.cs文件生成如下代码：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-5ca4cae74220c0e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>为了获取name为home对应的值需要调用如下代码<br><code>Resource.Resources.ResourceManager.GetString(&quot;home&quot;)</code><br>其中<code>Resource</code>为resx文件所在文件夹，<code>Resources</code>为根据文件名生成的类。<br>简化资源文件中字符串资源的获取，resx文件右键—&gt;属性。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-34d191c45c4837cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>修改自定义工具对应的属性值：<code>ResXFileCodeGenerator</code>修改为<code>PublicResXFileCodeGenerator</code>。</p>
+<blockquote>
+<p>ResXFileCodeGenerator，PublicResXFileCodeGenerator，他们的区别是前者生成的Internal的，后者生成的是Public的资源。</p>
+</blockquote>
+<p>重新生成项目，此时可以通过如下代码<code>Resource.Resources.home</code>获取home对应的值。</p>
+<h2 id="确定当前运行平台的语言环境"><a href="#确定当前运行平台的语言环境" class="headerlink" title="确定当前运行平台的语言环境"></a>确定当前运行平台的语言环境</h2><p>Forms本身并没有提供获取运行平台语言环境的功能，我们需要借助<a href="https://developer.xamarin.com/es-es/guides/xamarin-forms/dependency-service/" target="_blank" rel="external">dependency service</a> 实现。</p>
+<p>在可移植项目中定义如下接口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">   /// &lt;summary&gt;</div><div class="line">/// Implementations of this interface MUST convert iOS and Android</div><div class="line">/// platform-specific locales to a value supported in .NET because</div><div class="line">/// ONLY valid .NET cultures can have their RESX resources loaded and used.</div><div class="line">/// &lt;/summary&gt;</div><div class="line">/// &lt;remarks&gt;</div><div class="line">/// Lists of valid .NET cultures can be found here:</div><div class="line">///   http://www.localeplanet.com/dotnet/</div><div class="line">///   http://www.csharp-examples.net/culture-names/</div><div class="line">/// You should always test all the locales implemented in your application.</div><div class="line">/// &lt;/remarks&gt;</div><div class="line">public interface ILocalize</div><div class="line">&#123;</div><div class="line">	///	&lt;summary&gt;</div><div class="line">	/// This method must evaluate platform-specific locale settings</div><div class="line">	/// and convert them (when necessary) to a valid .NET locale.</div><div class="line">	/// &lt;/summary&gt;</div><div class="line">	CultureInfo GetCurrentCultureInfo();</div><div class="line"></div><div class="line">	/// &lt;summary&gt;</div><div class="line">	/// CurrentCulture and CurrentUICulture must be set in the platform project, </div><div class="line">	/// because the Thread object can&apos;t be accessed in a PCL.</div><div class="line">	/// &lt;/summary&gt;</div><div class="line">	void SetLocale(CultureInfo ci);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>同时定义帮助类<code>PlatformCulture</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">   /// &lt;summary&gt;</div><div class="line">/// Helper class for splitting locales like</div><div class="line">///   iOS: ms_MY, gsw_CH</div><div class="line">///   Android: in-ID</div><div class="line">/// into parts so we can create a .NET culture (or fallback culture)</div><div class="line">/// &lt;/summary&gt;</div><div class="line">public class PlatformCulture</div><div class="line">&#123;</div><div class="line">	public PlatformCulture(string platformCultureString)</div><div class="line">	&#123;</div><div class="line">		if (String.IsNullOrEmpty(platformCultureString))</div><div class="line">			throw new ArgumentException(&quot;Expected culture identifier&quot;, &quot;platformCultureString&quot;); // in C# 6 use nameof(platformCultureString)</div><div class="line"></div><div class="line">		PlatformString = platformCultureString.Replace(&quot;_&quot;, &quot;-&quot;); // .NET expects dash, not underscore</div><div class="line">		var dashIndex = PlatformString.IndexOf(&quot;-&quot;, StringComparison.Ordinal);</div><div class="line">		if (dashIndex &gt; 0)</div><div class="line">		&#123;</div><div class="line">			var parts = PlatformString.Split(&apos;-&apos;);</div><div class="line">			LanguageCode = parts[0];</div><div class="line">			LocaleCode = parts[1];</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">			LanguageCode = PlatformString;</div><div class="line">			LocaleCode = &quot;&quot;;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public string PlatformString &#123; get; private set; &#125;</div><div class="line">	public string LanguageCode &#123; get; private set; &#125;</div><div class="line">	public string LocaleCode &#123; get; private set; &#125;</div><div class="line">	public override string ToString()</div><div class="line">	&#123;</div><div class="line">		return PlatformString;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在App类中构造方法中添加如下代码，如果当前运行系统为ios或android需要获取当前系统对应.net表示的语言环境并设置为当前的语言环境：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)</div><div class="line">&#123;</div><div class="line">	var localize = DependencyService.Get&lt;ILocalize&gt;();</div><div class="line">	var ci = localize.GetCurrentCultureInfo();</div><div class="line">	//Resource.Resources.Culture = ci;// set the RESX for resource localization</div><div class="line">	localize.SetLocale(ci); // set the Thread for locale-aware methods</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ios下-ILocalize-实现代码"><a href="#ios下-ILocalize-实现代码" class="headerlink" title="ios下 ILocalize 实现代码"></a>ios下 ILocalize 实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line">[assembly: Xamarin.Forms.Dependency(typeof(demo.iOS.Localize))]</div><div class="line"></div><div class="line">namespace demo.iOS</div><div class="line">&#123;</div><div class="line">	public class Localize : ILocalize</div><div class="line">	&#123;</div><div class="line">		public void SetLocale(CultureInfo ci)</div><div class="line">		&#123;</div><div class="line">			Thread.CurrentThread.CurrentCulture = ci;</div><div class="line">			Thread.CurrentThread.CurrentUICulture = ci;</div><div class="line"></div><div class="line">			Console.WriteLine(&quot;CurrentCulture set: &quot; + ci.Name);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public CultureInfo GetCurrentCultureInfo()</div><div class="line">		&#123;</div><div class="line">			var netLanguage = &quot;en&quot;;</div><div class="line">			if (NSLocale.PreferredLanguages.Length &gt; 0)</div><div class="line">			&#123;</div><div class="line">				var pref = NSLocale.PreferredLanguages[0];</div><div class="line"></div><div class="line">				netLanguage = iOSToDotnetLanguage(pref);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			// this gets called a lot - try/catch can be expensive so consider caching or something</div><div class="line">			System.Globalization.CultureInfo ci = null;</div><div class="line">			try</div><div class="line">			&#123;</div><div class="line">				ci = new System.Globalization.CultureInfo(netLanguage);</div><div class="line">			&#125;</div><div class="line">			catch (CultureNotFoundException e1)</div><div class="line">			&#123;</div><div class="line">				// iOS locale not valid .NET culture (eg. &quot;en-ES&quot; : English in Spain)</div><div class="line">				// fallback to first characters, in this case &quot;en&quot;</div><div class="line">				try</div><div class="line">				&#123;</div><div class="line">					var fallback = ToDotnetFallbackLanguage(new PlatformCulture(netLanguage));</div><div class="line">					Console.WriteLine(netLanguage + &quot; failed, trying &quot; + fallback + &quot; (&quot; + e1.Message + &quot;)&quot;);</div><div class="line">					ci = new System.Globalization.CultureInfo(fallback);</div><div class="line">				&#125;</div><div class="line">				catch (CultureNotFoundException e2)</div><div class="line">				&#123;</div><div class="line">					// iOS language not valid .NET culture, falling back to English</div><div class="line">					Console.WriteLine(netLanguage + &quot; couldn&apos;t be set, using &apos;en&apos; (&quot; + e2.Message + &quot;)&quot;);</div><div class="line">					ci = new System.Globalization.CultureInfo(&quot;en&quot;);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			return ci;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		string iOSToDotnetLanguage(string iOSLanguage)</div><div class="line">		&#123;</div><div class="line">			Console.WriteLine(&quot;iOS Language:&quot; + iOSLanguage);</div><div class="line">			var netLanguage = iOSLanguage;</div><div class="line"></div><div class="line">			//certain languages need to be converted to CultureInfo equivalent</div><div class="line">			switch (iOSLanguage)</div><div class="line">			&#123;</div><div class="line">				case &quot;ms-MY&quot;:   // &quot;Malaysian (Malaysia)&quot; not supported .NET culture</div><div class="line">				case &quot;ms-SG&quot;:   // &quot;Malaysian (Singapore)&quot; not supported .NET culture</div><div class="line">					netLanguage = &quot;ms&quot;; // closest supported</div><div class="line">					break;</div><div class="line">				case &quot;gsw-CH&quot;:  // &quot;Schwiizertüütsch (Swiss German)&quot; not supported .NET culture</div><div class="line">					netLanguage = &quot;de-CH&quot;; // closest supported</div><div class="line">					break;</div><div class="line">					// add more application-specific cases here (if required)</div><div class="line">					// ONLY use cultures that have been tested and known to work</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			Console.WriteLine(&quot;.NET Language/Locale:&quot; + netLanguage);</div><div class="line">			return netLanguage;</div><div class="line">		&#125;</div><div class="line">		string ToDotnetFallbackLanguage(PlatformCulture platCulture)</div><div class="line">		&#123;</div><div class="line">			Console.WriteLine(&quot;.NET Fallback Language:&quot; + platCulture.LanguageCode);</div><div class="line">			var netLanguage = platCulture.LanguageCode; // use the first part of the identifier (two chars, usually);</div><div class="line"></div><div class="line">			switch (platCulture.LanguageCode)</div><div class="line">			&#123;</div><div class="line">				// </div><div class="line">				case &quot;pt&quot;:</div><div class="line">					netLanguage = &quot;pt-PT&quot;; // fallback to Portuguese (Portugal)</div><div class="line">					break;</div><div class="line">				case &quot;gsw&quot;:</div><div class="line">					netLanguage = &quot;de-CH&quot;; // equivalent to German (Switzerland) for this app</div><div class="line">					break;</div><div class="line">					// add more application-specific cases here (if required)</div><div class="line">					// ONLY use cultures that have been tested and known to work</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			Console.WriteLine(&quot;.NET Fallback Language/Locale:&quot; + netLanguage + &quot; (application-specific)&quot;);</div><div class="line">			return netLanguage;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Android下-ILocalize-实现代码"><a href="#Android下-ILocalize-实现代码" class="headerlink" title="Android下 ILocalize 实现代码"></a>Android下 ILocalize 实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">[assembly: Xamarin.Forms.Dependency(typeof(demo.Droid.Localize))]</div><div class="line"></div><div class="line">namespace demo.Droid</div><div class="line">&#123;</div><div class="line">	public class Localize : ILocalize</div><div class="line">	&#123;</div><div class="line">		public void SetLocale(CultureInfo ci)</div><div class="line">		&#123;</div><div class="line">			Thread.CurrentThread.CurrentCulture = ci;</div><div class="line">			Thread.CurrentThread.CurrentUICulture = ci;</div><div class="line"></div><div class="line">			Console.WriteLine(&quot;CurrentCulture set: &quot; + ci.Name);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public CultureInfo GetCurrentCultureInfo()</div><div class="line">		&#123;</div><div class="line">			var netLanguage = &quot;en&quot;;</div><div class="line">			var androidLocale = Java.Util.Locale.Default;</div><div class="line">			netLanguage = AndroidToDotnetLanguage(androidLocale.ToString().Replace(&quot;_&quot;, &quot;-&quot;));</div><div class="line"></div><div class="line">			// this gets called a lot - try/catch can be expensive so consider caching or something</div><div class="line">			System.Globalization.CultureInfo ci = null;</div><div class="line">			try</div><div class="line">			&#123;</div><div class="line">				ci = new System.Globalization.CultureInfo(netLanguage);</div><div class="line">			&#125;</div><div class="line">			catch (CultureNotFoundException e1)</div><div class="line">			&#123;</div><div class="line">				// iOS locale not valid .NET culture (eg. &quot;en-ES&quot; : English in Spain)</div><div class="line">				// fallback to first characters, in this case &quot;en&quot;</div><div class="line">				try</div><div class="line">				&#123;</div><div class="line">					var fallback = ToDotnetFallbackLanguage(new PlatformCulture(netLanguage));</div><div class="line">					Console.WriteLine(netLanguage + &quot; failed, trying &quot; + fallback + &quot; (&quot; + e1.Message + &quot;)&quot;);</div><div class="line">					ci = new System.Globalization.CultureInfo(fallback);</div><div class="line">				&#125;</div><div class="line">				catch (CultureNotFoundException e2)</div><div class="line">				&#123;</div><div class="line">					// iOS language not valid .NET culture, falling back to English</div><div class="line">					Console.WriteLine(netLanguage + &quot; couldn&apos;t be set, using &apos;en&apos; (&quot; + e2.Message + &quot;)&quot;);</div><div class="line">					ci = new System.Globalization.CultureInfo(&quot;en&quot;);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			return ci;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		string AndroidToDotnetLanguage(string androidLanguage)</div><div class="line">		&#123;</div><div class="line">			Console.WriteLine(&quot;Android Language:&quot; + androidLanguage);</div><div class="line">			var netLanguage = androidLanguage;</div><div class="line"></div><div class="line">			//certain languages need to be converted to CultureInfo equivalent</div><div class="line">			switch (androidLanguage)</div><div class="line">			&#123;</div><div class="line">				case &quot;ms-BN&quot;:   // &quot;Malaysian (Brunei)&quot; not supported .NET culture</div><div class="line">				case &quot;ms-MY&quot;:   // &quot;Malaysian (Malaysia)&quot; not supported .NET culture</div><div class="line">				case &quot;ms-SG&quot;:   // &quot;Malaysian (Singapore)&quot; not supported .NET culture</div><div class="line">					netLanguage = &quot;ms&quot;; // closest supported</div><div class="line">					break;</div><div class="line">				case &quot;in-ID&quot;:  // &quot;Indonesian (Indonesia)&quot; has different code in  .NET </div><div class="line">					netLanguage = &quot;id-ID&quot;; // correct code for .NET</div><div class="line">					break;</div><div class="line">				case &quot;gsw-CH&quot;:  // &quot;Schwiizertüütsch (Swiss German)&quot; not supported .NET culture</div><div class="line">					netLanguage = &quot;de-CH&quot;; // closest supported</div><div class="line">					break;</div><div class="line">					// add more application-specific cases here (if required)</div><div class="line">					// ONLY use cultures that have been tested and known to work</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			Console.WriteLine(&quot;.NET Language/Locale:&quot; + netLanguage);</div><div class="line">			return netLanguage;</div><div class="line">		&#125;</div><div class="line">		string ToDotnetFallbackLanguage(PlatformCulture platCulture)</div><div class="line">		&#123;</div><div class="line">			Console.WriteLine(&quot;.NET Fallback Language:&quot; + platCulture.LanguageCode);</div><div class="line">			var netLanguage = platCulture.LanguageCode; // use the first part of the identifier (two chars, usually);</div><div class="line"></div><div class="line">			switch (platCulture.LanguageCode)</div><div class="line">			&#123;</div><div class="line">				case &quot;gsw&quot;:</div><div class="line">					netLanguage = &quot;de-CH&quot;; // equivalent to German (Switzerland) for this app</div><div class="line">					break;</div><div class="line">					// add more application-specific cases here (if required)</div><div class="line">					// ONLY use cultures that have been tested and known to work</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			Console.WriteLine(&quot;.NET Fallback Language/Locale:&quot; + netLanguage + &quot; (application-specific)&quot;);</div><div class="line">			return netLanguage;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码设置Page的Title属性<code>Title = Resource.Resources.home;</code>。</p>
+<p> 更改系统语言环境会有如下显示效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-7614c6e4bfe7d1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="英文环境"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ae7964da88ee4d9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="中文环境"></p>
+<blockquote>
+<h2 id="Doesn’t-work-in-DEBUG-mode-Android-only"><a href="#Doesn’t-work-in-DEBUG-mode-Android-only" class="headerlink" title="Doesn’t work in DEBUG mode (Android only)"></a>Doesn’t work in DEBUG mode (Android only)</h2><p>If the translated strings are working in your RELEASE Android builds but not while debugging, right-click on the Android Project and select Options &gt; Build &gt; Android Build and ensure that the Fast assembly deployment is NOT ticked. This option causes problems with loading resources and should not be used if you are testing localized apps.</p>
+</blockquote>
+<h2 id="XAML中实现国际化"><a href="#XAML中实现国际化" class="headerlink" title="XAML中实现国际化"></a>XAML中实现国际化</h2><p>很多时候我们会直接在Xaml中设置文本值的显示，如：<code>&lt;Label Text=&quot;Notes:&quot; /&gt;</code>。但是Xaml并没有提供翻译功能，需要我们通过自定义扩展标记(markup extension)实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">    [ContentProperty(&quot;Text&quot;)]</div><div class="line">	public class TranslateExtension : IMarkupExtension</div><div class="line">	&#123;</div><div class="line">		readonly CultureInfo ci;</div><div class="line">		//指定为项目中默认资源文件ID</div><div class="line">		const string ResourceId = &quot;demo.Resource.Resources&quot;;</div><div class="line"></div><div class="line">		public TranslateExtension()</div><div class="line">		&#123;</div><div class="line">			if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)</div><div class="line">			&#123;</div><div class="line">				ci = DependencyService.Get&lt;ILocalize&gt;().GetCurrentCultureInfo();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public string Text &#123; get; set; &#125;</div><div class="line"></div><div class="line">		public object ProvideValue(IServiceProvider serviceProvider)</div><div class="line">		&#123;</div><div class="line"></div><div class="line">			if (Text == null)</div><div class="line">				return &quot;&quot;;</div><div class="line"></div><div class="line">			ResourceManager resmgr = new ResourceManager(ResourceId, GetType().GetTypeInfo().Assembly);</div><div class="line"></div><div class="line">			var translation = resmgr.GetString(Text, ci);</div><div class="line"></div><div class="line">			if (translation == null)</div><div class="line">			&#123;</div><div class="line">#if DEBUG</div><div class="line">				throw new ArgumentException(</div><div class="line">					String.Format(&quot;Key &apos;&#123;0&#125;&apos; was not found in resources &apos;&#123;1&#125;&apos; for culture &apos;&#123;2&#125;&apos;.&quot;, Text, ResourceId, ci.Name), &quot;Text&quot;);</div><div class="line">#else</div><div class="line">                translation = Text; // HACK: returns the key, which GETS DISPLAYED TO THE USER</div><div class="line">#endif</div><div class="line">			&#125;</div><div class="line">			return translation;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>Xaml中通过如下代码设置标题：<br><code>xmlns:local=&quot;clr-namespace:demo&quot; Title=&quot;{local:Translate home}&quot;</code></p>
+<p>中英文显示效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-1423a561d3a4062b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="英文环境"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c95066aaa1a48d60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="中文环境"></p>
+<h1 id="平台元素国际化"><a href="#平台元素国际化" class="headerlink" title="平台元素国际化"></a>平台元素国际化</h1><p>如应用程序的名称、图标和启动屏中涉及的元素国际化时需要在单独的平台项目中设置，不需要编写代码故不在记录。</p>
+<p>参考：<br><a href="https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/#Localizing_Platform-Specific_Elements" target="_blank" rel="external">https://developer.xamarin.com/zh-cn/guides/xamarin-forms/advanced/localization/#Localizing_Platform-Specific_Elements</a></p>
+<p><a href="http://blog.csdn.net/watermelon_/article/details/53418615" target="_blank" rel="external">http://blog.csdn.net/watermelon_/article/details/53418615</a></p>
+<p><a href="http://blog.csdn.net/chenliguan/article/details/50678678" target="_blank" rel="external">http://blog.csdn.net/chenliguan/article/details/50678678</a></p>
+<hr>
+<p>项目地址：<a href="https://github.com/MyueX/xamarin.forms_news_demo" target="_blank" rel="external">https://github.com/MyueX/xamarin.forms_news_demo</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:38</p>
+        <p>原始链接： <a class="post-url" href="/2017/04/20/Xamarin-Forms-应用程序国际化/" title="Xamarin.Forms 应用程序国际化">http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/&title=《Xamarin.Forms 应用程序国际化》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-c62b843d374a26ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/&title=《Xamarin.Forms 应用程序国际化》 — Mayue‘s Blog&source=官网看到关于Forms应用程序国际化的相关内容，便一边练习一边总结一下，虽然这部分知识点很可能永远用不到！！！原文地址:https://developer..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms 应用程序国际化》 — Mayue‘s Blog&url=http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2017/04/20/Xamarin-Forms-应用程序国际化/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Localizing/" class="color1">Localizing</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Xamarin-Forms-PCL-国际化"><span class="post-toc-text">Xamarin.Forms PCL 国际化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备资源文件"><span class="post-toc-text">准备资源文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#确定当前运行平台的语言环境"><span class="post-toc-text">确定当前运行平台的语言环境</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ios下-ILocalize-实现代码"><span class="post-toc-text">ios下 ILocalize 实现代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Android下-ILocalize-实现代码"><span class="post-toc-text">Android下 ILocalize 实现代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Doesn’t-work-in-DEBUG-mode-Android-only"><span class="post-toc-text">Doesn’t work in DEBUG mode (Android only)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#XAML中实现国际化"><span class="post-toc-text">XAML中实现国际化</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#平台元素国际化"><span class="post-toc-text">平台元素国际化</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2017/05/15/Xamarin-Forms-新版本中Device-OS过时和OnPlatform使用的改变/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms 新版本中Device.OS过时和OnPlatform使用的改变
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/11/29/Xamarin-Forms-自定义布局介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms 自定义布局介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

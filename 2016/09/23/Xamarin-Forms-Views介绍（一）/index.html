@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Views介绍（一） | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Views指的就是组成我们App的用户控件，如前面我们频繁用到的Label，由于跨平台因素的影响，Forms并没有为我们提供太多的用户控件。这些控件均继承View。">
+<meta name="keywords" content="Forms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Views介绍（一）">
+<meta property="og:url" content="http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Views指的就是组成我们App的用户控件，如前面我们频繁用到的Label，由于跨平台因素的影响，Forms并没有为我们提供太多的用户控件。这些控件均继承View。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-01a6edaae8a5d6ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-7e5bc365c93c99c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-fd0863c7fffbbd55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-cefa03cef457c20b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-09dbe5c18bfd39ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-baa5b713c0f34c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-709afa337782c7a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-23dfcf8c3714c2c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:18:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Views介绍（一）">
+<meta name="twitter:description" content="Views指的就是组成我们App的用户控件，如前面我们频繁用到的Label，由于跨平台因素的影响，Forms并没有为我们提供太多的用户控件。这些控件均继承View。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-01a6edaae8a5d6ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Views介绍（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Views介绍（一）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-09-23
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Views指的就是组成我们App的用户控件，如前面我们频繁用到的Label，由于跨平台因素的影响，Forms并没有为我们提供太多的用户控件。这些控件均继承View。<br><a id="more"></a></p>
+<p>Views指的就是组成我们App的用户控件，如前面我们频繁用到的Label，由于跨平台因素的影响，Forms并没有为我们提供太多的用户控件。这些控件均继承View。</p>
+<hr>
+<h1 id="Label使用"><a href="#Label使用" class="headerlink" title="Label使用"></a>Label使用</h1><p>Label用来显示文本内容。</p>
+<p>常用属性介绍：</p>
+<ul>
+<li><strong>Text</strong> ：Label显示的文本内容。</li>
+<li><strong>FontSize</strong> ：Label显示的文本字体大小，double值或者特殊的字符串值（Default、Micro、Small、Medium、Large）。<blockquote>
+<p>FontSize 设置为NamedSize枚举时，会根据不同平台选择效果最佳的一个值。Xaml中指定对应的枚举字符串,代码中设置<code>label.FontSize=Device.GetNamedSize(NamedSize.Large,typeof(Label));</code>, Device.GetNamedSize返回各个平台对应ElementType的合适值。</p>
+</blockquote>
+</li>
+<li><strong>TextColor</strong> ：Label显示的文本颜色。</li>
+<li><strong>BackgroundColor</strong> ：Label背景色。</li>
+<li><strong>FontAttributes</strong> ：Label显示的文本样式（加粗、斜体）。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-01a6edaae8a5d6ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FontAttributes枚举"></li>
+<li><p><strong>LineBreakMode</strong> ：Label显示的文本换行模式,默认为WordWrap。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public enum LineBreakMode</div><div class="line">&#123;</div><div class="line">	NoWrap, //不换行，超出部分隐藏</div><div class="line">	WordWrap,//单词为单位换行</div><div class="line">	CharacterWrap,//字符换行，即会出现单词隔断现象</div><div class="line">	HeadTruncation,//头部截断，省略头部文本以...代替</div><div class="line">	TailTruncation,//尾部截断</div><div class="line">	MiddleTruncation//中间截断</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>FormattedText</strong> ：<code>FormattedString</code>类型，可以对一个Label设置多段不同样式文本。<br>使用示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;Label VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot; &gt;</div><div class="line">	&lt;Label.FormattedText&gt;</div><div class="line">		&lt;FormattedString&gt;</div><div class="line">       	  &lt;FormattedString.Spans&gt;</div><div class="line">          	  &lt;Span Text=&quot;Red Bold&quot; ForegroundColor=&quot;Red&quot; FontAttributes=&quot;Bold&quot; /&gt;</div><div class="line">            	&lt;Span Text=&quot;Default&quot; /&gt;</div><div class="line">            	&lt;Span Text=&quot;italic small&quot; FontAttributes=&quot;Italic&quot; FontSize=&quot;Small&quot; /&gt;</div><div class="line">			&lt;/FormattedString.Spans&gt;</div><div class="line">   	&lt;/FormattedString&gt;</div><div class="line">	&lt;/Label.FormattedText&gt;</div><div class="line">&lt;/Label&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-7e5bc365c93c99c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FormattedString使用效果图"></p>
+<p>示例中涉及到了两个属性节点<code>Label.FormattedText</code>和<code>FormattedString.Spans</code>，显得代码冗长，可以删除FormattedString.Spans节点，只保留节点内元素，显示同样效果。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-fd0863c7fffbbd55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FormattedString 定义"></p>
+<p>FormattedString定义时添加了<code>ContentProperty</code>特性，指示内容属性，对于内容属性在XAML中以节点属性方式使用时可以省略对应的属性节点直接设置内容元素。</p>
+<p>Label使用示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;Label Text=&quot;Welcome to Xamarin Forms!</div><div class="line">				Welcome to Xamarin Forms!</div><div class="line">				Welcome to Xamarin Forms!</div><div class="line">				Welcome to Xamarin Forms!</div><div class="line">				Welcome to Xamarin Forms!</div><div class="line">				Welcome to Xamarin Forms!&quot; </div><div class="line">		FontAttributes=&quot;Bold&quot;</div><div class="line">		TextColor=&quot;Silver&quot;</div><div class="line">		BackgroundColor=&quot;Aqua&quot;</div><div class="line">		FontSize=&quot;Small&quot;</div><div class="line">		LineBreakMode=&quot;WordWrap&quot;</div><div class="line">		VerticalOptions=&quot;Center&quot; </div><div class="line">		HorizontalOptions=&quot;Center&quot; /&gt;</div></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-cefa03cef457c20b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Label示例"></p>
+<hr>
+<h1 id="Entry使用"><a href="#Entry使用" class="headerlink" title="Entry使用"></a>Entry使用</h1><p>Entry单行文本录入控件，适合简短信息录入，如登录界面的用户名和密码。</p>
+<h2 id="常用属性："><a href="#常用属性：" class="headerlink" title="常用属性："></a>常用属性：</h2><ul>
+<li><strong>Text</strong> ：Entry内的文本内容。</li>
+<li><strong>TextColor</strong> ：Entry文本颜色。</li>
+<li><strong>Placeholder</strong> ：占位符，Text为空时显示。</li>
+<li><strong>PlaceholderColor</strong> ：占位符颜色。</li>
+<li><strong>IsPassword</strong> ：是否为密码格式，默认false，设置true时输入内容以密码格式显示。</li>
+<li><p><strong>Keyboard</strong> ：软键盘类型。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-09dbe5c18bfd39ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Keyboard类提供的静态属性"><br>更多信息参考：<a href="https://developer.xamarin.com/recipes/cross-platform/xamarin-forms/controls/choose-keyboard-for-entry/" target="_blank" rel="external">https://developer.xamarin.com/recipes/cross-platform/xamarin-forms/controls/choose-keyboard-for-entry/</a></p>
+</li>
+<li><p><strong>WidthRequest</strong> ：设置控件宽度，<code>HorizontalOptions=&quot;Fill&quot;</code>时无效 ，同理HeightRequest。</p>
+</li>
+<li><strong>InputTransparent</strong> ：是否接受用户输入。默认false，设置true时，控件接收用户输入时不做响应，传递父控件处理。</li>
+</ul>
+<p>使用示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;Entry </div><div class="line">	Text=&quot;Entry内文本&quot;</div><div class="line">	TextColor=&quot;Fuchsia&quot;</div><div class="line">	Placeholder=&quot;录入数据&quot;</div><div class="line">	PlaceholderColor=&quot;Green&quot;</div><div class="line">	IsPassword=&quot;true&quot;</div><div class="line">	Keyboard=&quot;Telephone&quot;</div><div class="line">	InputTransparent=&quot;false&quot;</div><div class="line">	WidthRequest=&quot;200&quot;</div><div class="line">	VerticalOptions=&quot;Start&quot;</div><div class="line">	HorizontalOptions=&quot;Center&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-baa5b713c0f34c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="常用事件："><a href="#常用事件：" class="headerlink" title="常用事件："></a>常用事件：</h2><ul>
+<li><strong>Focused</strong> ：控件获取焦点时触发，定义在VisualElement中的事件。</li>
+<li><strong>Unfocused</strong> ：控件失去焦点时触发，定义在VisualElement中的事件。</li>
+<li><strong>SizeChanged</strong> ：控件大小改变，定义在VisualElement中的事件。</li>
+<li><strong>Completed</strong> ：用户录入结束时出发（IOS用户按下Done键，Android，Windows Phone用户点击回车键或者物理键盘返回）。</li>
+<li><strong>TextChanged</strong> ：Entry文本改变时触发。</li>
+</ul>
+<p>以Completed事件为例：<br>在CS文件中定义一个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void Entry_Completed(object sender, EventArgs e)</div><div class="line">&#123;</div><div class="line">	var entry = (Entry)sender;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接下来就是将定义的方法与Entry的Completed事件绑定。</p>
+<p>Xaml 方式绑定事件，设置Entry的Completed属性<code>Completed=&quot;Entry_Completed&quot;</code>。<br>代码方式绑定事件代码 <code>entry.Completed+=Entry_Completed;</code></p>
+<p>也可以省略方法的定义，借助Lambda表达式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">entry.Completed += (sender, e) =&gt; &#123;</div><div class="line">	var entry = (Entry)sender;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>其它事件同理，区别在于第二个参数可能是EventArgs的子类以传递更多的信息。</p>
+<hr>
+<h1 id="Editor使用"><a href="#Editor使用" class="headerlink" title="Editor使用"></a>Editor使用</h1><p>Editor同样作为一个用户输入控件使用，与Entry不同Editor允许输入多行数据。</p>
+<p>使用事例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;Editor VerticalOptions=&quot;Start&quot;</div><div class="line">	HeightRequest=&quot;200&quot;	</div><div class="line">	BackgroundColor=&quot;Gray&quot;</div><div class="line">	TextColor=&quot;Red&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-709afa337782c7a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Editor效果"></p>
+<blockquote>
+<p>Editor使用与Entry相似。不同的是Completed事件的触发，Editor中回车键文本换行并不会触发Completed事件。</p>
+</blockquote>
+<hr>
+<h1 id="BoxView使用"><a href="#BoxView使用" class="headerlink" title="BoxView使用"></a>BoxView使用</h1><p>定义一个带有颜色的矩形，默认大小40*40,自定义大小可以通过<code>WidthRequest</code>和<code>HeightRequest</code>设置BoxView的大小。除此之外还不知道这东西有什么用…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;BoxView Color=&quot;Blue&quot; VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-23dfcf8c3714c2c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="默认大小Boxview"></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:18</p>
+        <p>原始链接： <a class="post-url" href="/2016/09/23/Xamarin-Forms-Views介绍（一）/" title="Xamarin.Forms Views介绍（一）">http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/&title=《Xamarin.Forms Views介绍（一）》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-cefa03cef457c20b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/&title=《Xamarin.Forms Views介绍（一）》 — Mayue‘s Blog&source=Views指的就是组成我们App的用户控件，如前面我们频繁用到的Label，由于跨平台因素的影响，Forms并没有为我们提供太多的用户控件。这些控件均继承..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Views介绍（一）》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/09/23/Xamarin-Forms-Views介绍（一）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Label使用"><span class="post-toc-text">Label使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Entry使用"><span class="post-toc-text">Entry使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用属性："><span class="post-toc-text">常用属性：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用事件："><span class="post-toc-text">常用事件：</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Editor使用"><span class="post-toc-text">Editor使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#BoxView使用"><span class="post-toc-text">BoxView使用</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/26/Xamarin-Forms-Views介绍（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Views介绍（二）
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/09/17/Xamarin-Forms布局讲解(四)/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms布局讲解(四)</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

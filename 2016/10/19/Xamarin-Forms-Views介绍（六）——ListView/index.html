@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Views介绍（六）——ListView | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="ListView用来显示列表数据，适合单一类型数据集合。">
+<meta name="keywords" content="Forms,ListView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Views介绍（六）——ListView">
+<meta property="og:url" content="http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="ListView用来显示列表数据，适合单一类型数据集合。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-bb82fbf81008f37a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ce41bf8ff53d16b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-1dd8f5a6968eac5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0f6b7896e71401c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-55712d14538efda5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-bab5f78ef0c34056.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ece0106623dad1e7.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4be614c66bd36331.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d0959310a81dbc9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-67ec317b6dbbce3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-5495bbebc6543066.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3dc06dd57222181c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-de685405796fda9c.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ceceb6cc25c5a4c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-03T01:18:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Views介绍（六）——ListView">
+<meta name="twitter:description" content="ListView用来显示列表数据，适合单一类型数据集合。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-bb82fbf81008f37a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Views介绍（六）——ListView" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Views介绍（六）——ListView
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-10-19
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>ListView用来显示列表数据，适合单一类型数据集合。<br><a id="more"></a></p>
+<p>ListView用来显示列表数据，适合单一类型数据集合。</p>
+<h1 id="ListView属性"><a href="#ListView属性" class="headerlink" title="ListView属性"></a>ListView属性</h1><ul>
+<li><strong>Footer</strong> ：object类型，获取、设置列表底部的字符串或视图。</li>
+<li><strong>FooterTemplate</strong> ：DataTemplate类型，获取、设置列表底部数据模版。</li>
+<li><strong>Header</strong> ：object类型，获取、设置列表顶部的字符串或视图。</li>
+<li><strong>HeaderTemplate</strong> ：DataTemplate类型，获取、设置列表定部数据模版。</li>
+<li><strong>HasUnevenRows</strong> ：bool类型，表示列表是否有不均匀的行高，默认值false，设置为true后ListView每行的高度会因为内容不同而提供不同高度。<blockquote>
+<p>可以在运行时通过<a href="https://developer.xamarin.com/api/member/Xamarin.Forms.Cell.ForceUpdateSize(" target="_blank" rel="external">Cell.ForceUpdateSize
+</a>/)方法更新cell大小。</p>
+</blockquote>
+</li>
+<li><strong>IsGroupingEnabled</strong> ：bool类型，表示是否对列表进行分组。</li>
+<li><strong>GroupDisplayBinding</strong>:绑定分组头的值。</li>
+<li><strong>GroupHeaderTemplate</strong>:DataTemplate类型，分组头的数据模版。</li>
+<li><strong>GroupShortNameBinding</strong>:绑定分组跳转列表中的值。</li>
+<li><strong>IsPullToRefreshEnabled</strong> ：bool类型，表示列表是否可以进行下拉刷新。</li>
+<li><strong>IsRefreshing</strong> ：bool类型，表示列表是否正在刷新。</li>
+<li><strong>RowHeight</strong> ：表示列表行高。</li>
+<li><strong>SelectedItem</strong> ：object类型，表示列表当前选中对象。</li>
+<li><strong>SeparatorColor</strong> ：表示列表分割栏的颜色。</li>
+<li><strong>SeparatorVisibility</strong> ：SeparatorVisibility枚举，表示分割栏的显示方式。</li>
+</ul>
+<h1 id="ListView事件"><a href="#ListView事件" class="headerlink" title="ListView事件"></a>ListView事件</h1><ul>
+<li><strong>ItemAppearing</strong> ：ListView元素显示时触发，ListView滑动使Item显示在屏幕内。</li>
+<li><strong>ItemDisappearing</strong> ：ListView元素消失时触发，ListView滑动使Item消失在屏幕内。</li>
+<li><strong>ItemSelected</strong> ：新的Item元素被选中时触发。</li>
+<li><strong>ItemTapped</strong> ：ListView的元素Item被点击是触发。</li>
+<li><strong>Refreshing</strong> ：ListView刷新事件。</li>
+</ul>
+<p>#ListView基本使用<br>填充ListView显示的数据有两种方式：设置ListView的ItemsSource和Data Binding。Data Binding后面介绍。ItemsSource类型是<code>IEnumerable</code>。<br>XAML定义ListView会默认填充整个屏幕<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;ListView x:Name=&quot;listView&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>通过C#代码设置ItemsSource：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">listView.ItemsSource = new List&lt;string&gt;() &#123;</div><div class="line">	&quot;List Item 1&quot;,&quot;List Item 2&quot;,&quot;List Item 3&quot;,&quot;List Item 4&quot;,&quot;List Item 5&quot;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-bb82fbf81008f37a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ListView效果"></p>
+<p>IOS会有多余分割线显示可以通过代码隐藏分割线<code>listView.SeparatorVisibility = SeparatorVisibility.None;</code></p>
+<p>默认情况下ItemSource集合提供的数据调用ToString方法显示在<code>TextCell</code>上，即<br>ListView每行是一个<code>TextCell</code>。</p>
+<p>定义XAML时设置ItemsSource:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;ListView&gt;</div><div class="line">	&lt;ListView.ItemsSource&gt;</div><div class="line">		&lt;x:Array Type=&quot;&#123;x:Type x:String&#125;&quot;&gt;</div><div class="line">         	&lt;x:String&gt;Item 1&lt;/x:String&gt;</div><div class="line">         	&lt;x:String&gt;Item 2&lt;/x:String&gt;</div><div class="line">			&lt;x:String&gt;Item 3&lt;/x:String&gt;</div><div class="line">         	&lt;x:String&gt;Item 4&lt;/x:String&gt;</div><div class="line">			&lt;x:String&gt;Item 5&lt;/x:String&gt;</div><div class="line">         	&lt;x:String&gt;Item 6&lt;/x:String&gt;</div><div class="line"> 		&lt;/x:Array&gt;</div><div class="line">	&lt;/ListView.ItemsSource&gt;</div><div class="line">&lt;/ListView&gt;</div></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="ListView-结合-Data-Binding使用"><a href="#ListView-结合-Data-Binding使用" class="headerlink" title="ListView 结合 Data Binding使用"></a>ListView 结合 Data Binding使用</h1><p>ListView的数据源（ItemsSource）不仅可以是简单的字符串集合也可以是自定义的Model类集合，要显示类集合数据时需要结合Data Binding实现，演示一个TextCell显示Text和Detail的示例。</p>
+<p>Data Source设置代码，ListViewItem是一个简单的Model类不再展示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ce41bf8ff53d16b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在定义ItemSource的数据集合时推荐用ObservableCollection<t>代替List<t>,ObservableCollection实现了INotifyPropertyChanged接口能够通知数据的变化，提供更新功能。</t></t></p>
+<p>在XAML代码中定义ListVIew时应显示指出TextCell的展现形式。设置<code>ListView.ItemTemplate</code>,DataTemplate元素节点内定义一个TextCell，绑定 TextCell的Text和Detail属性为对应Model的属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ListView x:Name=&quot;listView&quot;&gt;</div><div class="line">	&lt;ListView.ItemTemplate&gt;</div><div class="line">		&lt;DataTemplate&gt;</div><div class="line">			&lt;TextCell Text=&quot;&#123;Binding Title&#125;&quot; Detail=&quot;&#123;Binding Detail&#125;&quot;/&gt;</div><div class="line">		&lt;/DataTemplate&gt;</div><div class="line">	&lt;/ListView.ItemTemplate&gt;</div><div class="line">&lt;/ListView&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-1dd8f5a6968eac5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<hr>
+<h1 id="ListView-Selected事件"><a href="#ListView-Selected事件" class="headerlink" title="ListView Selected事件"></a>ListView Selected事件</h1><p>当用户点击ListView的Item时触发ListView的<code>ItemTapped</code>事件，SelectedItem值发生改变还会触发<code>ItemSelected</code>事件，用户连续点击同一个Item时ItemTapped触发多次，SelectedItem只会在第一次点击时触发。<br>如果想使ListView禁用ListView被取消ListView的选中效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">listView.ItemSelected += (sender, e) =&gt; &#123;</div><div class="line">	listView.SelectedItem = null;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="ListView-Cell介绍"><a href="#ListView-Cell介绍" class="headerlink" title="ListView Cell介绍"></a>ListView Cell介绍</h1><p>前面有提到过TextCell，是Xamarin.Forms 提供的Cell子类可以帮助我们显示更复杂的ListView。</p>
+<blockquote>
+<p>Xamarin.Forms提供给ListVIew常用的Cell有两种：<code>TextCell</code>和<code>ImageCell</code>。<code>SwitchCell</code>和<code>EntryCell</code>通常用在TableView中。</p>
+</blockquote>
+<p>TextCell用来显示文本，并允许在第二行显示详细文本：<br><code>Text</code> – 显示在第一行的文本，以较大字体显示.<br><code>Detail</code> – 以较小字体显示在第二行的文本.<br><code>TextColor</code> – Text文本颜色.<br><code>DetailColor</code> – Detail文本颜色.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0f6b7896e71401c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>ImageCell与TextCell相比在Cell的左侧可以显示图片信息。ImageCell显示图片在Windows Phone 8.1 下默认不会缩放，所以会有如下效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-55712d14538efda5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>至于Windows Phone显示效果没有亲自测试，默认不会缩放在官网中有提到，不开发Windows Phone可以不考虑。</p>
+</blockquote>
+<p>具体使用参考ListView 结合 Data Binding使用。更复杂的列表效果需自定义单元格，继承<code>ViewCell</code>实现期望的效果。自定义单元格更多信息参考：<a href="https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/customizing-cell-appearance/#Custom_Cells" target="_blank" rel="external">https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/customizing-cell-appearance/#Custom_Cells</a></p>
+<hr>
+<h1 id="ListView的Header和Footer"><a href="#ListView的Header和Footer" class="headerlink" title="ListView的Header和Footer"></a>ListView的Header和Footer</h1><p>可以在ListView的头部和尾部添加显示简单的文本或更加复杂的视图布局。ListView的Header和Footer会随ListView一起滚动。<br>如设置ListView的Header为一个简单的字符串Footer为一个按钮：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ListView x:Name=&quot;listView&quot;&gt;</div><div class="line">	&lt;ListView.Header&gt;</div><div class="line">		ListView Header</div><div class="line">	&lt;/ListView.Header&gt;</div><div class="line">	&lt;ListView.Footer&gt;</div><div class="line">		&lt;Button Text=&quot;Load More&quot;/&gt;</div><div class="line">	&lt;/ListView.Footer&gt;</div><div class="line">&lt;/ListView&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>HeaderTemplate和FooterTemplate不是必须的，涉及到数据绑定时才会用到。</p>
+</blockquote>
+<p>如图效果：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-bab5f78ef0c34056.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<blockquote>
+<p>加载更多效果可以通过Footer设置为一个Button点击加载跟多数据。</p>
+</blockquote>
+<hr>
+<p>#ListView分组<br>当ListView展示大量数据时可以尝试通过分组管理、展示数据，如iOS的通讯录。<br>对ListView分组前，必须先将数据进行分组，ListView分组的数据源应该是集合的集合（collection of collections，后面给出示例）。准备好数据源同时将ListView 的<code>IsGroupingEnabled</code>属性设置为true，表示ListView开启分组功能。ListView提供了<code>GroupDisplayBinding</code>属性，用来绑定每个分组的Title，<code>GroupShortNameBinding</code>绑定一个索引字段。所以定义的GroupModel应该包含一个Title属性绑定到GroupDisplayBinding属性（必须的），定义一个ShortName绑定到GroupShortNameBinding（可选值），iOS会在右侧提供一个索引列表。</p>
+<p>本文示例，ListView的item展现的是简单的字符串，所以GroupModel定义继承IEnumerable<string>,并定义Title和ShortName属性用来绑定ListView的GroupDisplayBinding和GroupShortNameBinding属性。定义一个IEnumerable<itemmodel>属性表示没个分组的数据，本例中ListView展示字符串数据，所以定义为IEnumerable<sttring>。定义如下Model类：</sttring></itemmodel></string></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">public class ListViewGroup : ObservableCollection&lt;string&gt;</div><div class="line">&#123;</div><div class="line">	public string GroupTitle</div><div class="line">	&#123;</div><div class="line">		get;</div><div class="line">		set;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public string ShortName</div><div class="line">	&#123;</div><div class="line">		get;</div><div class="line">		set;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static ObservableCollection&lt;ListViewGroup&gt; Items</div><div class="line">	&#123;</div><div class="line">		get;</div><div class="line">		set;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	static ListViewGroup()</div><div class="line">	&#123;</div><div class="line">		Items = new ObservableCollection&lt;ListViewGroup&gt;();</div><div class="line">		//创建虚拟数据</div><div class="line">		var aGroup = new ListViewGroup</div><div class="line">		&#123;</div><div class="line">			GroupTitle = &quot;A Title&quot;,</div><div class="line">			ShortName = &quot;A&quot;</div><div class="line">		&#125;;</div><div class="line">		aGroup.Add(&quot;Abs&quot;);</div><div class="line">		aGroup.Add(&quot;Apple&quot;);</div><div class="line">		aGroup.Add(&quot;Are&quot;);</div><div class="line">		aGroup.Add(&quot;Add&quot;);</div><div class="line">		Items.Add(aGroup);</div><div class="line"></div><div class="line">		var bGroup = new ListViewGroup</div><div class="line">		&#123;</div><div class="line">			GroupTitle = &quot;B Title&quot;,</div><div class="line">			ShortName = &quot;B&quot;</div><div class="line">		&#125;;</div><div class="line">		bGroup.Add(&quot;Bbs&quot;);</div><div class="line">		bGroup.Add(&quot;Blue&quot;);</div><div class="line">		bGroup.Add(&quot;Bar&quot;);</div><div class="line">		bGroup.Add(&quot;Bana&quot;);</div><div class="line">		Items.Add(bGroup);</div><div class="line"></div><div class="line">		var cGroup = new ListViewGroup</div><div class="line">		&#123;</div><div class="line">			GroupTitle = &quot;C Title&quot;,</div><div class="line">			ShortName = &quot;C&quot;</div><div class="line">		&#125;;</div><div class="line">		cGroup.Add(&quot;Cbs&quot;);</div><div class="line">		cGroup.Add(&quot;Couple&quot;);</div><div class="line">		cGroup.Add(&quot;Cut&quot;);</div><div class="line">		cGroup.Add(&quot;Custum&quot;);</div><div class="line">		Items.Add(cGroup);</div><div class="line"></div><div class="line">		var dGroup = new ListViewGroup</div><div class="line">		&#123;</div><div class="line">			GroupTitle = &quot;D Title&quot;,</div><div class="line">			ShortName = &quot;D&quot;</div><div class="line">		&#125;;</div><div class="line">		dGroup.Add(&quot;Dbs&quot;);</div><div class="line">		dGroup.Add(&quot;Double&quot;);</div><div class="line">		dGroup.Add(&quot;Delete&quot;);</div><div class="line">		dGroup.Add(&quot;Developer&quot;);</div><div class="line">		Items.Add(dGroup);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>XAML中绑定数据，通过x:Static指定数据源为ListViewGroup的静态属性Items，设置IsGroupingEnabled为true，绑定GroupTitle的值到GroupDisplayBinding，同时绑定GroupShortNameBinding的值（不是必须的），ListView.RowHeight属性节点定义不同平台Item显示不同高度。结合Custum Cell知识，定义ItemTemplate的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;ListView ItemsSource=&quot;&#123;x:Static local:ListViewGroup.Items&#125;&quot;</div><div class="line">          IsGroupingEnabled=&quot;true&quot;</div><div class="line">          GroupDisplayBinding=&quot;&#123;Binding GroupTitle&#125;&quot;</div><div class="line">          GroupShortNameBinding=&quot;&#123;Binding ShortName&#125;&quot;&gt;</div><div class="line">     &lt;ListView.RowHeight&gt;</div><div class="line">         &lt;OnPlatform x:TypeArguments=&quot;x:Int32&quot;</div><div class="line">                     iOS=&quot;80&quot;</div><div class="line">                     Android=&quot;80&quot;</div><div class="line">                     WinPhone=&quot;90&quot; /&gt;</div><div class="line">     &lt;/ListView.RowHeight&gt;</div><div class="line"></div><div class="line">     &lt;ListView.ItemTemplate&gt;</div><div class="line">         &lt;DataTemplate&gt;</div><div class="line">             &lt;ViewCell&gt;</div><div class="line">                 &lt;ContentView Padding=&quot;5&quot;&gt;</div><div class="line">                  	&lt;Frame OutlineColor=&quot;Accent&quot;</div><div class="line">                           Padding=&quot;10&quot;&gt;</div><div class="line">                        &lt;StackLayout Orientation=&quot;Horizontal&quot;&gt;</div><div class="line">                            &lt;BoxView Color=&quot;#00ffdd&quot;</div><div class="line">                                     WidthRequest=&quot;50&quot;</div><div class="line">                                     HeightRequest=&quot;50&quot; /&gt;</div><div class="line">                            &lt;Label Text=&quot;&#123;Binding .&#125;&quot;</div><div class="line">                                   FontSize=&quot;22&quot;</div><div class="line">                                   VerticalOptions=&quot;StartAndExpand&quot; /&gt;</div><div class="line">                         &lt;/StackLayout&gt;</div><div class="line">                     &lt;/Frame&gt;</div><div class="line">                 &lt;/ContentView&gt;</div><div class="line">             &lt;/ViewCell&gt;</div><div class="line">          &lt;/DataTemplate&gt;</div><div class="line">     &lt;/ListView.ItemTemplate&gt;</div><div class="line">		</div><div class="line">&lt;/ListView&gt;</div></pre></td></tr></table></figure></p>
+<p>Android、iOS效果图（GroupShortNameBinding属性对Android平台无效）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ece0106623dad1e7.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>与定义ItemTemplate类似，ListView提供了GroupHeaderTemplate属性方便我们自定义ListView的Group Header样式。示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ListView.GroupHeaderTemplate&gt;</div><div class="line">    &lt;DataTemplate&gt;</div><div class="line">         &lt;TextCell Text=&quot;&#123;Binding Title&#125;&quot;</div><div class="line">                   Detail=&quot;&#123;Binding ShortName&#125;&quot;</div><div class="line">                   TextColor=&quot;#f35e20&quot;</div><div class="line">                   DetailColor=&quot;#503026&quot; /&gt;</div><div class="line">    &lt;/DataTemplate&gt;</div><div class="line">&lt;/ListView.GroupHeaderTemplate&gt;</div></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="ListView-刷新"><a href="#ListView-刷新" class="headerlink" title="ListView 刷新"></a>ListView 刷新</h1><p>设置ListView的<code>IsPullToRefreshEnabled</code>属性为true，使ListView支持下拉刷新。<br>下拉ListView有如下效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-4be614c66bd36331.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ListView 开启下拉刷新"></p>
+<p>用户下拉ListView会触发Refreshing事件，在处理Refreshing事件重新加载数据后应通过设置<code>IsRefreshing</code>为false或调用ListView的<code>EndRefresh</code>方法通知ListView数据加载完成以取消下拉加载的效果。</p>
+<blockquote>
+<p>也可以通过调用ListView 的<code>BeginRefresh</code>方法触发Refreshing事件。</p>
+</blockquote>
+<h1 id="ListView-Context-Actions"><a href="#ListView-Context-Actions" class="headerlink" title="ListView Context Actions"></a>ListView Context Actions</h1><p>有时我们需要为ListView的每一项提供菜单行为，如Item的删除。IOS为左滑动Item，Android和Windows Phone为长按Item。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d0959310a81dbc9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ListView Item菜单"></p>
+<p>Context Actions依靠MenuItem实现，可以通过C#或XAML代码定义。MenuItem提供了Clicked事件响应MenuItem的点击，MenuItem继承BaseMenuItem，有三个常用属性属性：</p>
+<ul>
+<li><strong>Text</strong> – string类型，表示MenuItem显示文本.</li>
+<li><strong>Icon</strong> – FileImageSource类型,表示MenuItem图标.</li>
+<li><strong>IsDestructive</strong> – bool类型,值为true时iOS平台MenuItem以红色背景渲染.</li>
+</ul>
+<h2 id="C-定义Context-Action"><a href="#C-定义Context-Action" class="headerlink" title="C# 定义Context Action"></a>C# 定义Context Action</h2><p><img src="http://upload-images.jianshu.io/upload_images/1129755-67ec317b6dbbce3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>定义MenuItem添加到Cell的ContextActions属性中即可。这里不再给出C#代码设置ListView的ItemTemplate示例，所以图片代码为代码片段。可参考：<a href="http://stackoverflow.com/questions/38585153/implementing-xamarin-forms-context-actions" target="_blank" rel="external">http://stackoverflow.com/questions/38585153/implementing-xamarin-forms-context-actions</a></p>
+<p>默认情况下响应MenuItem的点击事件并不能判断当前MenuItem属于哪个Cell，可以通过MenuItem的CommandParameter属性绑定一个值确定操作的Cell。参考MenuItem响应事件。</p>
+<h2 id="XAML-定义Context-Action"><a href="#XAML-定义Context-Action" class="headerlink" title="XAML 定义Context Action:"></a>XAML 定义Context Action:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;ListView x:Name=&quot;listView&quot;&gt;</div><div class="line">	&lt;ListView.ItemTemplate&gt;</div><div class="line">		&lt;DataTemplate&gt;</div><div class="line">			&lt;TextCell Text=&quot;&#123;Binding Title&#125;&quot; Detail=&quot;&#123;Binding Detail&#125;&quot;&gt;</div><div class="line">				&lt;TextCell.ContextActions&gt;</div><div class="line">           		&lt;MenuItem Clicked=&quot;OnShare&quot; CommandParameter=&quot;&#123;Binding .&#125;&quot; Text=&quot;分享&quot; /&gt;</div><div class="line">            		&lt;MenuItem Clicked=&quot;OnDelete&quot; CommandParameter=&quot;&#123;Binding .&#125;&quot; Text=&quot;删除&quot; IsDestructive=&quot;True&quot; /&gt;</div><div class="line">         		&lt;/TextCell.ContextActions&gt;</div><div class="line">			&lt;/TextCell&gt;</div><div class="line">		&lt;/DataTemplate&gt;</div><div class="line">	&lt;/ListView.ItemTemplate&gt;</div><div class="line">&lt;/ListView&gt;</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="ListView-性能优化"><a href="#ListView-性能优化" class="headerlink" title="ListView 性能优化"></a>ListView 性能优化</h1><p>应用程序中使用ListView一定要确保ListView的性能（快速加载和平滑滚动）。Xamarin.Forms提供了Caching Strategy（缓存策略）优化ListView使用性能,对应ListView的<code>CachingStrategy</code>属性。也可以通过ListView使用过程中的一些技巧提升ListView的性能。</p>
+<h2 id="Caching-Strategy"><a href="#Caching-Strategy" class="headerlink" title="Caching Strategy"></a>Caching Strategy</h2><p>ListView用来展示大量数据，默认情况下ListView会为每条记录创建一个Cell，耗费大量内存，通过Caching Strategy减少内存使用，提高ListView性能。ListViewCachingStrategy枚举包含两个值RetainElement和RecycleElement。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-5495bbebc6543066.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ListViewCachingStrategy枚举"></p>
+<p>RetainElement：<br>为列表中的没一项生成一个Cell，是ListView的默认行为。如下情况应使用该值：</p>
+<ul>
+<li>每个单元格（Cell）拥有大量的数据绑定(20-30+).</li>
+<li>单元格模版（Cell Template）变化频繁。</li>
+<li>设置为RecycleElement值时ListView性能降低，应使用该值。（When testing reveals that the RecycleElement value results in a reduced execution speed. ）</li>
+</ul>
+<p>RecycleElement：<br>设置为该值时ListView尝试通过重复利用Cell减少内存使用和提高执行速度。RecycleElement不一定会提高ListView的使用性能，但如下情况应使用该值：</p>
+<ul>
+<li>单元格有很少的数据绑定</li>
+<li>没个单元格的数据源由Cell的BindingContext属性提供</li>
+<li>没个单元格拥有相同的单元格模版</li>
+</ul>
+<p>XAML中通过代码<code>CachingStrategy=&quot;RecycleElement&quot;</code>指定CachingStrategy的模式。C#代码中ListView没有提供CachingStrategy属性，设置CachingStrategy的值要在ListView 的构造函数中传入设置的值。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3dc06dd57222181c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>ListView设置CachingStrategy=”RecycleElement”，简单的显示string集合出现元素显示重复问题。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-de685405796fda9c.gif?imageMogr2/auto-orient/strip" alt="RecycleElement引起的问题"></p>
+<p>显式设置ListView.ItemTemplate后运行正常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ListView x:Name=&quot;listView&quot; CachingStrategy=&quot;RecycleElement&quot;&gt;</div><div class="line">	&lt;ListView.ItemTemplate&gt;</div><div class="line">    	&lt;DataTemplate&gt;</div><div class="line">       	&lt;TextCell Text=&quot;&#123;Binding .&#125;&quot;/&gt;</div><div class="line">    	&lt;/DataTemplate&gt;</div><div class="line">   &lt;/ListView.ItemTemplate&gt;</div><div class="line">&lt;/ListView&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>自定义Cell时应该重写OnBindingContextChanged方法，以保证设置ListView的属性CachingStrategy=”RecycleElement”时显示正常。<br><img src="http://upload-images.jianshu.io/upload_images/1129755-ceceb6cc25c5a4c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</blockquote>
+<h2 id="Improving-ListView-Performance"><a href="#Improving-ListView-Performance" class="headerlink" title="Improving ListView Performance"></a>Improving ListView Performance</h2><p>ListView使用过程中很多技巧可以帮助我们提高ListView的性能：</p>
+<ul>
+<li>对于绑定的数据源用IList<t> 集合代替 IEnumerable<t>集合。</t></t></li>
+<li>尽量使用Forms提供的Cell（TextCell / SwitchCell），避免自定义Cell。</li>
+<li>自定Cell时减少布局嵌套和使用视图，布局尽量使用AbsoluteLayout 和 Grid，对于LayoutOptions属性尽量设置为Fill。</li>
+<li>显示不规律数据时用TableView代替ListView。</li>
+<li>减少Cell.ForceUpdateSize方法的调用。</li>
+<li>避免将ListView放置在ScrollView中使用。</li>
+<li>过于复杂的Cell，尽量使用Custom Renderer（以后介绍）。</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月03日 09:18</p>
+        <p>原始链接： <a class="post-url" href="/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" title="Xamarin.Forms Views介绍（六）——ListView">http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/&title=《Xamarin.Forms Views介绍（六）——ListView》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-bb82fbf81008f37a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/&title=《Xamarin.Forms Views介绍（六）——ListView》 — Mayue‘s Blog&source=ListView用来显示列表数据，适合单一类型数据集合。" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Views介绍（六）——ListView》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/10/19/Xamarin-Forms-Views介绍（六）——ListView/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/ListView/" class="color4">ListView</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView属性"><span class="post-toc-text">ListView属性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView事件"><span class="post-toc-text">ListView事件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView-结合-Data-Binding使用"><span class="post-toc-text">ListView 结合 Data Binding使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView-Selected事件"><span class="post-toc-text">ListView Selected事件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView-Cell介绍"><span class="post-toc-text">ListView Cell介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView的Header和Footer"><span class="post-toc-text">ListView的Header和Footer</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView-刷新"><span class="post-toc-text">ListView 刷新</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView-Context-Actions"><span class="post-toc-text">ListView Context Actions</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-定义Context-Action"><span class="post-toc-text">C# 定义Context Action</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#XAML-定义Context-Action"><span class="post-toc-text">XAML 定义Context Action:</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ListView-性能优化"><span class="post-toc-text">ListView 性能优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Caching-Strategy"><span class="post-toc-text">Caching Strategy</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Improving-ListView-Performance"><span class="post-toc-text">Improving ListView Performance</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/10/22/Xamarin-Forms-Views介绍（七）——TableView/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Views介绍（七）——TableView
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/10/13/Xamarin-Forms-MVVM介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms MVVM介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

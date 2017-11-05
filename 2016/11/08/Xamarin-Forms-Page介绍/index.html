@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Page介绍 | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Page的子类，最常用的就是ContentPage.">
+<meta name="keywords" content="Forms,Page">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Page介绍">
+<meta property="og:url" content="http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Page的子类，最常用的就是ContentPage.">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-c640202a133b59ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-2db0cb8f9a328847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-8d0b9c8db73abf38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-583f0a317a088470.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-f8c43a23a829b164.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-3a82d3a2ea1f198a.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-7ce5a5c1eccdbc95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-eeed44eb59b4526a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-83b33957a9654230.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-36a28cf47f3213f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-fb64e073ceb330f7.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2017-11-04T02:34:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Page介绍">
+<meta name="twitter:description" content="Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Page的子类，最常用的就是ContentPage.">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-c640202a133b59ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Page介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Page介绍
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-11-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Page的子类，最常用的就是<code>ContentPage</code>.<br><a id="more"></a></p>
+<p>Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Page的子类，最常用的就是<code>ContentPage</code>.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-c640202a133b59ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Forms 中不同Page的表现形式"></p>
+<p>继承关系图</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-2db0cb8f9a328847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<hr>
+<h1 id="ContentPage介绍"><a href="#ContentPage介绍" class="headerlink" title="ContentPage介绍"></a>ContentPage介绍</h1><p>Page的一个子类，只可以显示一个View（only one child），通常会将一个继承了Layout或Layout<t>的子类作为ContentPage的子视图，如：StackLayout。新建项目中默认使用的就是ContentPage（ContentPage作为XAML文件的根结点）。</t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; xmlns:local=&quot;clr-namespace:page&quot; x:Class=&quot;page.pagePage&quot;&gt;</div><div class="line">	&lt;Label Text=&quot;Welcome to Xamarin Forms!&quot; VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot; /&gt;</div><div class="line">&lt;/ContentPage&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如何指定App显示的哪个Page？找到App.xaml文件，打开关联的<code>App.xaml.cs</code>文件，看到在App的构造方法中通过<code>MainPage=new pagePage();</code>指定要显示的Page，pagePage是我们布局文件对应的类名。</p>
+</blockquote>
+<p>通过CS代码的方式定义Page并显示屏幕上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">MainPage = new ContentPage()</div><div class="line">&#123;</div><div class="line">	Content = new Label()</div><div class="line">	&#123;</div><div class="line">		Text = &quot;Welcome to Xamarin Forms!&quot;,</div><div class="line">		HorizontalOptions = LayoutOptions.Center,</div><div class="line">		VerticalOptions = LayoutOptions.Center</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>与默认提供的XAML布局样式相同。</p>
+<hr>
+<h1 id="MasterDetailPage-使用介绍"><a href="#MasterDetailPage-使用介绍" class="headerlink" title="MasterDetailPage 使用介绍"></a>MasterDetailPage 使用介绍</h1><p>MasterDetailPage管理两个页面，Master显示一个数据列表，Detail显示某一项详情。MasterDetailPage定义了两个Page类型属性Master和Detail，通常我们会将这两个属性赋值为ContentPage对象，但是目前为止，要使MasterDetailPage在Universal Windows Platform能正常使用，必须将Detail属性赋值为NavigationPage类型。MasterDetailPage会根据设备有（phone 或 tablet）不同的显示方式,显示方式由<code>MasterBehavior</code>属性决定，手机默认为Popover模式，平板或桌面设备默认为Split模式。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-8d0b9c8db73abf38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>同时提供两个bool类型属性<code>IsGestureEnabled</code>和<code>IsPresented</code>,IsGestureEnabled表示是否支持滑动切换MasterPage的显示状态，而IsPresented表示MasterPage是否为显示状态。当IsPresented值改变时会触发<code>IsPresentedChanged</code>事件。</p>
+<p>编写示例项目，新建三个Page页面，分别命名为MasterPage和DetailPage1、DetailPage2。MasterPage的CS文件中增加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">public partial class MasterPage : ContentPage</div><div class="line">&#123;</div><div class="line"></div><div class="line">	public ListView ListView &#123; get &#123; return menuListView; &#125; &#125;</div><div class="line"></div><div class="line">	public MasterPage()</div><div class="line">	&#123;</div><div class="line">		InitializeComponent();</div><div class="line">		menuListView.ItemsSource = new List&lt;ListViewItem&gt;() &#123;</div><div class="line">			new ListViewItem()&#123;</div><div class="line">				Title=&quot;Detail 1&quot;,</div><div class="line">				TargetPage=typeof(DetailPage1)</div><div class="line">			&#125;,</div><div class="line">			new ListViewItem()&#123;</div><div class="line">				Title=&quot;Detail 2&quot;,</div><div class="line">				TargetPage=typeof(DetailPage2)</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">public class ListViewItem</div><div class="line">&#123;</div><div class="line">	public string Title &#123; get; set; &#125;</div><div class="line"></div><div class="line">	public Type TargetPage &#123; get; set; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>定义了一个Model类ListViewItem。MasterPage中除了设置ListView的ItemSource属性外还定义了一个只读属性ListView，方便在MasterDetailPage中访问。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-583f0a317a088470.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MasterPage XAML文件定义"></p>
+<p>DetailPage1、DetailPage2分别只包含了一个Label显示文本以区分Page。</p>
+<p>修改创建项创建的Page文件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-f8c43a23a829b164.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XAML文件修改"></p>
+<p>修改根节点为<code>MasterDetailPage</code>，IsGestureEnabled和MasterBehavior默认值即刻,定义MasterDetailPage.Master和MasterDetailPage.Detail属性节点，根据需要定义Name属性。需要注意Detail属性赋值了一个NavigationPage实例。</p>
+<p>CS文件继承的子类修改为MasterDetailPage，构造函数中增加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">masterPage.ListView.ItemSelected += (sender, e) =&gt;</div><div class="line">&#123;</div><div class="line">	if (e.SelectedItem == null)</div><div class="line">	&#123;</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line">	var item = e.SelectedItem as ListViewItem;</div><div class="line">	Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetPage));</div><div class="line">	masterPage.ListView.SelectedItem = null;</div><div class="line">	IsPresented = false;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>Activator.CreateInstance方法用来创建指定类型的实例，更多介绍：<a href="http://www.cnblogs.com/lmfeng/archive/2012/01/30/2331666.html" target="_blank" rel="external">http://www.cnblogs.com/lmfeng/archive/2012/01/30/2331666.html</a></p>
+<p>设置SelectedItem = null取消ListView的选中效果，IsPresented = false修改MasterPage的显示状态。</p>
+<p>运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-3a82d3a2ea1f198a.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>如果DetailPage中仅是数据的变化，可以直接在MasterDetailPage.Master和MasterDetailPage.Detail属性节点中定义Page。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;MasterDetailPage.Master&gt;</div><div class="line">	&lt;ContentPage&gt;</div><div class="line">			&lt;!--页面定义--&gt;</div><div class="line">	&lt;/ContentPage&gt;</div><div class="line">&lt;/MasterDetailPage.Master&gt;</div><div class="line"></div><div class="line">&lt;MasterDetailPage.Detail&gt;</div><div class="line">    &lt;NavigationPage&gt;</div><div class="line">        &lt;x:Arguments&gt;</div><div class="line">            &lt;ContentPage&gt;</div><div class="line">                 &lt;!--页面定义--&gt;</div><div class="line">			&lt;/ContentPage&gt;</div><div class="line">        &lt;/x:Arguments&gt;</div><div class="line">    &lt;/NavigationPage&gt;</div><div class="line">&lt;/MasterDetailPage.Detail&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>tablet设备修改MasterBehavior属性为Split。会有不同效果：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-7ce5a5c1eccdbc95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>MasterBehavior值为Split时，不允许设置IsPresented的值为false。</p>
+</blockquote>
+<h1 id="TabbedPage-使用介绍"><a href="#TabbedPage-使用介绍" class="headerlink" title="TabbedPage 使用介绍"></a>TabbedPage 使用介绍</h1><p>TabbedPage继承抽象类MultiPage<page>，管理一个Page类集合，每次只有一个Page显示,在TabbedPage的顶部（Android、WP）或底部（iOS）显示一个页卡标签标示每一个Page页面。MultiPage<t>是一个抽象类，定义了TabbedPage的大多属性和事件。</t></page></p>
+<blockquote>
+<p>iOS中使用TabbedPage必须为每个标签提供一个图标，由对应页面的Icon属性设置，否则App Store不会通过审核。</p>
+</blockquote>
+<p>TabbedPage从MultiPage<page>继承一个IList<t>类型属性Children，表示TabbedPage标签页管理Page的集合。MultiPage<page>还提供了ItemSource和ItemTemplate两个属性定义标签页的Page集合。</page></t></page></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-eeed44eb59b4526a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>MultiPage<page>定义了两个属性方便应用程序判断用户当前查看哪个页面：CurrentPage和SelectedItem。CurrentPage获取或设置当前显示的页面，SelectedItem表示ItemsSource当前的选中项。</page></p>
+<p>MultiPage<t>定义两个事件：PagesChanged和CurrentPageChanged。当ItemsSource属性改变时会触发PagesChanged事件，CurrentPage改变时触发CurrentPageChanged事件。</t></p>
+<p>修改主页面XAML文件，根节点改为TabbedPage，同时修改继承子类为TabbedPage。</p>
+<h2 id="Children属性使用"><a href="#Children属性使用" class="headerlink" title="Children属性使用"></a>Children属性使用</h2><p>定义Children Page页面Tab1，Title属性赋值外，iOS平台还要对Icon属性赋值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; </div><div class="line">		x:Class=&quot;pages.Tab1&quot; Title=&quot;Tab1&quot;&gt;</div><div class="line">	&lt;ContentPage.Icon&gt;</div><div class="line">		&lt;OnPlatform x:TypeArguments=&quot;FileImageSource&quot; iOS=&quot;ico.png&quot;/&gt;</div><div class="line">	&lt;/ContentPage.Icon&gt;</div><div class="line">	&lt;ContentPage.Padding&gt;</div><div class="line">		&lt;OnPlatform x:TypeArguments=&quot;Thickness&quot; iOS=&quot;0,20,0,0&quot;/&gt;</div><div class="line">	&lt;/ContentPage.Padding&gt;</div><div class="line">	&lt;ContentPage.Content&gt;</div><div class="line">		&lt;Label Text=&quot;Tab1&quot;/&gt;</div><div class="line">	&lt;/ContentPage.Content&gt;</div><div class="line">&lt;/ContentPage&gt;</div></pre></td></tr></table></figure></p>
+<p>类似方式定义Tab2和Tab3。<br>TabbedPage页面XAML文件修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;TabbedPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; </div><div class="line">		xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; </div><div class="line">		xmlns:local=&quot;clr-namespace:pages&quot; </div><div class="line">		x:Class=&quot;pages.pagesPage&quot;&gt;</div><div class="line"></div><div class="line">	&lt;local:Tab1/&gt;</div><div class="line">	&lt;local:Tab2/&gt;</div><div class="line">	&lt;local:Tab3/&gt;</div><div class="line">	</div><div class="line">&lt;/TabbedPage&gt;</div></pre></td></tr></table></figure></p>
+<p>对应C#代码：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-83b33957a9654230.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="ItemSource和ItemTemplate使用"><a href="#ItemSource和ItemTemplate使用" class="headerlink" title="ItemSource和ItemTemplate使用"></a>ItemSource和ItemTemplate使用</h2><p>有ItemTemplate定义所以该方式用于多个TabPage页面想同时使用，结合Data Binding管理页面数据显示。</p>
+<p>如下方式修改TabbedPage页面代码：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-36a28cf47f3213f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>定义TabPageMode，初始化TabPageMode集合赋值给ItemsSource属性。新建Tab页面，根据Tab初始化DataTemplate实例赋值ItemTemplate属性。</p>
+<p>定义Tab页：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; </div><div class="line">		x:Class=&quot;pages.Tab&quot; Title=&quot;&#123;Binding Title&#125;&quot; Icon=&quot;&#123;Binding Icon&#125;&quot;&gt;</div><div class="line">	&lt;ContentPage.Padding&gt;</div><div class="line">        &lt;OnPlatform x:TypeArguments=&quot;Thickness&quot; iOS=&quot;0,20,0,0&quot;/&gt;</div><div class="line">    &lt;/ContentPage.Padding&gt;</div><div class="line">	&lt;ContentPage.Content&gt;</div><div class="line">		&lt;Label Text=&quot;&#123;Binding Content&#125;&quot;/&gt;</div><div class="line">	&lt;/ContentPage.Content&gt;</div><div class="line">&lt;/ContentPage&gt;</div></pre></td></tr></table></figure></p>
+<p>也可以省略Tab页面定义，TabbedPage的XAML中直接定义TabbedPage.ItemTemplate属性节点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;TabbedPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; </div><div class="line">		xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; </div><div class="line">		xmlns:local=&quot;clr-namespace:pages&quot; </div><div class="line">		x:Class=&quot;pages.pagesPage&quot;&gt;</div><div class="line"></div><div class="line">	&lt;TabbedPage.ItemTemplate&gt;</div><div class="line">		&lt;DataTemplate&gt;</div><div class="line">			&lt;ContentPage Title=&quot;&#123;Binding Title&#125;&quot; Icon=&quot;&#123;Binding Icon&#125;&quot;&gt;</div><div class="line">				&lt;ContentPage.Padding&gt;</div><div class="line">        			&lt;OnPlatform x:TypeArguments=&quot;Thickness&quot; iOS=&quot;0,20,0,0&quot;/&gt;</div><div class="line">    			&lt;/ContentPage.Padding&gt;</div><div class="line">				&lt;ContentPage.Content&gt;</div><div class="line">					&lt;Label Text=&quot;&#123;Binding Content&#125;&quot;/&gt;</div><div class="line">				&lt;/ContentPage.Content&gt;</div><div class="line">			&lt;/ContentPage&gt;</div><div class="line">		&lt;/DataTemplate&gt;</div><div class="line">	&lt;/TabbedPage.ItemTemplate&gt;</div><div class="line">	</div><div class="line">&lt;/TabbedPage&gt;</div></pre></td></tr></table></figure></p>
+<p>效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-fb64e073ceb330f7.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<blockquote>
+<p>Icon属性只对iOS有效，Android和Windows Phone只是简单的显示文本标签。</p>
+</blockquote>
+<h1 id="NavigationPage-使用介绍"><a href="#NavigationPage-使用介绍" class="headerlink" title="NavigationPage 使用介绍"></a>NavigationPage 使用介绍</h1><p><a href="http://www.jianshu.com/p/d774921d1014" target="_blank" rel="external">在Navigation中介绍</a></p>
+<h1 id="CarouselPage-介绍"><a href="#CarouselPage-介绍" class="headerlink" title="CarouselPage 介绍"></a>CarouselPage 介绍</h1><p>CarouselPage支持用户滑动手势的页面，类似gallery。推荐用CarouselView代替CarouselPage。<br>CarouselView实现轮播图效果：<a href="https://blog.xamarin.com/flip-through-items-with-xamarin-forms-carouselview/" target="_blank" rel="external">https://blog.xamarin.com/flip-through-items-with-xamarin-forms-carouselview/</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:34</p>
+        <p>原始链接： <a class="post-url" href="/2016/11/08/Xamarin-Forms-Page介绍/" title="Xamarin.Forms Page介绍">http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/&title=《Xamarin.Forms Page介绍》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-c640202a133b59ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/&title=《Xamarin.Forms Page介绍》 — Mayue‘s Blog&source=Forms中的Page表示App中的一个页面。作用类似Android中的Activity，用来呈现一个用户界面，通常不会直接使用Page类，更多是使用Pa..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Page介绍》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/11/08/Xamarin-Forms-Page介绍/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/Page/" class="color5">Page</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ContentPage介绍"><span class="post-toc-text">ContentPage介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MasterDetailPage-使用介绍"><span class="post-toc-text">MasterDetailPage 使用介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TabbedPage-使用介绍"><span class="post-toc-text">TabbedPage 使用介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Children属性使用"><span class="post-toc-text">Children属性使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ItemSource和ItemTemplate使用"><span class="post-toc-text">ItemSource和ItemTemplate使用</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NavigationPage-使用介绍"><span class="post-toc-text">NavigationPage 使用介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CarouselPage-介绍"><span class="post-toc-text">CarouselPage 介绍</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/11/10/Xamarin-Forms-Device类介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Device类介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/11/08/Xamarin-Forms-Navigation介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Navigation介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

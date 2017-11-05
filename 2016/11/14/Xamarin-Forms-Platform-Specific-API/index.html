@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms Platform-Specific API | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要的功能，第三方组件可以在 https://components.xamarin.com 搜索或者通过Github搜索，本文主要记录编码调用平台特有API。代码实现又分Use Portable Class Library（PCL）和Use Shar">
+<meta name="keywords" content="Forms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms Platform-Specific API">
+<meta property="og:url" content="http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要的功能，第三方组件可以在 https://components.xamarin.com 搜索或者通过Github搜索，本文主要记录编码调用平台特有API。代码实现又分Use Portable Class Library（PCL）和Use Shar">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-b0734966c06ef829.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-4f85c220bf7f1d55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-0debf7dfd5023afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-d560be95721bfbb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-90f4310a8eb86655.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-ff790b2d51cdf1fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1129755-e91934a7d02e884c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-04T02:33:12.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms Platform-Specific API">
+<meta name="twitter:description" content="Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要的功能，第三方组件可以在 https://components.xamarin.com 搜索或者通过Github搜索，本文主要记录编码调用平台特有API。代码实现又分Use Portable Class Library（PCL）和Use Shar">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1129755-b0734966c06ef829.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin-Forms-Platform-Specific-API" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms Platform-Specific API
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2016-11-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要的功能，第三方组件可以在 <a href="https://components.xamarin.com" target="_blank" rel="external">https://components.xamarin.com</a> 搜索或者通过Github搜索，本文主要记录编码调用平台特有API。代码实现又分Use Portable Class Library（PCL）和Use Shared Library（SAP）两种方式。Use Portable Class Library以可移植库方式创建项目所有代码会编译成一个独立的DLL，Use Shared Library方式创建项目是一个共享项目，项目中的代码会被每个平台共享使用。<br><a id="more"></a></p>
+<p>Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要的功能，第三方组件可以在 <a href="https://components.xamarin.com" target="_blank" rel="external">https://components.xamarin.com</a> 搜索或者通过Github搜索，本文主要记录编码调用平台特有API。代码实现又分Use Portable Class Library（PCL）和Use Shared Library（SAP）两种方式。Use Portable Class Library以可移植库方式创建项目所有代码会编译成一个独立的DLL，Use Shared Library方式创建项目是一个共享项目，项目中的代码会被每个平台共享使用。</p>
+<h1 id="hared-Library-方式编码"><a href="#hared-Library-方式编码" class="headerlink" title="hared Library 方式编码"></a>hared Library 方式编码</h1><blockquote>
+<p>新建项目，选择Use Shared Library方式创建项目。</p>
+</blockquote>
+<h2 id="预处理命令使用"><a href="#预处理命令使用" class="headerlink" title="预处理命令使用"></a>预处理命令使用</h2><p>SAP可以使用C#提供的#if、#elif、 #else 和#endif等C#与处理命令。<br>为每个平台定义符号，IOS项目默认定义了<code>__IOS__</code>：<br><img src="http://upload-images.jianshu.io/upload_images/1129755-b0734966c06ef829.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>手动为Android项目添加<code>__ANDROID__</code>符号</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-4f85c220bf7f1d55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=" "></p>
+<p>实现一个Label显示平台系统版本信息的示例，iOS通过UIKit命名空间下的UIDevice类获取信息、Android通过Android.OS命名空间下的Build类获取信息（需要Xamarin.Android和Xamarin.IOS知识）：</p>
+<p>通过与处理命令判断引用不同命名空间（当前启动项目为iOS项目，所以Android项目代码为灰色）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-0debf7dfd5023afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>获取系统信息实现代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#if __IOS__</div><div class="line"></div><div class="line">			UIDevice device = new UIDevice();</div><div class="line">			label1.Text = String.Format(&quot;&#123;0&#125; &#123;1&#125;&quot;, device.SystemName,</div><div class="line">														 device.SystemVersion);</div><div class="line">#elif __ANDROID__</div><div class="line"></div><div class="line">			label1.Text = String.Format(&quot;&#123;0&#125; &#123;1&#125;&quot;, Build.Model,Build.VERSION.Release);</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure></p>
+<p>运行后效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-d560be95721bfbb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="同名类调用"><a href="#同名类调用" class="headerlink" title="同名类调用"></a>同名类调用</h2><p>SAP是一个扩展共享项目，平台项目和SAP项目之间可以相互调用，将每个项目的实现代码放在一个同名类中，SAP调用该类即可。</p>
+<p>IOS项目定义一个DeviceInfo类</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-90f4310a8eb86655.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>再为Android项目添加DeviceInfo类</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-ff790b2d51cdf1fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>SAP添加对应命名空间，调用DeviceInfo类</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1129755-e91934a7d02e884c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="Portable-Class-Library-方式编码"><a href="#Portable-Class-Library-方式编码" class="headerlink" title="Portable Class Library 方式编码"></a>Portable Class Library 方式编码</h1><p>PCL项目会编译成一个独立的DLL，所以不能直接调用平台项目提供的代码，但是可以通过.NET的反射机制在PCL项目中调用平台项目代码。Xamarin.Forms已经提供了<code>DependencyService</code>类帮助我们实现反射调用。</p>
+<p>在PCL的项目中使用DependencyService类要先定义一个接口，声明要实现的方法签名。</p>
+<p>新建Forms项目选中Use Portable Class Library，在PCL项目中添加IDeviceInfo接口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public interface IDeviceInfo</div><div class="line">&#123;</div><div class="line">	string GetDeviceInfo();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在平台项目中定义一个类实现IDeviceInfo接口，该类所在命名空间和类名无特殊要求，且为该类添加一个<code>Dependency</code>特性，DependencyAttribute类由Xamarin.Forms提供与DependencyService结合使用，该特性应该标注在namespace外。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[assembly: Dependency(typeof(specific.iOS.DeviceInfo))]</div><div class="line">namespace specific.iOS</div><div class="line">&#123;</div><div class="line"></div><div class="line">	public class DeviceInfo : IDeviceInfo</div><div class="line">	&#123;</div><div class="line"></div><div class="line">		public string GetDeviceInfo()</div><div class="line">		&#123;</div><div class="line">			UIDevice device = new UIDevice();</div><div class="line">			return String.Format(&quot;&#123;0&#125; &#123;1&#125;&quot;, device.SystemName,</div><div class="line">														 device.SystemVersion);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Dependency接受的参数是Type类型，表示定义在平台项目中由PCL项目访问的类。如示例代码typeof接收的参数应该是类的完全限定名。</p>
+<p>Android项目下DeviceInfo类代码不贴出。<br>接下来在PCL项目中通过DependencyService访问特定平台的IDeviceInfo实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">IDeviceInfo deviceInfo = DependencyService.Get&lt;IDeviceInfo&gt;();</div><div class="line">label.Text = deviceInfo.GetDeviceInfo();</div></pre></td></tr></table></figure></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月04日 10:33</p>
+        <p>原始链接： <a class="post-url" href="/2016/11/14/Xamarin-Forms-Platform-Specific-API/" title="Xamarin.Forms Platform-Specific API">http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/&title=《Xamarin.Forms Platform-Specific API》 — Mayue‘s Blog&pic=http://upload-images.jianshu.io/upload_images/1129755-d560be95721bfbb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/&title=《Xamarin.Forms Platform-Specific API》 — Mayue‘s Blog&source=Xamarin.Forms 并不能支持每个平台的所用功能，如声音、视频播放和文件读写等功能需要我们单独为每个平台编码，也可以添加第三方组件扩展实现我们需要..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms Platform-Specific API》 — Mayue‘s Blog&url=http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2016/11/14/Xamarin-Forms-Platform-Specific-API/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#hared-Library-方式编码"><span class="post-toc-text">hared Library 方式编码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#预处理命令使用"><span class="post-toc-text">预处理命令使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#同名类调用"><span class="post-toc-text">同名类调用</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Portable-Class-Library-方式编码"><span class="post-toc-text">Portable Class Library 方式编码</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2016/11/21/Xamarin-Forms-Custom-Renderer介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Xamarin.Forms Custom Renderer介绍
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2016/11/10/Xamarin-Forms-Device类介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms Device类介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2148119"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
