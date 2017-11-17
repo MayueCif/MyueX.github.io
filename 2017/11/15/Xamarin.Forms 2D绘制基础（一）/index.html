@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xamarin.Forms 2D绘制基础（一） | Mayue‘s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Mayue's Blog" />
+  
+  <meta name="description" content="SkiaSharp（Portable Library）是一个Skia的绑定库，提供Xamarin中2D图型绘制功能。熟练掌握SkiaSharp的使用可以更好的自定义控件，如Microcharts。SkiaSharp引用很简单，通过Nuget搜索SkiaSharp.Views.Forms添加Package及SkiaSharp。">
+<meta name="keywords" content="Forms,SkiaSharp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xamarin.Forms 2D绘制基础（一）">
+<meta property="og:url" content="http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/index.html">
+<meta property="og:site_name" content="Mayue‘s Blog">
+<meta property="og:description" content="SkiaSharp（Portable Library）是一个Skia的绑定库，提供Xamarin中2D图型绘制功能。熟练掌握SkiaSharp的使用可以更好的自定义控件，如Microcharts。SkiaSharp引用很简单，通过Nuget搜索SkiaSharp.Views.Forms添加Package及SkiaSharp。">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_circle.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_rect.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_point.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_points.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_oval.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_line.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_roundrect.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_text.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_bitmap.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_path.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_path_arc.png">
+<meta property="og:image" content="https://developer.xamarin.com/guides/xamarin-forms/advanced/skiasharp/paths/paths/Images/StrokeJoins-Large.png">
+<meta property="og:updated_time" content="2017-11-17T14:36:20.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xamarin.Forms 2D绘制基础（一）">
+<meta name="twitter:description" content="SkiaSharp（Portable Library）是一个Skia的绑定库，提供Xamarin中2D图型绘制功能。熟练掌握SkiaSharp的使用可以更好的自定义控件，如Microcharts。SkiaSharp引用很简单，通过Nuget搜索SkiaSharp.Views.Forms添加Package及SkiaSharp。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_circle.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=1267783553&web_id=1267783553" language="JavaScript"></script>
+  </div>
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Mayue&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Mayue&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注移动开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a  target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=68c5293ab4e4398e351e198d8a4475fb72334e840d58e03cc5e5a60422b36e8b">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Xamarin.Forms 2D绘制基础（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Xamarin.Forms 2D绘制基础（一）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Xamarin.Forms/">Xamarin.Forms</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-11-15
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>SkiaSharp（Portable Library）是一个<a href="https://skia.org/" target="_blank" rel="external">Skia</a>的绑定库，提供Xamarin中2D图型绘制功能。熟练掌握SkiaSharp的使用可以更好的自定义控件，如<a href="https://github.com/aloisdeniel/Microcharts" target="_blank" rel="external">Microcharts</a>。SkiaSharp引用很简单，通过Nuget搜索<code>SkiaSharp.Views.Forms</code>添加Package及<code>SkiaSharp</code>。<br><a id="more"></a></p>
+<blockquote>
+<p>同时要为平台项目（platform-specific projects）添加<code>SkiaSharp.Views.Forms</code>、<code>SkiaSharp.Views</code>及<code>SkiaSharp</code></p>
+</blockquote>
+<h1 id="基础绘制功能"><a href="#基础绘制功能" class="headerlink" title="基础绘制功能"></a>基础绘制功能</h1><p>本文涉及的内容类似Android中的绘制部分，有兴趣的可以看看<a href="http://hencoder.com。" target="_blank" rel="external">http://hencoder.com。</a></p>
+<p><strong>讲的真的很好！讲的真的很好！讲的真的很好!</strong></p>
+<p>SkiaSharp绘制图型主要涉及到的两个类<code>SKCanvasView</code>和<code>SKPaint</code>，SKCanvasView实例在处理<code>PaintSurface</code>事件时，根据SKPaint提供的一些绘制属性进行绘制，如颜色等。PaintSurface会多次触发，如横竖屏切换导致重绘。SKCanvasView还提供了<code>InvalidateSurface</code>方法可以让我们主动对视图进行重绘。</p>
+<p>SKCanvasView的两种定义方式：<br>C#代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SKCanvasView canvasView = new SKCanvasView();</div><div class="line">canvasView.PaintSurface += OnCanvasViewPaintSurface;</div></pre></td></tr></table></figure></p>
+<p>XAML代码:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">skia:SKCanvasView</span> <span class="attr">PaintSurface</span>=<span class="string">"OnCanvasViewPaintSurface"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>一个典型的PaintSurface事件处理方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)</div><div class="line">&#123;</div><div class="line">    SKImageInfo info = args.Info;</div><div class="line">    SKSurface surface = args.Surface;</div><div class="line">    SKCanvas canvas = surface.Canvas;</div><div class="line"></div><div class="line">    canvas.Clear();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>SKPaintSurfaceEventArgs</code>包含两个两个重要属性，分别是<code>SKImageInfo</code>类型的Info和<code>SKSurface</code>类型的Surface。Info中包含绘图Surface的一些信息，如宽高等。而Surface表示当前当前绘图缓冲区本身。SKSurface包含一个<code>SKCanvas</code>类型的<code>Canvas</code>属性,最终图型的绘制、变换和裁切等都是通过Canvas完成的.<code>Clear</code>方法作用则是将画布设置成透明色。</p>
+<p>开始绘制之前当然是定义一个用来绘制的画笔<code>SKPaint</code>，绘制的通用属性通过SKPaint设定，如画笔的颜色、类型等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var paint = new SKPaint</div><div class="line">&#123;</div><div class="line">    Style = SKPaintStyle.Stroke,</div><div class="line">    Color = Color.Red.ToSKColor(),</div><div class="line">    StrokeWidth = 10</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>Style表示花笔模式有三种： <code>Fill</code>, <code>Stroke</code> 和 <code>StrokeAndFill</code> 。Fill是填充模式，Stroke 是画线模式（即勾边模式），StrokeAndFill是两种模式一并使用：既画线又填充。它的默认值是Fill填充模式。</p>
+<p>Color属性设置画笔的颜色，通过<code>SkiaSharp.Views.Forms</code>命名空间下的<code>ToSKColor</code>的方法将Xamarin.Forms的<code>Color</code>转换为SkiaSharp中的<code>SKColor</code>。</p>
+<p><code>StrokeWidth</code>则表示画笔的宽度。<code>IsAntialias</code>表示是否开启锯齿。</p>
+<h2 id="画圆-canvas-DrawCircle-cx-cy-radius-paint"><a href="#画圆-canvas-DrawCircle-cx-cy-radius-paint" class="headerlink" title="画圆 canvas.DrawCircle(cx:,cy:,radius:,paint:)"></a>画圆 canvas.DrawCircle(cx:,cy:,radius:,paint:)</h2><p>四个参数分别表示圆点的坐标和半径已经我们提前定义好的画笔，坐标系的原点是 View 左上角的那个点；水平方向是 x 轴，右正左负；竖直方向是 y 轴，下正上负。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawCircle(info.Width / 2, info.Height / 2, 100, paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_circle.png" alt=""></p>
+<h2 id="画矩形-canvas-DrawRect-rect-paint"><a href="#画矩形-canvas-DrawRect-rect-paint" class="headerlink" title="画矩形 canvas.DrawRect(rect:,paint:)"></a>画矩形 canvas.DrawRect(rect:,paint:)</h2><p>rect是一个SKRect类型，SKRect构造函数中的left, top, right, bottom 是矩形四条边的坐标。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawRect(new SKRect(200, 200, 500, 500), paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_rect.png" alt=""></p>
+<h2 id="画点-canvas-DrawPoint-x-y-paint"><a href="#画点-canvas-DrawPoint-x-y-paint" class="headerlink" title="画点 canvas.DrawPoint(x:,y:,paint:)"></a>画点 canvas.DrawPoint(x:,y:,paint:)</h2><p>通过设置Paint的<code>StrokeWidth</code>属性来设置画的点的大小。通过Paint的<code>StrokeCap</code>属性设置点的形状，<code>SKStrokeCap.Square</code>画方点、<code>SKStrokeCap.Round</code>画圆点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawPoint(info.Width / 2, info.Height / 2, paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_point.png" alt=""></p>
+<h2 id="批量画点-canvas-DrawPoints-mode-points-paint"><a href="#批量画点-canvas-DrawPoints-mode-points-paint" class="headerlink" title="批量画点 canvas.DrawPoints(mode:,points:,paint:)"></a>批量画点 canvas.DrawPoints(mode:,points:,paint:)</h2><p>其中model是一个<code>SKPointMode</code>枚举,包括<code>Lines</code>,<code>Points</code>和<code>Polygon</code>,Points表示绘制点，Lines则是绘制多个线段（每两个点连成一个线段），Polygon是将所有个点绘制成一条连线。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawPoints(SKPointMode.Points, new SKPoint[] &#123; new SKPoint(100, 400), new SKPoint(200, 400), new SKPoint(200, 600), new SKPoint(300, 600) &#125;, paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_points.png" alt=""></p>
+<h2 id="画椭圆-canvas-DrawOval-rect-paint"><a href="#画椭圆-canvas-DrawOval-rect-paint" class="headerlink" title="画椭圆 canvas.DrawOval(rect:,paint:)"></a>画椭圆 canvas.DrawOval(rect:,paint:)</h2><p>参数同<code>DrawRect</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawOval(new SKRect(100, 200, 500, 400), paint)</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_oval.png" alt=""></p>
+<h2 id="画线-canvas-DrawLine-x0-y0-x1-y1-paint"><a href="#画线-canvas-DrawLine-x0-y0-x1-y1-paint" class="headerlink" title="画线 canvas.DrawLine(x0:,y0:,x1:,y1:,paint)"></a>画线 canvas.DrawLine(x0:,y0:,x1:,y1:,paint)</h2><p>x0,y0,x1,y1分别是线的起点和终点坐标。通过Paint的<code>StrokeCap</code>属性设置决定线段两个端点的样式，<code>SKStrokeCap.Square</code>圆角、<code>SKStrokeCap.Round</code>直角（只有线段有一定宽度时才有明显效果）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawLine(200, 200, 600, 500, paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_line.png" alt=""></p>
+<h2 id="画圆角矩形-canvas-DrawRoundRect-rect-rx-ry-paint"><a href="#画圆角矩形-canvas-DrawRoundRect-rect-rx-ry-paint" class="headerlink" title="画圆角矩形 canvas.DrawRoundRect(rect:,rx:,ry:,paint:)"></a>画圆角矩形 canvas.DrawRoundRect(rect:,rx:,ry:,paint:)</h2><p>rect表示矩形区域,rx 和 ry 是圆角的横向半径和纵向半径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawRoundRect(new SKRect(200, 200, 500, 500), 50, 50, paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_roundrect.png" alt=""></p>
+<h1 id="自定义图形绘制"><a href="#自定义图形绘制" class="headerlink" title="自定义图形绘制"></a>自定义图形绘制</h1><h2 id="绘制文本-canvas-DrawText-text-x-y-paint"><a href="#绘制文本-canvas-DrawText-text-x-y-paint" class="headerlink" title="绘制文本 canvas.DrawText(text:,x:,y:,paint:)"></a>绘制文本 canvas.DrawText(text:,x:,y:,paint:)</h2><p>text表示要绘制的文本。x、y表示文本绘制起点在View中的坐标，默认为左下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">canvas.DrawText(str, 20, 200, paint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_text.png" alt=""></p>
+<p>SKPaint中可以进行更多文字显示相关的设置，如<code>TextSkewX</code>设置文本水平倾斜度，<code>TextAlign</code>是一个SKTextAlign枚举，设置文本的绘制方式默认为<code>Left</code>即从左到右绘制，<code>Center</code>表示文本从中间向两侧绘制，即从指定的x,y向左右两边绘制，<code>Right</code>表示右侧开始绘制。<code>TextSize</code>设置字体大小。</p>
+<p>SKPaint还提供了一个<code>MeasureText</code>方法帮助我们获取当前显示文本的一下信息，该方法有多个重载方法：</p>
+<h3 id="paint-MeasureText-text"><a href="#paint-MeasureText-text" class="headerlink" title="paint.MeasureText(text:)"></a>paint.MeasureText(text:)</h3><p>获取绘制文本的宽度</p>
+<h3 id="paint-MeasureText-text-ref-bounds"><a href="#paint-MeasureText-text-ref-bounds" class="headerlink" title="paint.MeasureText(text:,ref bounds:)"></a>paint.MeasureText(text:,ref bounds:)</h3><p>获取绘制文本的区域，通过<code>ref</code>参数bounds返回。</p>
+<h2 id="绘制图片-canvas-DrawBitmap-bitmap-x-y-paint"><a href="#绘制图片-canvas-DrawBitmap-bitmap-x-y-paint" class="headerlink" title="绘制图片 canvas.DrawBitmap(bitmap:,x:,y:,paint:)"></a>绘制图片 canvas.DrawBitmap(bitmap:,x:,y:,paint:)</h2><p>bitmap是一个<code>SKBitmap</code>类型。x,y表示图片坐上绘制的位置。paint默认值为空，实际使用时可以忽略该参数。</p>
+<p>我们该如何获得这个SKBitmap对象？SKBitmap提供了<code>Decode</code>方法，可以根据我们传入的数据流（SKManagedStream或Stream）解码生成一个SKBitmap对象。Decode包含多个重载方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">var bitmap = SKBitmap.Decode(stream);</div><div class="line">...</div><div class="line">canvas.DrawBitmap(bitmap, 0, 0, null);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_bitmap.png" alt=""></p>
+<p>Xamarin.Forms中更多图片相关资料请<a href="http://www.xamarin.xyz/2016/09/28/Xamarin-Forms-Views%E4%BB%8B%E7%BB%8D%EF%BC%88%E5%9B%9B%EF%BC%89/#ImageSource介绍" target="_blank" rel="external">跳转到这里</a></p>
+<h2 id="绘制路径canvas-DrawPath-path-paint"><a href="#绘制路径canvas-DrawPath-path-paint" class="headerlink" title="绘制路径canvas.DrawPath(path:,paint:)"></a>绘制路径canvas.DrawPath(path:,paint:)</h2><p>SkiaSharp中绘制路径通过<code>SKPath</code>完成。SKPath定义了几组方法：</p>
+<h3 id="XXXTo"><a href="#XXXTo" class="headerlink" title="XXXTo"></a>XXXTo</h3><ul>
+<li><code>MoveTo</code> 通常用来声明一条路径的起始点</li>
+<li><code>LineTo</code> 当前点到指定点绘制一条直线</li>
+<li><code>ArcTo</code> 根据当前点位置和指定的两个点绘制一条指定半径的曲线</li>
+<li><code>CubicTo</code> 绘制三次贝塞尔曲线</li>
+<li><code>QuadTo</code>  绘制二次贝塞尔曲线</li>
+<li><code>ConicTo</code> 不懂！add a rational quadratic Bezier spline, which can accurately render conic sections (ellipses, parabolas, and hyperbolas)</li>
+</ul>
+<p>简单的示例代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">SKPath path = new SKPath();</div><div class="line"></div><div class="line">// Define the first contour</div><div class="line">path.MoveTo(0.5f * info.Width, 0.1f * info.Height);</div><div class="line">path.LineTo(0.2f * info.Width, 0.4f * info.Height);</div><div class="line">path.LineTo(0.8f * info.Width, 0.4f * info.Height);</div><div class="line"></div><div class="line">// Define the second contour</div><div class="line">path.MoveTo(0.5f * info.Width, 0.6f * info.Height);</div><div class="line">path.LineTo(0.2f * info.Width, 0.9f * info.Height);</div><div class="line">path.LineTo(0.8f * info.Width, 0.9f * info.Height);</div><div class="line">path.Close();</div><div class="line"></div><div class="line">SKPaint strokePaint = new SKPaint</div><div class="line">&#123;</div><div class="line">    Style = SKPaintStyle.Stroke,</div><div class="line">    Color = SKColors.Magenta,</div><div class="line">    StrokeWidth = 10</div><div class="line">&#125;;</div><div class="line"></div><div class="line">canvas.DrawPath(path, strokePaint);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_path.png" alt=""></p>
+<p>调用<code>Close</code>方法使Path中已有内容形成一个封闭轮廓。</p>
+<p>需要说明的是ArcTo方法的使用,看效果图理解参数吧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">path.MoveTo(0.5f * info.Width, 0.1f * info.Height);</div><div class="line">path.ArcTo(0.2f * info.Width, 0.4f * info.Height, 0.8f * info.Width,                0.4f * info.Height, 200);</div></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/MyueX/MyueX.github.io/master/attach/skiasharp/draw_path_arc.png" alt=""></p>
+<blockquote>
+<p>进行多条线绘制涉及到一个连接点即拐角样式的问题，SKPaint提供了<code>StrokeJoin</code>属性设置拐角样式，StrokeJoin是一个<code>SKStrokeJoin</code>类型枚举，有<code>Miter</code>、<code>Round</code>和<code>Bevel</code>三个值，分别表示直角、圆角和棱角三种样式。<img src="https://developer.xamarin.com/guides/xamarin-forms/advanced/skiasharp/paths/paths/Images/StrokeJoins-Large.png" alt=""></p>
+</blockquote>
+<h3 id="RXXXTo"><a href="#RXXXTo" class="headerlink" title="RXXXTo"></a>RXXXTo</h3><p>SKPath还定义了一组R开头的XXXTo方法，R表示的意思是relative。XXXTo方法中所有的点都是以（0,0）为源点，RXXXTo方法中所有的点都是以当前点为源点。</p>
+<h3 id="AddXXX"><a href="#AddXXX" class="headerlink" title="AddXXX"></a>AddXXX</h3><ul>
+<li><code>AddRect</code></li>
+<li><code>AddRoundedRect</code></li>
+<li><code>AddCircle</code></li>
+<li><code>AddOval</code></li>
+<li><code>AddArc</code></li>
+<li><code>AddPath</code></li>
+<li><code>AddPathReverse</code></li>
+</ul>
+<p>AddXXX方法的作用是将整个图形或路径添加到当前路径的绘制。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月17日 22:36</p>
+        <p>原始链接： <a class="post-url" href="/2017/11/15/Xamarin.Forms 2D绘制基础（一）/" title="Xamarin.Forms 2D绘制基础（一）">http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/</a></p>
+        <footer>
+            <a href="http://xamarin.xyz">
+                <img src="/images/logo.png" alt="Ma Yue">
+                Ma Yue
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/&title=《Xamarin.Forms 2D绘制基础（一）》 — Mayue‘s Blog&pic=https://fiddle.skia.org/i/@shapes_raster.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/&title=《Xamarin.Forms 2D绘制基础（一）》 — Mayue‘s Blog&source=SkiaSharp（Portable Library）是一个Skia的绑定库，提供Xamarin中2D图型绘制功能。熟练掌握SkiaSharp的使用可以更..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xamarin.Forms 2D绘制基础（一）》 — Mayue‘s Blog&url=http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/&via=http://xamarin.xyz" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://xamarin.xyz/2017/11/15/Xamarin.Forms 2D绘制基础（一）/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Forms/" class="color1">Forms</a>
+      
+    <a href="/tags/SkiaSharp/" class="color5">SkiaSharp</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础绘制功能"><span class="post-toc-text">基础绘制功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#画圆-canvas-DrawCircle-cx-cy-radius-paint"><span class="post-toc-text">画圆 canvas.DrawCircle(cx:,cy:,radius:,paint:)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#画矩形-canvas-DrawRect-rect-paint"><span class="post-toc-text">画矩形 canvas.DrawRect(rect:,paint:)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#画点-canvas-DrawPoint-x-y-paint"><span class="post-toc-text">画点 canvas.DrawPoint(x:,y:,paint:)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#批量画点-canvas-DrawPoints-mode-points-paint"><span class="post-toc-text">批量画点 canvas.DrawPoints(mode:,points:,paint:)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#画椭圆-canvas-DrawOval-rect-paint"><span class="post-toc-text">画椭圆 canvas.DrawOval(rect:,paint:)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#画线-canvas-DrawLine-x0-y0-x1-y1-paint"><span class="post-toc-text">画线 canvas.DrawLine(x0:,y0:,x1:,y1:,paint)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#画圆角矩形-canvas-DrawRoundRect-rect-rx-ry-paint"><span class="post-toc-text">画圆角矩形 canvas.DrawRoundRect(rect:,rx:,ry:,paint:)</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自定义图形绘制"><span class="post-toc-text">自定义图形绘制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制文本-canvas-DrawText-text-x-y-paint"><span class="post-toc-text">绘制文本 canvas.DrawText(text:,x:,y:,paint:)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#paint-MeasureText-text"><span class="post-toc-text">paint.MeasureText(text:)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#paint-MeasureText-text-ref-bounds"><span class="post-toc-text">paint.MeasureText(text:,ref bounds:)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制图片-canvas-DrawBitmap-bitmap-x-y-paint"><span class="post-toc-text">绘制图片 canvas.DrawBitmap(bitmap:,x:,y:,paint:)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制路径canvas-DrawPath-path-paint"><span class="post-toc-text">绘制路径canvas.DrawPath(path:,paint:)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XXXTo"><span class="post-toc-text">XXXTo</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RXXXTo"><span class="post-toc-text">RXXXTo</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AddXXX"><span class="post-toc-text">AddXXX</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/04/Xamarin.Forms 界面适应介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Xamarin.Forms 界面适应介绍</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="Xamarin.Forms 2D绘制基础（一）" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cytiEtVv3';
+        var conf = 'd44a3fd145c147e05a5cb60af157d81e';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 Ma Yue<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://xamarin.xyz",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Xamarin-Forms/">Xamarin.Forms</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/SkiaSharp/" style="font-size: 10px;">SkiaSharp</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/AbsoluteLayout/" style="font-size: 10px;">AbsoluteLayout</a> <a href="/tags/Activity/" style="font-size: 16.67px;">Activity</a> <a href="/tags/Binding/" style="font-size: 10px;">Binding</a> <a href="/tags/BroadcastReceiver/" style="font-size: 10px;">BroadcastReceiver</a> <a href="/tags/Chart/" style="font-size: 10px;">Chart</a> <a href="/tags/ContentProvider/" style="font-size: 13.33px;">ContentProvider</a> <a href="/tags/DataTemplateSelector/" style="font-size: 10px;">DataTemplateSelector</a> <a href="/tags/Device/" style="font-size: 10px;">Device</a> <a href="/tags/Forms/" style="font-size: 20px;">Forms</a> <a href="/tags/Fragment/" style="font-size: 13.33px;">Fragment</a> <a href="/tags/Gesture/" style="font-size: 10px;">Gesture</a> <a href="/tags/Grid/" style="font-size: 10px;">Grid</a> <a href="/tags/Intent/" style="font-size: 10px;">Intent</a> <a href="/tags/Layout/" style="font-size: 10px;">Layout</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/LocalBroadcastManager/" style="font-size: 10px;">LocalBroadcastManager</a> <a href="/tags/Localizing/" style="font-size: 10px;">Localizing</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Navigation/" style="font-size: 10px;">Navigation</a> <a href="/tags/OnPlatform/" style="font-size: 10px;">OnPlatform</a> <a href="/tags/Page/" style="font-size: 10px;">Page</a> <a href="/tags/Realm/" style="font-size: 10px;">Realm</a> <a href="/tags/Renderer/" style="font-size: 10px;">Renderer</a> <a href="/tags/Service/" style="font-size: 16.67px;">Service</a> <a href="/tags/SkiaSharp/" style="font-size: 10px;">SkiaSharp</a> <a href="/tags/TableView/" style="font-size: 10px;">TableView</a> <a href="/tags/View/" style="font-size: 10px;">View</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
